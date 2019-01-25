@@ -1,29 +1,17 @@
-# cloud-music
+# cloud-music   
+  使用vue仿写移动端的网易云音乐  
 
-## Project setup
-```
-npm install
-```
+## 预期使用到的技术栈  
+  vue + vue-cli3 + vue-router + vuex + vue-resource
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 要实现的功能     
+  []网易云音乐app的五个模块     
+  []播放暂停  
+  []上下一曲    
+  []播放顺序  
+  []进度控制  
+  []音乐搜索  
+  []增删改查歌单   
+  ······
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
