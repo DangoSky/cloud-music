@@ -2,11 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
 
-import explore from '../components/explore.vue'
-import video from '../components/video.vue'
-import myself from '../components/myself.vue'
-import friend from '../components/friend.vue'
-import user from '../components/user.vue'
+import explore from '../components/explore/explore.vue'
+import video from '../components/video/video.vue'
+import myself from '../components/myself/myself.vue'
+import friend from '../components/friend/friend.vue'
+import user from '../components/user/user.vue'
 
 //export default 是对外暴露这个配置
 export default new Router({
