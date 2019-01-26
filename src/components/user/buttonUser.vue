@@ -1,7 +1,7 @@
 <template>
   <router-link :to="{name: 'user'}">
-    <img :src="buttonUserSRC" @click="turnToRed" alt="图片无法加载">
-    <P :style="{color: fontColor}">账号</P>
+    <div class="user"></div>
+    <P>账号</P>
   </router-link>
 </template>
 
@@ -9,15 +9,11 @@
   export default {
     data() {
       return {
-        buttonUserSRC: require('../../assets/userUnclick.png'),
-        fontColor: '#C0C0C0'
+       
       }
     },
     methods: {
-      turnToRed() {
-        this.buttonUserSRC = require('../../assets/userClick.png');;
-        this.fontColor = 'red';
-      }
+      
     },
     computed: {
     
@@ -25,6 +21,13 @@
   }
 </script>
 
-<style lang='scss' scoped>
-
+<style scoped>
+  .user {
+    background-image: url('../../assets/userUnclick.png');
+    width: 30px;
+    height: 30px;
+  }
+  .router-link-active > .user {
+    background-image: url('../../assets/userClick.png');
+  }
 </style>

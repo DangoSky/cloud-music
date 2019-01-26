@@ -48,12 +48,18 @@ export default {
     background-color: rgba(215, 227, 239, 0.6);
     display: flex;
     justify-content: space-around;
-    /* text-align: justify; */
   }
-  /* .footer > * {
-    padding-left: 10px;
-  } */
   a {
     text-decoration: none;
+  }
+  /* 未点击路由时的字体样式 */
+   a > p {
+    font-size: 60%;
+    text-align: center;
+    color: #C0C0C0;
+  }
+  /* 点击路由后将字体颜色变成红色 */
+  .router-link-active > p {
+    color: red;
   }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <router-link :to="{name: 'friend'}">
-    <img :src="buttonFriendSRC" @click="turnToRed" alt="图片无法加载">
-    <p :style="{color: fontColor}">朋友</p>
+    <div class="friend"></div>
+    <p>朋友</p>
   </router-link>
 </template>
 
@@ -9,15 +9,11 @@
   export default {
     data() {
       return {
-        buttonFriendSRC: require('../../assets/friendUnclick.png'),
-        fontColor: '#C0C0C0'
+       
       }
     },
     methods: {
-      turnToRed() {
-        this.buttonFriendSRC = require('../../assets/friendClick.png');;
-        this.fontColor = 'red';
-      }
+     
     },
     computed: {
     
@@ -25,6 +21,13 @@
   }
 </script>
 
-<style lang='scss' scoped>
-
+<style scoped>
+  .friend {
+    background-image: url('../../assets/friendUnclick.png');
+    width: 30px;
+    height: 30px;
+  }
+  .router-link-active > .friend {
+    background-image: url('../../assets/friendClick.png');
+  }
 </style>

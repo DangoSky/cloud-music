@@ -1,7 +1,7 @@
 <template>
-  <router-link :to="{name: 'explore'}">
-    <img :src="buttonVideoSRC"  @click="turnToRed" alt="图片无法加载">
-    <p :style="{color: fontColor}">视频</p>
+  <router-link :to="{name: 'video'}">
+    <div class="video"></div>
+    <p>视频</p>
   </router-link>
 </template>
 
@@ -9,15 +9,11 @@
   export default {
     data() {
       return {
-        buttonVideoSRC: require('../../assets/videoUnclick.png'),
-        fontColor: '#C0C0C0'
+
       }
     },
     methods: {
-      turnToRed() {
-        this.buttonVideoSRC = require('../../assets/videoClick.png');;
-        this.fontColor = 'red';
-      }
+
     },
     computed: {
     
@@ -25,6 +21,13 @@
   }
 </script>
 
-<style lang='scss' scoped>
-
+<style scoped>
+  .video {
+    background-image: url('../../assets/videoUnclick.png');
+    width: 30px;
+    height: 30px;
+  }
+  .router-link-active > .video {
+    background-image: url('../../assets/videoClick.png');
+  }
 </style>
