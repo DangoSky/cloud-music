@@ -13,53 +13,24 @@
 </template>
 
 <script>
-import buttonExplore from './components/explore/buttonExplore'
-import buttonVideo from './components/video/buttonVideo'
-import buttonMyself from './components/myself/buttonMyself'
-import buttonFriend from './components/friend/buttonFriend'
-import buttonUser from './components/user/buttonUser'
-
-export default {
-  name: 'app',
-  components: {
-    'button-explore': buttonExplore,
-    'button-video': buttonVideo,
-    'button-myself': buttonMyself,
-    'button-friend': buttonFriend,
-    'button-user': buttonUser
+  import buttonExplore from './components/explore/buttonExplore'
+  import buttonVideo from './components/video/buttonVideo'
+  import buttonMyself from './components/myself/buttonMyself'
+  import buttonFriend from './components/friend/buttonFriend'
+  import buttonUser from './components/user/buttonUser'
+  import './css/appvue.css'
+  export default {
+    name: 'app',
+    components: {
+      'button-explore': buttonExplore,
+      'button-video': buttonVideo,
+      'button-myself': buttonMyself,
+      'button-friend': buttonFriend,
+      'button-user': buttonUser
+    }
   }
-}
 </script>
 
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-  }
-  html, body {
-    width: 100%;
-    height: 100%;
-  }
-  .footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 3px;
-    background-color: rgba(215, 227, 239, 0.6);
-    display: flex;
-    justify-content: space-around;
-  }
-  a {
-    text-decoration: none;
-  }
-  /* 未点击路由时的字体样式 */
-   a > p {
-    font-size: 60%;
-    text-align: center;
-    color: #C0C0C0;
-  }
-  /* 点击路由后将字体颜色变成红色 */
-  .router-link-active > p {
-    color: red;
-  }
+ 
 </style>
