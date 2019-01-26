@@ -10,7 +10,7 @@ import user from '../components/user/user.vue'
 
 //export default 是对外暴露这个配置
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/explore',
@@ -36,6 +36,10 @@ export default new Router({
       path: '/user',
       name: 'user',
       component: user
+    },
+    {
+      path: '/',
+      redirect: 'explore'
     }
   ]
 })

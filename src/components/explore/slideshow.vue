@@ -1,5 +1,5 @@
 <template>
-  <p>gexingtuijian</p>
+  <p>这是 个性推荐 组件</p>
 </template>
 
 <script>

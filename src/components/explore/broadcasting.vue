@@ -1,5 +1,5 @@
 <template>
-  <p>zhubodiantai</p>
+  <p>这是 主播电台 组件</p>
 </template>
 
 <script>

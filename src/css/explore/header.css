@@ -1,12 +1,13 @@
 .header {
   display: inline;
-  /* position: relative; */
 }
+/* 左上方的音频icon */
 .audio {
   padding: 10px;
   width: 30px;
   height: 30px;
 }
+/* 中间的搜索框 */
 .search {
   /* 减去左右两边icon的padding和width */
   width: calc(100% - 100px);
@@ -15,7 +16,6 @@
   top: 12px;
   border-radius: 30px;
   border: 1px solid transparent;
-  /* color: rgba(247, 177, 165, 0); */
   color: rgba(248, 248, 255, 0.6);
   background: url(../../assets/search.png) no-repeat rgba(223, 100, 92, 0.7);
   background-position: 8px 7px;
@@ -24,8 +24,10 @@
   line-height: 30px;
   outline: none;
   /* 使padding不影响搜索框的宽 */
-  box-sizing: border-box;    
+  box-sizing: border-box;   
+  cursor: pointer;
 }
+/* 右上方的音乐icon */
 .music {
   padding: 10px;
   position: absolute;

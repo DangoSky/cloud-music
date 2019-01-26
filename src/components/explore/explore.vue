@@ -1,13 +1,18 @@
 <template>
-  <div class="exploreHeader">
-    <!-- 通过给子组件传图片的src使得该组件可以在视频页面中复用 -->
-    <explore-header :audioSRC="audioSRC"></explore-header>
-    <div class="exploreHeaderBar">
-      <label :class="[isClickRecommendation ? 'activeClass' : '']" @click="clickRecommendation">个性推荐</label>
-      <label :class="[isClickRecommendation ? '' : 'activeClass']" @click="clickBroadcasting">主播电台</label>
+  <div class="explor">
+    <div class="exploreHeader">
+      <!-- 通过给子组件传图片的src使得该组件可以在视频页面中复用 -->
+      <explore-header :audioSRC="audioSRC"></explore-header>
+      <div class="exploreHeaderBar">
+        <label :class="[isClickRecommendation ? 'activeClass' : '']" @click="clickRecommendation">个性推荐</label>
+        <label :class="[isClickRecommendation ? '' : 'activeClass']" @click="clickBroadcasting">主播电台</label>
+      </div>
     </div>
-    <component :is="componentId"></component>
+    <div class="exploreBody">
+      <component :is="componentId"></component>
+    </div>
   </div>
+  
 </template>
 
 <script>

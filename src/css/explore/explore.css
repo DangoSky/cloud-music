@@ -1,14 +1,19 @@
 .exploreHeader {
   width: 100%;
-  height: 40%;
   background-color: #DB4139;
 }
+/* 个性推荐和主播电台 */
 .exploreHeaderBar {
   color: rgba(248, 248, 255, 1);
   display: flex;
   justify-content: space-around;
   padding: 10px;
+  outline: none;
 }
+.exploreHeaderBar label {
+  cursor: pointer;
+}
+/* 设置个性推荐和主播电台的下划线 */
 .activeClass {
   position: relative;
 }
@@ -19,4 +24,7 @@
   position: absolute;
   bottom: -5px;
   left: 25%;
+}
+.exploreBody {
+  width: 100%;
 }
