@@ -1,11 +1,13 @@
 <template>
-  <div class="footer">
+  <div class="box">
+    <div class="footer">
+      <button-explore></button-explore>
+      <button-video></button-video>
+      <button-myself></button-myself>
+      <button-friend></button-friend>
+      <button-user></button-user>
+    </div>
     <router-view></router-view>
-     <button-explore></button-explore>
-     <button-video></button-video>
-     <button-myself></button-myself>
-     <button-friend></button-friend>
-     <button-user></button-user>
   </div>
   
 </template>
@@ -42,7 +44,16 @@ export default {
     position: fixed;
     bottom: 0;
     width: 100%;
-    padding: 10px;
+    padding: 3px;
     background-color: rgba(215, 227, 239, 0.6);
+    display: flex;
+    justify-content: space-around;
+    /* text-align: justify; */
+  }
+  /* .footer > * {
+    padding-left: 10px;
+  } */
+  a {
+    text-decoration: none;
   }
 </style>
