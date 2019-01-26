@@ -9,3 +9,14 @@
   justify-content: space-around;
   padding: 10px;
 }
+.activeClass {
+  position: relative;
+}
+.activeClass::after {
+  content: "";
+  width: 50%;
+  border: 1.5px solid rgba(248, 248, 255, 1);
+  position: absolute;
+  bottom: -5px;
+  left: 25%;
+}
