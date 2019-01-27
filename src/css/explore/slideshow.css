@@ -1,0 +1,29 @@
+.carousel {
+  position: relative;
+  top: 105px;
+  width: 100%;
+  height: 169px;
+  overflow: hidden;
+}
+/* 使用伪类来制造轮播图的背景红色 */
+.carousel::before {
+  content: "";
+  width: 100%;
+  height: 125px;
+  background-color: #DB4139;
+  position: absolute;
+  z-index: -99;
+}
+.carousel-picture {
+  width: 100%;
+  height: 100%; 
+  list-style-type: none;
+  text-align: center;
+}
+li {
+  width: 100%;
+}
+img {
+  border-radius: 7px;
+  width: 95%;
+}
