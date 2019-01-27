@@ -2,14 +2,15 @@
   position: relative;
   top: 105px;
   width: 100%;
-  height: 169px;
-  overflow: hidden;
+  /* 根据轮播图片的宽高比例计算容器的高度 */
+  height: calc(95vw / 2.171617);
+  /* overflow: hidden; */
 }
 /* 使用伪类来制造轮播图的背景红色 */
 .carousel::before {
   content: "";
   width: 100%;
-  height: 125px;
+  height: calc(95vw / 3);
   background-color: #DB4139;
   position: absolute;
   z-index: -99;
@@ -18,12 +19,73 @@
   width: 100%;
   height: 100%; 
   list-style-type: none;
-  text-align: center;
+  position: absolute;
+  z-index: -98;
 }
-li {
-  width: 100%;
+.carousel-picture li {
+  /* 图片横向排列 */
+  display: inline;
+  white-space: nowrap;
+  /* padding: 3%; */
 }
 img {
   border-radius: 7px;
-  width: 95%;
+  width: 94%;
 }
+/* 轮播图的圆点标记 */
+.carousel-label {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+}
+.carousel-label span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: rgba(216, 228, 224, 0.6);
+  display: inline-block;
+  margin: 0 3px;
+}
+/* 设置圆点激活时的颜色变化，如果不加！important就无法覆盖原先的背景颜色 */
+.activeCarousel {
+  background-color: #DB4139 !important;
+}
+
+/* .carousel-enter {
+  transform: translateX(100%)
+}
+.carousel-enter-to {
+  transform: translateX(0);
+}
+.carousel-leave {
+  transform: translateX(0)
+
+}   
+ .carousel-enter-active {
+  transition: all 2s ease;
+}
+ .carousel-leave-active {
+  transform: translateX(-100%);
+} */
+
+
+
+/* 
+.list-enter-to {
+  transition: all 1s ease;
+  transform: translateX(0);
+}
+
+.list-leave-active {
+  transition: all 1s ease;
+  transform: translateX(-100%)
+}
+
+.list-enter {
+  transform: translateX(100%)
+}
+
+.list-leave {
+  transform: translateX(0)
+} */
