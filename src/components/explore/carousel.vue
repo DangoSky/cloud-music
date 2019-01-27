@@ -8,7 +8,7 @@
       </li>
     </transition-group>
     <div class="carousel-label">
-      <span v-for="(list, index) in carouselArr.length" :key="list" :class="{activeCarousel: index === currentIndex}"></span>
+      <span v-for="(list, index) in carouselArr.length" :key="list" :class="{activeCarousel: index === currentIndex}" @click="turnToCarousel(index)"></span>
     </div>
   </div>
 </template>
@@ -24,14 +24,14 @@
           'http://hbimg.b0.upaiyun.com/a0279d50f651fa51cafb45e4b64982a073e8f4e9140c0-vqxy8O_fw658'
         ],
         currentIndex: 0,
-        timer: ''
+        timer: null
       }
     },
     created() {
       this.$nextTick(() => {
         this.timer = setInterval(() => {
           this.autoPlay();
-        }, 3000);
+        }, 4000);
       })   
     },
     methods: {
@@ -42,6 +42,11 @@
         else {
           this.currentIndex++;
         }
+      },
+      stop() {
+        console.log("enter");
+        clearInterval(this.timer);
+        this.timer = null;
       }
     },
     computed: {
@@ -50,6 +55,6 @@
   }
 </script>
  
-<style src="../../css/explore/slideshow.css" scoped>
+<style src="../../css/explore/carousel.css" scoped>
 
 </style>

@@ -1,9 +1,13 @@
 <template>
-  <slideshow></slideshow>
+  <div>
+    <carousel></carousel>
+    <explore-bar></explore-bar>
+  </div>
 </template>
 
 <script>
-  import slideshow from './slideshow.vue'
+  import carousel from './carousel.vue'
+  import exploreBar from './exploreBar.vue'
   export default {
     data() {
       return {
@@ -11,7 +15,8 @@
       }
     },
     components: {
-      slideshow
+      'carousel': carousel,
+      'explore-bar': exploreBar
     },
     methods: {
     

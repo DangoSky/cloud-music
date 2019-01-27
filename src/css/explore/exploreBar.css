@@ -1,0 +1,37 @@
+.exploreBar {
+  width: 100%;
+  position: relative;
+  top: 120px;
+  display: flex;
+  justify-content: space-around;
+}
+.exploreBarIcon{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+.exploreBarFont {
+  color: #000000;
+  font-size: 12px;
+  position: absolute;
+  top: 48px;
+}
+/* 歌单和排行榜的字体space-around后不在中间，需要手动调整  */
+.exploreBar div:nth-child(3) label {
+  left: calc((100% - 180px) / 8 * 5 + 100px);
+}
+.exploreBar div:nth-child(4) label {
+  left: calc((100% - 180px) / 8 * 7 + 140px);
+}
+.personalFM {
+  background: #DB4139 url('../../assets/fm.png') no-repeat 48% 45%;
+}
+.dayRecommendation {
+  background: #DB4139 url('../../assets/dayRecommendation.png') no-repeat 52% 54%;
+}
+.songList {
+  background: #DB4139 url('../../assets/songList.png') no-repeat 48% 58%;
+}
+.rankingList {
+  background: #DB4139 url('../../assets/rankingList.png') no-repeat 95% 48%;
+}

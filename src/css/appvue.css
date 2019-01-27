@@ -26,5 +26,5 @@ a {
 }
 /* 点击路由后将字体颜色变成红色 */
 .router-link-active > p {
-  color: red;
+  color: #DB4139;
 }

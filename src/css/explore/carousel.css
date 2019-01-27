@@ -25,9 +25,6 @@
   overflow-x: hidden;
 }
 .carousel-picture li {
-  /* 图片横向排列 */
-  /* display: inline; */
-  /* white-space: nowrap; */
   width: 100%;
   /* 需要绝对定位才能使transition中的transl起作用 */
   position: absolute;
