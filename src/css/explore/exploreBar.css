@@ -23,6 +23,13 @@
 .exploreBar div:nth-child(4) label {
   left: calc((100% - 180px) / 8 * 7 + 140px);
 }
+.ExploreFontToday {
+  font-size: 12px;
+  color: white;
+  position: absolute;
+  left: calc((100% - 180px) / 8 * 3 + 61px);
+  top: 17.5px;
+}
 .personalFM {
   background: #DB4139 url('../../assets/fm.png') no-repeat 48% 45%;
 }

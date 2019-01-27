@@ -5,6 +5,7 @@
       </div>
       <div class="exploreBarIcon dayRecommendation">
         <label class="exploreBarFont">每日推荐</label>
+        <label class="ExploreFontToday">{{ today }}</label>
       </div>
       <div class="exploreBarIcon songList">
         <label class="exploreBarFont">歌单</label>
@@ -21,16 +22,13 @@
 
 <script>
   export default {
-    data() {
-      return {
-    
-      }
-    },
-    methods: {
-    
-    },
     computed: {
-    
+      today() {
+          let date = new Date();
+          let day = date.getDate();
+          if(day < 10) return '0' + day; 
+          return day;
+      }
     }
   }
 </script>
