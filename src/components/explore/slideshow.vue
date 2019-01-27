@@ -3,6 +3,8 @@
     <transition-group tag="ul" class="carousel-picture" name="carousel">
       <li v-for="(item, index) in carouselArr" :key="item" v-show="currentIndex === index"> 
         <img :src="item">
+        <!-- v-show要放在img中，若放在li里不知道为什么页面会抖动(移动端才会)，但因为隐藏了img所以无法实现动画效果 -->
+        <!-- v-show若要放在li里面的话，需要在加上overflow-x: hidden的样式不会抖动 -->
       </li>
     </transition-group>
     <div class="carousel-label">
@@ -22,13 +24,15 @@
           'http://hbimg.b0.upaiyun.com/a0279d50f651fa51cafb45e4b64982a073e8f4e9140c0-vqxy8O_fw658'
         ],
         currentIndex: 0,
-        timer: null
+        timer: ''
       }
     },
-    mounted() {
-      setInterval(() => {
-        this.autoPlay();
-      }, 2000);
+    created() {
+      this.$nextTick(() => {
+        this.timer = setInterval(() => {
+          this.autoPlay();
+        }, 3000);
+      })   
     },
     methods: {
       autoPlay() {
