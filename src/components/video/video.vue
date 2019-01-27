@@ -1,12 +1,18 @@
 <template>
-  <p>这是 视频 页面</p>
+  <div class="video">
+    <video-header :audioSRC="videoSRC"></video-header>
+  </div>
 </template>
 
 <script>
+  import header from '../explore/header.vue'
   export default {
+    components: {
+      'video-header': header
+    },
     data() {
       return {
-    
+        videoSRC: require('../../assets/video.png')
       }
     },
     methods: {
@@ -18,6 +24,8 @@
   }
 </script>
 
-<style lang='scss' scoped>
-
+<style scoped>
+  body {
+    background-color: blue;
+  }
 </style>

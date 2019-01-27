@@ -13,10 +13,7 @@
       <div class="exploreBarIcon rankingList">
         <label class="exploreBarFont">排行榜</label>
       </div>
-      <!-- <span class="exploreBarIcon personalFM"></span> -->
-      <!-- <span class="exploreBarIcon songList"></span>
-      <span class="exploreBarIcon dayRecommendation"></span>
-      <span class="exploreBarIcon rankingList"></span> -->
+      
     </div>
 </template>
 

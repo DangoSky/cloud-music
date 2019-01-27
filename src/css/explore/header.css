@@ -1,5 +1,6 @@
 .header {
-  display: inline;
+  background-color: #DB4139;
+  width: 100%;
 }
 /* 左上方的音频icon */
 .audio {

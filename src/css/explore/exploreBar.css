@@ -16,6 +16,15 @@
   position: absolute;
   top: 48px;
 }
+/* 使用伪类设置字体下面那条下划线 */
+.exploreBar::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 70px;
+  border-bottom: 1px solid rgba(192, 192, 192, 0.5);
+}
 /* 歌单和排行榜的字体space-around后不在中间，需要手动调整  */
 .exploreBar div:nth-child(3) label {
   left: calc((100% - 180px) / 8 * 5 + 100px);
@@ -23,12 +32,13 @@
 .exploreBar div:nth-child(4) label {
   left: calc((100% - 180px) / 8 * 7 + 140px);
 }
+/* 每日推荐的日期 */
 .ExploreFontToday {
   font-size: 12px;
   color: white;
   position: absolute;
-  left: calc((100% - 180px) / 8 * 3 + 61px);
-  top: 17.5px;
+  left: calc((100% - 180px) / 8 * 3 + 61.5px);
+  top: 19px;
 }
 .personalFM {
   background: #DB4139 url('../../assets/fm.png') no-repeat 48% 45%;
