@@ -1,0 +1,43 @@
+.exploreBarBroadcasting {
+  width: 100%;
+  position: relative;
+  top: 120px;
+  display: flex;
+  justify-content: space-around;
+}
+.exploreBarIcon{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+.exploreBarFont {
+  color: #000000;
+  font-size: 12px;
+  position: absolute;
+  top: 48px;
+}
+/* 使用伪类设置字体下面那条下划线 */
+.exploreBarBroadcasting::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 70px;
+  border-bottom: 1px solid rgba(192, 192, 192, 0.5);
+}
+/* 歌单和排行榜的字体space-around后不在中间，需要手动调整  */
+ .exploreBar div:nth-child(3) label {
+  left: calc((100% - 180px) / 8 * 5 + 95px);
+}
+.broadcastingClassify {
+  background: #DB4139 url('../../assets/broadcastingClassify.png') no-repeat 66% 60%;
+}
+.broadcastingRanking {
+  background: #DB4139 url('../../assets/broadcastingRanking.png') no-repeat 51% 54%;
+}
+.difm {
+  background: #DB4139 url('../../assets/DIFM.png') no-repeat 48% 48%;
+}
+.xiaobingBroadcasting {
+  background: #DB4139 url('../../assets/xiaobing.png') no-repeat 54% 48%;
+}
