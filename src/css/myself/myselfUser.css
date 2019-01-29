@@ -1,23 +1,48 @@
+/* 外层红色背景部分 */
 .myselfUser {
   width: 100%;
-  height: 20vmin;
+  height: 12vmin;
   background-color: #DB4139;
-  position: relative;
 }
 .myselfUserBox {
   width: 95%;
-  height: 15vmin;
+  height: 18vmin;
   background-color: rgb(252, 246, 246);
   position: relative;
-
-  margin: auto;
-  
+  margin: 0 auto;
+  border-radius: 6px;
 }
-
 .myselfHeadPortrait {
-  width: 15vmin;
-  height: 15vmin;
+  width: 12vmin;
+  height: 12vmin;
   border-radius: 50%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 15px;
   /* object-position: 100% 50%; */
   object-fit: cover;
+}
+.userName {
+  position: absolute;
+  left: calc(12vmin + 30px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.musicBag {
+  position: absolute;
+  left: calc(12vmin + 120px );
+  top: 50%;
+  transform: translateY(-50%);
+}
+.myselfVip {
+  position: absolute;
+  right: 5vmin;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid #DB4139;
+  border-radius: 50px;
+  padding: 5px;
+  color: #DB4139;
+  font-size: 0.6rem;
 }
