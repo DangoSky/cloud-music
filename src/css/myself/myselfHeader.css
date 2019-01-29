@@ -3,7 +3,9 @@
   height: 50px;
   background-color: #DB4139;
   text-align: center;
-  position: relative;
+  position: fixed;
+  /* fixed固定定位后要设置z-index，否则后面的元素回堆叠在它上面 */
+  z-index: 99;
 }
 .myselfHeaderFont {
   color: white;
@@ -20,4 +22,10 @@
   width: 30px;
   height: 30px;
   float: right;
+}
+/* 因为fiex固定定位脱离文档流，所以设置一个空的div补回脱离了的50px，否则后面的元素都得top:50px */
+.emptyDiv {
+  position: relative;
+  width: 100%;
+  height: 50px;
 }

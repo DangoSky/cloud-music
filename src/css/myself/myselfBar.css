@@ -1,6 +1,7 @@
 .myselfBar {
   width: 100%;
   font-size: 0.9rem;
+  position: relative;
 }
 .localMusic {
   width: 100%;
