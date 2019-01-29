@@ -1,0 +1,42 @@
+.videoBar {
+  color: white;
+  background-color: #DB4139;
+  width: 100%;
+  overflow-x: auto;
+  /* 字体水平排列不换行 */
+  white-space:nowrap;
+  padding-bottom: 10px;
+}
+.videoBar label {
+  padding: 0 12px;
+  font-size: 0.9rem;
+}
+/* 使第一个和最后一个的padding同中间一样 */
+/* .videoBar label:first-child {
+  padding-left: 24px;
+}
+.videoBar label:last-child {
+  padding-right: 24px;
+} */
+/* 设置下划线 */
+.activeClass {
+  position: relative;
+}
+.activeClass::after {
+  content: "";
+  width: 50%;
+  border: 1.2px solid white;
+  border-radius: 20%;
+  position: absolute;
+  bottom: -5px;
+  left: 20%;
+}
+.activeLabel-enter {
+  transform: translateX(-100%);
+}
+.activeLabel-enter-to {
+  transform: translateX(200%);
+}
+.activeLabel-enter-active {
+  transition: all 5s ease;
+}

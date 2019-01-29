@@ -22,7 +22,8 @@
 .activeClass::after {
   content: "";
   width: 50%;
-  border: 1.5px solid rgba(248, 248, 255, 1);
+  border: 1.8px solid white;
+  border-radius: 25%;
   position: absolute;
   bottom: -5px;
   left: 25%;
