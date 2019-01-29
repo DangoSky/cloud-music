@@ -1,9 +1,15 @@
 <template>
-  <p>这是 我的 页面</p>
+  <div class="myself">
+    <myself-header></myself-header>
+  </div>
 </template>
 
 <script>
+  import myselfHeader from './myselfHeader.vue'
   export default {
+    components: {
+      'myself-header': myselfHeader
+    },
     data() {
       return {
     

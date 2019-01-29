@@ -31,7 +31,7 @@
   bottom: -5px;
   left: 20%;
 }
-.activeLabel-enter {
+/* .activeLabel-enter {
   transform: translateX(-100%);
 }
 .activeLabel-enter-to {
@@ -39,4 +39,4 @@
 }
 .activeLabel-enter-active {
   transition: all 5s ease;
-}
+} */

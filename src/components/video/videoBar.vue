@@ -1,11 +1,11 @@
 <template>
   <div class="videoBar">  
-    <transition-group name="activeLabel">
+    <transition-group tag="div" name="activeLabel">
       <label 
         v-for="(item, index) in labelFont" 
         :key="item" 
         :class="{activeClass: index === isClick}" 
-        @click="clickLabel(index)"
+        @click="clickLabel(index)" 
       >
         {{ item }}
       </label>
