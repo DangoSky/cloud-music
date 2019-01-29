@@ -1,23 +1,13 @@
 <template>
   <div class="myselfBar">
-    <!-- <div class="localMusic underline">
-        <label>本地音乐</label>
-    </div>
-    <div class="localMusic underline">
-      <label>最近播放</label>
-    </div>
-    <div class="localMusic underline">
-      <label>我的电台</label>
-    </div>
-    <div class="localMusic underline">
-      <label>我的收藏</label>
-    </div>
-    <div class="localMusic underline">
-      <label>Sati空间</label>
-    </div> -->
-    <div v-for="(item, index) in myselfBar" :key="index" class="localMusic" >
-      <!-- :style="{backgroundImage: 'url(item.bgSrc)'}" -->
+    <div 
+      v-for="(item, index) in myselfBarArr" 
+      :key="index" class="localMusic" 
+      :style="{background: 'url(' + item.bgSrc + ') no-repeat 10px 10px'}"
+    >
+      <!-- 动态背景图片的url要加引号变成字符串的形式，且都要require -->
       <label>{{ item.name }}</label>
+      <img src="../../assets/rightArrow.png" class="rightArrow">
     </div>
   </div>
 </template>
@@ -26,25 +16,29 @@
   export default {
     data() {
       return {
-        myselfBar: [
+        myselfBarArr: [
           {
-            id: 1,
             name: '本地音乐',
-            bgSrc: '../../assets/music1.png'
+            bgSrc: require('../../assets/music1.png')
           },
           {
-            id: 2,
-            name: '本地音乐',
-            bgSrc: '../../assets/music1.png'
+            name: '最近播放',
+            bgSrc: require('../../assets/recentMusic.png')
+          },
+          {
+            name: '我的电台',
+            bgSrc: require('../../assets/myBroadcasting.png')
+          },
+          {
+            name: '我的收藏',
+            bgSrc: require('../../assets/myCollection.png')
+          },
+          {
+            name: 'Sati空间',
+            bgSrc: require('../../assets/sati.png')
           }
-        ],
-        
+        ]
       }
-    },
-    computed: {
-      // backgroundSrc(item.bgSrc) {
-      //   return require('this.myselfBar[1].bgSrc');
-      // }
     }
   }
 </script>

@@ -5,7 +5,7 @@
 .localMusic {
   width: 100%;
   position: relative;
-  padding-left: 60px;
+  padding-left: 54px;
   /* 必须，否则页面可以水平拖动，右边出现60px的空白 */
   box-sizing: border-box;
   line-height: 50px;
@@ -15,9 +15,15 @@
   /* 计算出除了背景图外的下划线长度，若直接设为100%右边会延展出去 */
   width: calc(100% - 60px);
   position: absolute;
-  left: 60px;
+  left: 54px;
   top: 100%;
   border-bottom: 1px solid rgba(211, 211, 211, 0.6);
+}
+.rightArrow {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 
