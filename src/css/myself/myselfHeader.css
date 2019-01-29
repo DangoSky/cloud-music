@@ -13,13 +13,11 @@
   padding: 10px;
   width: 30px;
   height: 30px;
-  position: absolute;
-  left: 0; 
+  float: left;
 }
 .musicIcon {
   padding: 10px;
   width: 30px;
   height: 30px;
-  position: absolute;
-  right: 0;
+  float: right;
 }

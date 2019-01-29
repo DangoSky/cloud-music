@@ -16,7 +16,7 @@
   position: absolute;
   top: 48px;
 }
-/* 使用伪类设置字体下面那条下划线 */
+/* 使用伪元素设置字体下面那条下划线 */
 .exploreBar::after {
   content: "";
   position: absolute;
