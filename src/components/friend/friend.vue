@@ -1,9 +1,15 @@
 <template>
-  <p>这是 朋友 页面</p>
+  <div class="friend">
+    <friend-header></friend-header>
+  </div>
 </template>
 
 <script>
+  import friendHeader from './friendHeader.vue'
   export default {
+    components: {
+      'friend-header': friendHeader
+    },
     data() {
       return {
     

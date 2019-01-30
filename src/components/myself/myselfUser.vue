@@ -1,7 +1,7 @@
 <template>
   <div class="myselfUser">
     <div class="myselfUserBox">
-      <img src="../../assets/carousel1.jpg" class="myselfHeadPortrait">
+      <img src="http://p2.music.126.net/e6G_JLkLGcIQLw9vsdgt0g==/109951163763088598.jpg?param=170y170" class="myselfHeadPortrait">
       <label class="userName">{{ userName }}</label>
       <img src="../../assets/musicBag.png" class="musicBag">
       <label class="myselfVip">会员中心</label>

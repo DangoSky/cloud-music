@@ -4,6 +4,7 @@
   position: relative;
   top: 5vmin;
 }
+/* 五个bar的统一样式 */
 .localMusic {
   width: 100%;
   position: relative;
@@ -12,6 +13,7 @@
   box-sizing: border-box;
   line-height: 50px;
 }
+/* 下划线 */
 .localMusic::before {
   content: "";
   /* 计算出除了背景图外的下划线长度，若直接设为100%右边会延展出去 */
@@ -21,6 +23,7 @@
   top: 100%;
   border-bottom: 1px solid rgba(211, 211, 211, 0.6);
 }
+/* 右边的箭头 */
 .rightArrow {
   position: absolute;
   right: 0;
