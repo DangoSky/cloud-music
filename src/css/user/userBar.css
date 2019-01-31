@@ -9,6 +9,7 @@
   box-sizing: border-box;
   line-height: 40px;
   font-size: 0.8rem;
+  cursor: pointer;
 }
 /* 下划线 */
 .userBarItem::before {
@@ -30,4 +31,13 @@
 /* 如果haveGap为true则该bar上下留白 */
 .gapClass {
   margin-bottom: 8px;
+}
+/* 退出登陆 */
+.userFooter {
+  text-align: center;
+  background: white;
+  line-height: 40px;
+  font-size: 0.9rem;
+  color: #DB4139;
+  cursor: pointer;
 }

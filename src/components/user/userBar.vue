@@ -7,9 +7,10 @@
       :key="item.name" 
       :style="{background: 'url(' + item.bgSrc + ') no-repeat 10px 10px white'}"
     >
-      <label>{{ item.name }}</label>
+      <label style="cursor: pointer;">{{ item.name }}</label>
       <img src="../../assets/rightArrow.png" class="rightArrow">
     </div>
+    <p class="userFooter">退出登陆</p>
   </div>
 </template>
 
@@ -117,7 +118,7 @@
           {
             name: '关于',
             bgSrc: require('../../assets/about.png'),
-            haveGap: false
+            haveGap: true
           }
         ]
       }

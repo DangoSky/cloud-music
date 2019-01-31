@@ -29,3 +29,13 @@ a {
 .router-link-active > p {
   color: #DB4139;
 }
+/* footer是固定定位，所以要设置一个伪元素占位！！ */
+.box:after {
+  content: '';
+  display: block;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+}
