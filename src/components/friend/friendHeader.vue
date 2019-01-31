@@ -7,6 +7,12 @@
       <label class="nearBy" @click="clickNearby" :class="{nearByActive: isClicknearBy}">附近</label>
     </div>
     <img src="../../assets/music.png" class="friendMusic">
+    <div class="friendHeaderBar">
+      <!-- <img src="../../assets/write.png"> -->
+      <label class="writeDynamic">写动态</label>
+      <label class="publishVideo">发布视频</label>
+    </div>
+      <!-- <img src="../../assets/video.png" > -->
   </div>
 </template>
 
