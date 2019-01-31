@@ -1,0 +1,91 @@
+.userBody {
+  width: 100%;
+  background-color: white;
+}
+.userBodyHead {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid 	rgb(222, 223, 227);
+}
+/* 头像 */
+.userBodyPortrait {
+  width: 15vmin;
+  height: 15vmin;
+  border-radius: 50%;
+  object-fit: cover;
+  padding: 15px 20px 10px;
+}
+/* 昵称 */
+.userBodyUserName {
+  position: absolute;
+  top: 20px;
+}
+/* 有的话则显示音乐包 */
+.musicBagClass {
+  padding-right: 20px;
+  background: url('../../assets/musicBag.png') no-repeat 100% 5px;
+}
+/* 等级 */
+.userBodyUserLevel {
+  position: absolute;
+  top: calc(30px + 1rem);
+  color: 	#A9A9A9;
+  font-size: 0.6rem;
+  font-weight: bold;
+  border: 1px solid #A9A9A9;
+  padding: 0 7px;
+  border-radius: 50px;
+}
+/* 签到 */
+.userBodySignIn {
+  background: url('../../assets/signIn.png') no-repeat 10px 3px;
+  font-size: 0.7rem;
+  color: #DB4139;
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  border: 1px solid #DB4139;
+  border-radius: 50px;
+  padding: 3px 8px 3px 30px;
+}
+/* 动态、关注、粉丝 */
+.userBodyBar {
+  width: 25%;
+  /* border-right: 1px solid red; */
+  display: inline-block;
+  text-align: center;
+  padding: 5px 0;
+  box-sizing: border-box;
+  height: calc(1.6rem + 20px);
+  position: relative;
+}
+/* 使用伪元素制作右边框 */
+.userBodyBar::after {
+  content: "";
+  position: absolute;
+  height: 1.8rem;
+  top: 5px;
+  left: 100%;
+  border-right: 1px solid rgb(222, 223, 227);
+}
+.barTitle {
+  font-size: 0.7rem;
+  color: #A9A9A9;
+}
+.barNum{
+  font-size: 0.8rem;
+}
+/* 我的资料 */
+.material {
+  width: 25%;
+  height: calc(1.5rem + 20px);
+  float: right;
+  background: url('../../assets/pencil.png') no-repeat 50% 5px;
+  padding-top: 20px;
+  text-align: center;
+  box-sizing: border-box;
+}
+.materialFont {
+  font-size: 0.7rem;
+  color: #A9A9A9;
+}

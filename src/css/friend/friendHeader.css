@@ -17,9 +17,11 @@
 /* 使动态和附近左右间隔开来 */
 .dynamic {
   padding-right: 20px;
+  cursor: pointer;
 }
 .nearBy {
   padding-left: 20px;
+  cursor: pointer;
 }
 /* 动态激活时的样式 */
 .dynamicActive {
@@ -63,12 +65,14 @@
   width: 32px;
   height: 32px;
   float: left;
+  cursor: pointer;
 }
 .friendMusic {
   padding: 10px;
   width: 30px;
   height: 30px;
   float: right;
+  cursor: pointer;
 }
 /* 写动态和发布视频 */
 .friendHeaderBar {
@@ -87,10 +91,12 @@
   padding-left: 30px;
   position: absolute;
   left: 15%;
+  cursor: pointer;
 }
 .publishVideo {
   background: url('../../assets/video1.png') no-repeat 0px -2px;
   padding-left: 30px;
   position: absolute;
   right: 15%;
+  cursor: pointer;
 }

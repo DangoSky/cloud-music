@@ -26,8 +26,8 @@
   border-bottom: 1px solid rgba(192, 192, 192, 0.5);
 }
 /* 歌单和排行榜的字体space-around后不在中间，需要手动调整  */
- .exploreBar div:nth-child(3) label {
-  left: calc((100% - 180px) / 8 * 5 + 95px);
+ .exploreBarBroadcasting div:nth-child(3) label {
+  left: calc((100% - 180px) / 8 * 5 + 96px);
 }
 .broadcastingClassify {
   background: #DB4139 url('../../assets/broadcastingClassify.png') no-repeat 66% 60%;
