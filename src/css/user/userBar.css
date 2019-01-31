@@ -1,0 +1,33 @@
+.userBar {
+  width: 100%;
+  position: relative;
+}
+.userBarItem {
+  width: 100%;
+  position: relative;
+  padding-left: 40px;
+  box-sizing: border-box;
+  line-height: 40px;
+  font-size: 0.8rem;
+}
+/* 下划线 */
+.userBarItem::before {
+  content: "";
+  /* 计算出除了背景图外的下划线长度，若直接设为100%右边会延展出去  */
+  width: calc(100% - 40px);
+  position: absolute;
+  left: 40px;
+  top: 100%;
+  border-bottom: 1px solid rgb(222, 223, 227)
+}
+/* 右边的箭头 */
+.rightArrow {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+/* 如果haveGap为true则该bar上下留白 */
+.gapClass {
+  margin-bottom: 8px;
+}

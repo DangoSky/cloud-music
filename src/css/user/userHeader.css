@@ -3,6 +3,7 @@
   background-color: #DB4139;
   position: fixed;
   color: white;
+  z-index: 99;
 }
 .userTitle {
   position: absolute;
@@ -13,6 +14,7 @@
 .userMusic {
   padding: 10px;
   float: right;
+  cursor: pointer;
 }
 .userEmptyClass {
   width: 100%;

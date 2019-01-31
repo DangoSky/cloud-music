@@ -14,13 +14,14 @@ html, body {
   background-color: rgb(216, 228, 224);
   display: flex;
   justify-content: space-around;
+  z-index: 99;
 }
 a {
   text-decoration: none;
 }
 /* 未点击路由时的字体样式 */
  a > p {
-  font-size: 60%;
+  font-size: 0.7rem;
   text-align: center;
   color: #C0C0C0;
 }

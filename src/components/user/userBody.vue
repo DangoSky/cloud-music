@@ -6,7 +6,7 @@
       <label class="userBodyUserLevel">Lv.{{ level }}</label>
       <label class="userBodySignIn">签到</label>
     </div>
-    <div class="userBodyBar" v-for="item in userBodyBarArr" :key="item">
+    <div class="userBodyBar" v-for="item in userBodyBarArr" :key="item.name">
       <p class="barTitle">{{ item.name }}</p>
       <p class="barNum">{{ item.num }}</p>
     </div>
