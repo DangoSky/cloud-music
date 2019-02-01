@@ -12,14 +12,15 @@
   cursor: pointer;
 }
 /* 下划线 */
-.userBarItem::before {
+.underline::before {
   content: "";
   /* 计算出除了背景图外的下划线长度，若直接设为100%右边会延展出去  */
   width: calc(100% - 40px);
   position: absolute;
   left: 40px;
   top: 100%;
-  border-bottom: 1px solid rgb(222, 223, 227)
+  border-bottom: 1px solid rgba(211, 211, 211, 0.6);
+  z-index: 98;
 }
 /* 右边的箭头 */
 .rightArrow {
@@ -40,4 +41,14 @@
   font-size: 0.9rem;
   color: #DB4139;
   cursor: pointer;
+}
+/* footer是固定定位，所以要设置一个伪元素占位！！ */
+.userBar:after {
+  content: '';
+  display: block;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
 }

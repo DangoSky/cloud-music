@@ -1,6 +1,7 @@
 <template>
   <div class="friend">
     <friend-header></friend-header>
+    <p>jhdoghjeogje</p>
   </div>
 </template>
 
@@ -24,6 +25,6 @@
   }
 </script>
 
-<style lang='scss' scoped>
+<style scoped>
 
 </style>

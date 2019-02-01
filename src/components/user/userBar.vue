@@ -3,7 +3,7 @@
     <div 
       v-for="item in userBar" 
       class="userBarItem" 
-      :class="{gapClass: item.haveGap}"
+      :class="[item.haveGap ? 'gapClass' : 'underline']"
       :key="item.name" 
       :style="{background: 'url(' + item.bgSrc + ') no-repeat 10px 10px white'}"
     >

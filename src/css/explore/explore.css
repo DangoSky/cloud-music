@@ -11,6 +11,8 @@
   justify-content: space-around;
   padding: 10px;
   outline: none;
+  /* 轮播图向上滑动使会覆盖住按钮使得无法点击 */
+  z-index: 999;
 }
 .exploreHeaderBar label {
   cursor: pointer;
