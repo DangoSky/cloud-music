@@ -33,6 +33,11 @@
 .gapClass {
   margin-bottom: 8px;
 }
+/* 如果haveNew为true则显示红色圈圈 */
+.newClass {
+  padding-right: 30px;
+  background: url('../../assets/newMessage.png') no-repeat 100% -11px;
+}
 /* 退出登陆 */
 .userFooter {
   text-align: center;
