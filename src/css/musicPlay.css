@@ -1,12 +1,12 @@
 .musicPlay {
   width: 100%;
   height: 100%;
-  background-color: pink;
   position: relative;
   left: 0;
   top: 0;
   /* z-index: 999; */
   overflow-y: hidden;
+  background-color: 	rgba(121, 137, 108, 0.4);
 }
 .header {
   width: 100%;
@@ -48,10 +48,23 @@
   position: relative;
   bottom: -8px;
 }
+/* 播放歌曲的图片 */
 .musicLogo {
-  width: 80vmin;
-  height: 80vmin;
-  border: 1px solid red;
+  width: 70vmin;
+  height: 70vmin;
   position: relative;
-  top: 0px;
+  top: 50px;
+  margin: 0 auto;
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px	#DCDCDC;
+}
+.musicLogo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.footer {
+  width: 100%;
+  position: relative;
+  bottom: 0;
 }

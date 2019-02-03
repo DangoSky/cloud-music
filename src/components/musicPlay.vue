@@ -8,15 +8,28 @@
         <label class="singer">以冬</label>
       </div>
     </div>
-    <div class="musicLogo" ></div>
-    <div class="footer">
-      <img src="">
+    <div class="musicLogo">
+      <img :src="musicLogo">
     </div>
+    <div class="musicBar">
+      <img src="../assets/love.png">
+      <img src="../assets/download.png" alt="">
+      <img src="../assets/soundEffect.png" alt="">
+      <img src="../assets/comments.png" alt="">
+    </div>
+    <!-- <div class="footer">
+      <img src="../assets/playInOrder.png">
+    </div> -->
   </div>
 </template>
 
 <script>
   export default {
+    data() {
+      return {
+        musicLogo: 'http://p2.music.126.net/e6G_JLkLGcIQLw9vsdgt0g==/109951163763088598.jpg?param=170y170'
+      }
+    },
     methods: {
       turnBack() {
         this.$router.go(-1);
