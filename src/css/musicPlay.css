@@ -4,7 +4,7 @@
   position: relative;
   left: 0;
   top: 0;
-  /* z-index: 999; */
+  /* z-index: 9999; */
   overflow-y: hidden;
   background-color: 	rgba(121, 137, 108, 0.4);
 }
@@ -63,8 +63,34 @@
   height: 100%;
   border-radius: 50%;
 }
-.footer {
+.musicBar {
   width: 100%;
+  display: flex;
+  justify-content: space-around;
   position: relative;
+  left: 0; 
+  top: 100px;
+}
+
+
+
+
+.musicFooter {
+  width: 100%;
+  
+ 
+  background-color: rgba(121, 137, 108);
+  position: fixed;
   bottom: 0;
+  /* height: 42px; */
+  padding: 20px 0;
+  box-sizing: border-box;
+  z-index: 999;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: space-around;
+}
+.musicFooter  img{
+  /* width: 35px;
+  height: 35px; */
 }

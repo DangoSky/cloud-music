@@ -12,14 +12,19 @@
       <img :src="musicLogo">
     </div>
     <div class="musicBar">
-      <img src="../assets/love.png">
-      <img src="../assets/download.png" alt="">
-      <img src="../assets/soundEffect.png" alt="">
-      <img src="../assets/comments.png" alt="">
+      <img :src="loveSrc" @click="clickLove">
+      <img src="../assets/download.png">
+      <img src="../assets/soundEffect.png">
+      <img src="../assets/comments.png">
+      <img src="../assets/more.png">
     </div>
-    <!-- <div class="footer">
+    <div class="musicFooter">
       <img src="../assets/playInOrder.png">
-    </div> -->
+      <img src="../assets/previous.png">
+      <img :src="playSrc" @click="playPause">
+      <img src="../assets/next.png">
+      <img src="../assets/recentMusic1.png">
+    </div>
   </div>
 </template>
 
@@ -27,14 +32,31 @@
   export default {
     data() {
       return {
-        musicLogo: 'http://p2.music.126.net/e6G_JLkLGcIQLw9vsdgt0g==/109951163763088598.jpg?param=170y170'
+        musicLogo: 'http://p2.music.126.net/e6G_JLkLGcIQLw9vsdgt0g==/109951163763088598.jpg?param=170y170',
+        isLove: false,
+        isPlay: false
       }
     },
     methods: {
       turnBack() {
         this.$router.go(-1);
-
+      },
+      clickLove() {
+        this.isLove = !this.isLove;
+      },
+      playPause() {
+        this.isPlay = !this.isPlay;
       }
+    },
+    computed: {
+      loveSrc() {
+        if(this.isLove)  return require('../assets/love1.png');
+        else return require('../assets/love.png');
+      },
+      playSrc() {
+        if(this.isPlay)  return require('../assets/play.png');
+        else return require('../assets/pause.png');
+      } 
     }
   }
 </script>
