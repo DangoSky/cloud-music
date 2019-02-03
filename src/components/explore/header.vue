@@ -2,7 +2,9 @@
   <div class="header">
     <img class="audio" :src="audioSRC">    
     <input class="search" type="text" placeholder="但愿日子清净，抬头遇见的都是柔情">
-    <img class="music" src="../../assets/music.png">
+    <router-link :to="{name: 'musicPlay'}">
+      <img class="music" src="../../assets/music.png">
+    </router-link>
   </div>
 </template> 
 

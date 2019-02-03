@@ -6,6 +6,10 @@ html, body {
   width: 100%;
   height: 100%;
 }
+.box {
+  width: 100%;
+  height: 100%;
+}
 .footer {
   position: fixed;
   bottom: 0;
@@ -20,7 +24,7 @@ a {
   text-decoration: none;
 }
 /* 未点击路由时的字体样式 */
- a > p {
+ .footer p {
   font-size: 0.7rem;
   text-align: center;
   color: #C0C0C0;
