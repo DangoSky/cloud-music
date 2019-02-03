@@ -18,6 +18,14 @@
       <img src="../assets/comments.png">
       <img src="../assets/more.png">
     </div>
+    <div class="progressBar">
+      <label class="currentTime">{{ currentTime }}</label>
+      <div class="bar">
+        <!-- <span class="bar"></span> -->
+        <span class="moveBar"></span>
+      </div>
+      <label class="totalTime">{{ totalTime }}</label>
+    </div>
     <div class="musicFooter">
       <img :src="orderSrc" @click="changePlayOrder">
       <img src="../assets/previous.png">
@@ -33,11 +41,13 @@
     data() {
       return {
         musicLogo: 'http://p2.music.126.net/e6G_JLkLGcIQLw9vsdgt0g==/109951163763088598.jpg?param=170y170',
-        isLove: false,
-        isPlay: false,
-        playOrder: 1,
-        timer: null,
-        deg: 0
+        isLove: false,     // 是否喜欢歌曲
+        isPlay: false,    // 播放暂停
+        playOrder: 1,    // 播放顺序
+        timer: null,    // 旋转定时器
+        deg: 0,        // 旋转角度 
+        currentTime: '00:00',    // 歌曲播放进度
+        totalTime: '05:20'      // 歌曲总长
       }
     },
     methods: {
@@ -53,7 +63,7 @@
       playPause() {
         this.isPlay = !this.isPlay;
         // 实现歌曲封面旋转
-        if(this.isPlay) {
+        if(this.isPlay === true) {
           this.timer = setInterval(() => {
             this.deg += 0.15;
             if(this.deg >= 360)  this.deg = 0;
@@ -69,7 +79,9 @@
       changePlayOrder() {
         if(this.playOrder === 3)  this.playOrder = 1;
         else this.playOrder++;
-      }
+      },
+      // 歌曲进行时计时
+      
     },
     computed: {
       // 是否喜欢歌曲显示红心

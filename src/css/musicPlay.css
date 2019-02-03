@@ -63,6 +63,7 @@
   height: 100%;
   border-radius: 50%;
 }
+/* 歌曲选项 */
 .musicBar {
   width: 100%;
   display: flex;
@@ -71,26 +72,50 @@
   left: 0; 
   top: 100px;
 }
-
-
-
-
+/* 进度条 */
+.progressBar {
+  width: 100%;
+  color: rgb(144, 145, 150);
+  font-size: 0.7rem;
+  position: fixed;
+  bottom: 85px;
+}
+.bar {
+  width: calc(100% - 30px - 5.6rem);
+  height: 2px;
+  display: inline-block;
+  background-color: rgb(222, 223, 227);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.moveBar {
+  /* border: 1px solid red; */
+  width: calc(100% - 30px - 5.6rem);
+  height: 2px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.currentTime {
+  float: left;
+  padding: 15px;
+}
+.totalTime {
+  float: right;
+  padding: 15px;
+}
+/* 控制选项 */
 .musicFooter {
   width: 100%;
-  
- 
   background-color: rgba(121, 137, 108);
   position: fixed;
   bottom: 0;
-  /* height: 42px; */
-  padding: 20px 0;
+  padding: 15px 0;
   box-sizing: border-box;
   z-index: 999;
-  /* border: 1px solid red; */
   display: flex;
   justify-content: space-around;
-}
-.musicFooter  img{
-  /* width: 35px;
-  height: 35px; */
 }

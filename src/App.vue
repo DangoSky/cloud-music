@@ -7,6 +7,7 @@
       <button-friend></button-friend>
       <button-user></button-user>
     </div>
+    <router-view name="musicPlay" class="musicPlayer"></router-view>
     <router-view></router-view>
   </div>
 </template>
@@ -32,8 +33,8 @@
 
 <style>
 .musicPlayer {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: yellow !important;
 }
 </style>
