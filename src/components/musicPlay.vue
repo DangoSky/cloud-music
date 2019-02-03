@@ -1,29 +1,17 @@
 <template>
   <div class="musicPlay">
-    <p @click="turnBack">back</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-    <p>这是音乐播放界面</p>
-  
+    <div class="header">
+      <img src="../assets/leftArrow.png" class="leftArrow" @click="turnBack">
+      <img src="../assets/share1.png" class="share">
+      <div class="songs">
+        <p class="songTitle">我的一个道姑朋友</p>
+        <label class="singer">以冬</label>
+      </div>
+    </div>
+    <div class="musicLogo" ></div>
+    <div class="footer">
+      <img src="">
+    </div>
   </div>
 </template>
 
@@ -38,14 +26,6 @@
   }
 </script>
 
-<style>
-.musicPlay {
-  width: 100%;
-  height: 100%;
-  background-color: red;
-  position: relative;
-  left: 0;
-  top: 0;
-  z-index: 999;
-}
+<style scoped src="../css/musicPlay.css">
+
 </style>
