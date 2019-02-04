@@ -47,7 +47,8 @@
         timer: null,    // 旋转定时器
         deg: 0,        // 旋转角度 
         currentTime: '00:00',    // 歌曲播放进度
-        totalTime: '05:20'      // 歌曲总长
+        totalTime: '05:20',      // 歌曲总长
+        pastTime: 0
       }
     },
     methods: {
@@ -62,12 +63,22 @@
       // 播放暂停
       playPause() {
         this.isPlay = !this.isPlay;
-        // 实现歌曲封面旋转
+        this.rotateMusicLogo();        
+      },
+      // 改变播放顺序
+      changePlayOrder() {
+        if(this.playOrder === 3)  this.playOrder = 1;
+        else this.playOrder++;
+      },
+      // 歌曲封面旋转
+      rotateMusicLogo() {
         if(this.isPlay === true) {
           this.timer = setInterval(() => {
             this.deg += 0.15;
             if(this.deg >= 360)  this.deg = 0;
             this.$refs.musicDom.style.transform = 'rotate(' + this.deg + 'deg)';
+            this.pastTime += 10;
+            this.changeCurrentTIme();
           }, 10)
         }
         else {
@@ -75,13 +86,15 @@
           this.timer = null;
         }
       },
-      // 改变播放顺序
-      changePlayOrder() {
-        if(this.playOrder === 3)  this.playOrder = 1;
-        else this.playOrder++;
-      },
       // 歌曲进行时计时
-      
+      changeCurrentTIme() {
+        let seconds = this.pastTime / 1000;
+        let minutes = parseInt(seconds / 60);
+        seconds = Math.floor(seconds % 60 );
+        minutes = minutes < 10 ? '0' + minutes : ''+minutes;
+        seconds = seconds < 10 ? '0' + seconds : ''+seconds;
+        this.currentTime  =  `${minutes}:${seconds}`;
+      }
     },
     computed: {
       // 是否喜欢歌曲显示红心
