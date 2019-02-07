@@ -20,9 +20,10 @@
     </div>
     <div class="progressBar">
       <label class="currentTime">{{ currentTime }}</label>
-      <div class="bar">
-        <span class="moveBar" ref="moveBar"></span>
-      </div>
+      <!-- <div class="bar"> -->
+        <vue-slider class="bar" v-bind="sliderValue"></vue-slider>
+        <!-- <span class="moveBar" ref="moveBar" @mousedown="drogBar"></span> -->
+      <!-- </div> -->
       <label class="totalTime">{{ totalTime }}</label>
     </div>
     <div class="musicFooter">
@@ -36,6 +37,7 @@
 </template>
 
 <script>
+  import vueSlider from 'vue-slider-component'
   export default {
     data() {
       return {
@@ -48,8 +50,17 @@
         currentTime: '00:00',     // 歌曲播放进度
         totalTime: '00:43',      // 歌曲总长，字符串形式
         pastTime: 0,            // 已经播放的时长 
-        allTime: 0             // 歌曲总时间，数值形式 
+        allTime: 0,             // 歌曲总时间，数值形式 
+        sliderValue: {
+          value: 0,
+          max: 100,
+          width: auto,
+        }
+      
       }
+    },
+    components: {
+      vueSlider
     },
     methods: {
       // 后退
@@ -109,6 +120,18 @@
           clearInterval(this.timer);
           this.timer = null;
         }
+      },
+       drogBar(event) {
+        let ele = event.target;
+        let disX = event.clientX;
+        document.onmouseover = (event) => {
+          this.barWidth = event.clientX - disX + ele.offsetLeft;
+          ele.style.width = this.barWidth + 'px';
+        };
+        document.onmouseup  = (event) => {
+          document.onmouseover = null;
+          document.onmouseup = null;
+        };
       }
     },
     computed: {
