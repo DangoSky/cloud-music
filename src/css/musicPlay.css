@@ -72,7 +72,7 @@
   left: 0; 
   top: 100px;
 }
-/* 进度条 */
+/* 进度条和时间显示 */
 .progressBar {
   width: 100%;
   color: rgb(144, 145, 150);
@@ -80,6 +80,15 @@
   position: fixed;
   bottom: 85px;
 }
+.currentTime {
+  float: left;
+  padding: 15px;
+}
+.totalTime {
+  float: right;
+  padding: 15px;
+}
+/* 进度条 */
 .bar {
   width: calc(100% - 30px - 5.6rem);
   height: 2px;
@@ -91,21 +100,23 @@
   transform: translate(-50%, -50%);
 }
 .moveBar {
-  /* border: 1px solid red; */
-  width: calc(100% - 30px - 5.6rem);
   height: 2px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-.currentTime {
   float: left;
-  padding: 15px;
+  background-color: #DB4139;
+  position: relative;
 }
-.totalTime {
-  float: right;
-  padding: 15px;
+/* 进度条圆圈 */
+.moveBar::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1.5px;
+  width: 3px;
+  height: 3px;
+  border: 1px solid #DB4139;
+  background-color: #DB4139;
+  box-shadow: 0 0 1px 5px white; 
+  border-radius: 50%;
 }
 /* 控制选项 */
 .musicFooter {

@@ -21,8 +21,7 @@
     <div class="progressBar">
       <label class="currentTime">{{ currentTime }}</label>
       <div class="bar">
-        <!-- <span class="bar"></span> -->
-        <span class="moveBar"></span>
+        <span class="moveBar" ref="moveBar"></span>
       </div>
       <label class="totalTime">{{ totalTime }}</label>
     </div>
@@ -46,9 +45,10 @@
         playOrder: 1,    // 播放顺序
         timer: null,    // 旋转定时器
         deg: 0,        // 旋转角度 
-        currentTime: '00:00',    // 歌曲播放进度
-        totalTime: '05:20',      // 歌曲总长
-        pastTime: 0
+        currentTime: '00:00',     // 歌曲播放进度
+        totalTime: '01:20',      // 歌曲总长，字符串形式
+        pastTime: 0,            // 已经播放的时长 
+        allTime: 0             // 歌曲总时间，数值形式 
       }
     },
     methods: {
@@ -79,6 +79,7 @@
             this.$refs.musicDom.style.transform = 'rotate(' + this.deg + 'deg)';
             this.pastTime += 10;
             this.changeCurrentTIme();
+            this.move();
           }, 10)
         }
         else {
@@ -94,6 +95,13 @@
         minutes = minutes < 10 ? '0' + minutes : ''+minutes;
         seconds = seconds < 10 ? '0' + seconds : ''+seconds;
         this.currentTime  =  `${minutes}:${seconds}`;
+      },
+      // 进度条走动
+      move() {
+        this.allTime = parseInt(this.totalTime.slice(0, -3)) * 60 + parseInt(this.totalTime.slice(-2));
+        let len = this.pastTime / 1000 / this.allTime * 100;
+        this.$refs.moveBar.style.width = len + '%';
+        console.log(len + '%');
       }
     },
     computed: {
