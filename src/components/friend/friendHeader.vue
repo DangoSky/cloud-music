@@ -5,7 +5,9 @@
       <label class="dynamic" @click="clickDynamic" :class="{dynamicActive: isClickDynamic}">动态</label>
       <label class="nearBy" @click="clickNearby" :class="{nearByActive: isClicknearBy}">附近</label>
     </div>
-    <img src="../../assets/music.png" class="friendMusic">
+    <router-link :to="{name: 'musicPlay'}">
+      <img class="friendMusic" src="../../assets/music.png">
+    </router-link>
     <div class="friendHeaderBar">
       <label class="writeDynamic">写动态</label>
       <label class="publishVideo">发布视频</label>

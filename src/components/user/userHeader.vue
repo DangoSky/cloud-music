@@ -2,7 +2,9 @@
   <div>
     <div class="userHeader">
       <label class="userTitle">账号</label>
-      <img src="../../assets/music.png" class="userMusic">
+      <router-link :to="{name: 'musicPlay'}">
+        <img class="userMusic" src="../../assets/music.png">
+      </router-link>
     </div>
     <div class="userEmptyClass"></div>
   </div>

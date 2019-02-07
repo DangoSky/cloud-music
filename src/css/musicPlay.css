@@ -52,9 +52,11 @@
 .musicLogo {
   width: 70vmin;
   height: 70vmin;
-  position: relative;
-  top: 50px;
-  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  /* 除去上面的50px和下面160px后，实现空白部分的垂直居中，先top50%,再top-50%自身高度 */
+  top: calc((100% - 160px - 50px ) / 2 + 50px - 35vmin);
   border-radius: 50%;
   box-shadow: 0 0 0 5px	#DCDCDC;
 }
@@ -68,17 +70,16 @@
   width: 100%;
   display: flex;
   justify-content: space-around;
-  position: relative;
-  left: 0; 
-  top: 100px;
+  position: absolute;
+  bottom: 140px;
 }
 /* 进度条和时间显示 */
 .progressBar {
   width: 100%;
   color: rgb(144, 145, 150);
   font-size: 0.7rem;
-  position: fixed;
-  bottom: 85px;
+  position: absolute;
+  bottom: 80px;
 }
 .currentTime {
   float: left;

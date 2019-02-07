@@ -46,7 +46,7 @@
         timer: null,    // 旋转定时器
         deg: 0,        // 旋转角度 
         currentTime: '00:00',     // 歌曲播放进度
-        totalTime: '01:20',      // 歌曲总长，字符串形式
+        totalTime: '00:43',      // 歌曲总长，字符串形式
         pastTime: 0,            // 已经播放的时长 
         allTime: 0             // 歌曲总时间，数值形式 
       }
@@ -98,10 +98,17 @@
       },
       // 进度条走动
       move() {
+        // 通过百分比计算进度条长度
         this.allTime = parseInt(this.totalTime.slice(0, -3)) * 60 + parseInt(this.totalTime.slice(-2));
         let len = this.pastTime / 1000 / this.allTime * 100;
         this.$refs.moveBar.style.width = len + '%';
         console.log(len + '%');
+        if(len >= 100)  
+        {
+          this.isPlay = false;
+          clearInterval(this.timer);
+          this.timer = null;
+        }
       }
     },
     computed: {
