@@ -19,7 +19,7 @@
   float: left;
   background-color: #DB4139;
 }
-/* 按钮包装，增大宽高 */
+/* 按钮容器，增大宽高 */
 .moveBtn-wrapper {
   width: 30px;
   height: 30px;

@@ -59,5 +59,5 @@ export default {
 };
 </script>
 
-<style scoped style="../../css/base/progressBar.css">
+<style scoped src="../../css/base/progressBar.css">
 </style>
