@@ -18,7 +18,7 @@
   import buttonMyself from './components/myself/buttonMyself'
   import buttonFriend from './components/friend/buttonFriend'
   import buttonUser from './components/user/buttonUser'
-  import './css/appvue.css'
+  import './css//base/appvue.css'
   export default {
     name: 'app',
     components: {
@@ -32,9 +32,5 @@
 </script>
 
 <style>
-.musicPlayer {
-  width: 100vw;
-  height: 100vh;
-  background-color: yellow !important;
-}
+
 </style>

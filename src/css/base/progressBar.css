@@ -1,0 +1,42 @@
+.progressBar {
+  width: calc(100% - 30px - 5.6rem);
+  height: 3px;
+  background-color: rgb(222, 223, 227);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* 防止拖动时字体被选中 */
+  user-select:none;
+  -moz-user-select:none;      
+  -webkit-user-select:none;  
+  -ms-user-select:none;       
+  -khtml-user-select:none;   
+}
+/* 已完成的进度条 */
+.moveBar {
+  height: 3px;
+  float: left;
+  background-color: #DB4139;
+}
+/* 按钮包装，增大宽高 */
+.moveBtn-wrapper {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 0;
+  top: -13px;
+}
+/* 拖动的按钮 */
+.moveBtn {
+  width: 6px;
+  height: 6px;
+  position: absolute;
+  left: 0;
+  bottom: 12px;
+  border: 1px solid #DB4139;
+  background-color: #DB4139;
+  box-shadow: 0 0 1px 5px white; 
+  border-radius: 50%;
+  box-sizing: border-box;
+}

@@ -1,8 +1,8 @@
 <template>
   <div class="musicPlay">
     <div class="header">
-      <img src="../assets/leftArrow.png" class="leftArrow" @click="turnBack">
-      <img src="../assets/share1.png" class="share">
+      <img src="../../assets/leftArrow.png" class="leftArrow" @click="turnBack">
+      <img src="../../assets/share1.png" class="share">
       <div class="songs">
         <p class="songTitle">我的一个道姑朋友</p>
         <label class="singer">以冬</label>
@@ -13,32 +13,32 @@
     </div>
     <div class="musicBar">
       <img :src="loveSrc" @click="clickLove">
-      <img src="../assets/download.png">
-      <img src="../assets/soundEffect.png">
-      <img src="../assets/comments.png">
-      <img src="../assets/more.png">
+      <img src="../../assets/download.png">
+      <img src="../../assets/soundEffect.png">
+      <img src="../../assets/comments.png">
+      <img src="../../assets/more.png">
     </div>
-    <div class="progressBar">
+    <div class="progress">
       <label class="currentTime">{{ currentTime }}</label>
-      <!-- <div class="bar"> -->
-        <vue-slider class="bar" v-bind="sliderValue"></vue-slider>
-        <!-- <span class="moveBar" ref="moveBar" @mousedown="drogBar"></span> -->
-      <!-- </div> -->
+      <progress-bar></progress-bar>
       <label class="totalTime">{{ totalTime }}</label>
     </div>
     <div class="musicFooter">
       <img :src="orderSrc" @click="changePlayOrder">
-      <img src="../assets/previous.png">
+      <img src="../../assets/previous.png">
       <img :src="playSrc" @click="playPause">
-      <img src="../assets/next.png">
-      <img src="../assets/recentMusic1.png">
+      <img src="../../assets/next.png">
+      <img src="../../assets/recentMusic1.png">
     </div>
   </div>
 </template>
 
 <script>
-  import vueSlider from 'vue-slider-component'
+  import progressBar from './progressBar.vue'
   export default {
+    components: {
+      'progress-bar': progressBar
+    },
     data() {
       return {
         musicLogo: 'http://p2.music.126.net/e6G_JLkLGcIQLw9vsdgt0g==/109951163763088598.jpg?param=170y170',
@@ -51,16 +51,7 @@
         totalTime: '00:43',      // 歌曲总长，字符串形式
         pastTime: 0,            // 已经播放的时长 
         allTime: 0,             // 歌曲总时间，数值形式 
-        sliderValue: {
-          value: 0,
-          max: 100,
-          width: auto,
-        }
-      
       }
-    },
-    components: {
-      vueSlider
     },
     methods: {
       // 后退
@@ -121,10 +112,15 @@
           this.timer = null;
         }
       },
-       drogBar(event) {
+      // 拖动进度条
+      drogBar(event) {
         let ele = event.target;
         let disX = event.clientX;
         document.onmouseover = (event) => {
+          this.barWidth = event.clientX - disX + ele.offsetLeft;
+          ele.style.width = this.barWidth + 'px';
+        };
+        document.touchmove = (event) => {
           this.barWidth = event.clientX - disX + ele.offsetLeft;
           ele.style.width = this.barWidth + 'px';
         };
@@ -132,29 +128,36 @@
           document.onmouseover = null;
           document.onmouseup = null;
         };
+        document.touchend  = (event) => {
+          document.onmouseover = null;
+          document.onmouseup = null;
+          document.touchmove = null;
+          document.touchend = null;
+          
+        };
       }
     },
     computed: {
       // 是否喜欢歌曲显示红心
       loveSrc() {
-        if(this.isLove)  return require('../assets/love1.png');
-        else return require('../assets/love.png');
+        if(this.isLove)  return require('../../assets/love1.png');
+        else return require('../../assets/love.png');
       },
       // 播放暂停
       playSrc() {
-        if(this.isPlay)  return require('../assets/pause.png');
-        else return require('../assets/play.png');
+        if(this.isPlay)  return require('../../assets/pause.png');
+        else return require('../../assets/play.png');
       },
       // 播放顺序
       orderSrc() {
-        if(this.playOrder === 1)  return require('../assets/playInOrder.png');
-        else if(this.playOrder === 2)  return require('../assets/playRandom.png');
-        else if(this.playOrder === 3)  return require('../assets/playCycle.png');
+        if(this.playOrder === 1)  return require('../../assets/playInOrder.png');
+        else if(this.playOrder === 2)  return require('../../assets/playRandom.png');
+        else if(this.playOrder === 3)  return require('../../assets/playCycle.png');
       } 
     }
   }
 </script>
 
-<style scoped src="../css/musicPlay.css">
+<style scoped src="../../css/base/musicPlay.css">
 
 </style>

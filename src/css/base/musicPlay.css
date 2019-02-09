@@ -43,7 +43,7 @@
 }
 .singer {
   padding-right: 20px;
-  background: url('../assets/rightArrow1.png') no-repeat 90% 0;
+  background: url('../../assets/rightArrow1.png') no-repeat 90% 0;
   font-size: 0.7rem;
   position: relative;
   bottom: -8px;
@@ -74,7 +74,7 @@
   bottom: 140px;
 }
 /* 进度条和时间显示 */
-.progressBar {
+.progress {
   width: 100%;
   color: rgb(144, 145, 150);
   font-size: 0.7rem;
@@ -89,7 +89,7 @@
   float: right;
   padding: 15px;
 }
-/* 进度条 */
+/* 进度条
 .bar {
   width: calc(100% - 30px - 5.6rem);
   height: 2px;
@@ -99,14 +99,14 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-}
+
 .moveBar {
   height: 2px;
   float: left;
   background-color: #DB4139;
   position: relative;
 }
-/* 进度条圆圈 */
+
 .moveBar::after {
   content: "";
   position: absolute;
@@ -118,7 +118,7 @@
   background-color: #DB4139;
   box-shadow: 0 0 1px 5px white; 
   border-radius: 50%;
-}
+} */
 /* 控制选项 */
 .musicFooter {
   width: 100%;
