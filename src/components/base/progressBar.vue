@@ -16,6 +16,9 @@
 
 <script>
 export default {
+  props: [
+    'movePercent'
+  ],
   data() {
     return {
       touch: {}
@@ -45,15 +48,24 @@ export default {
       let rect = this.$refs.progressBar.getBoundingClientRect(); // 返回目标元素的上下左右离视口左上角的距离以及自身的宽高所组成的对象。
       let barWidth = e.pageX - rect.left;
       this.changeMoveBar(barWidth);
+      this.computePercent();
     },
     // 修改进度条的长度
     changeMoveBar(barWidth) {
       this.$refs.moveBar.style.width = `${barWidth}px`;
       this.$refs.moveBtn.style.left = `${barWidth}px`;
-      // 计算百分比
-      // this.percent = `${parseInt(
-      //   (barWidth / this.$refs.progressBar.clientWidth) * 100
-      // )}%`;
+    },
+    // 计算完成的百分比并触发父组件函数，修改歌曲时间
+    computePercent() {
+      let percent = this.$refs.moveBar.clientWidth / this.$refs.progressBar.clientWidth * 100;
+      this.$emit('changePercent', percent);
+    }
+  },
+  // 监听父组件传递过来的歌曲进行百分比
+  watch: {
+    movePercent: function(newVal, lastVal) {
+      let barWidth = newVal / 100 * this.$refs.progressBar.clientWidth;
+      this.changeMoveBar(barWidth);
     }
   }
 };

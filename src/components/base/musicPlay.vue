@@ -20,7 +20,7 @@
     </div>
     <div class="progress">
       <label class="currentTime">{{ currentTime }}</label>
-      <progress-bar></progress-bar>
+      <progress-bar :movePercent="movePercent" @changePercent="changePercent"></progress-bar>
       <label class="totalTime">{{ totalTime }}</label>
     </div>
     <div class="musicFooter">
@@ -47,11 +47,16 @@
         playOrder: 1,    // 播放顺序
         timer: null,    // 旋转定时器
         deg: 0,        // 旋转角度 
-        currentTime: '00:00',     // 歌曲播放进度
-        totalTime: '00:43',      // 歌曲总长，字符串形式
-        pastTime: 0,            // 已经播放的时长 
+        currentTime: '00:00',      // 歌曲播放进度
+        totalTime: '00:43',       // 歌曲总长，字符串形式
+        pastTime: 0,             // 已经播放的时长 
         allTime: 0,             // 歌曲总时间，数值形式 
+        movePercent: 0,        // 歌曲进行百分比，传递给子组件控制进度条 
       }
+    },
+    mounted() {
+      // 马上计算歌曲总长
+      this.allTime = parseInt(this.totalTime.slice(0, -3)) * 60 + parseInt(this.totalTime.slice(-2));
     },
     methods: {
       // 后退
@@ -81,7 +86,6 @@
             this.$refs.musicDom.style.transform = 'rotate(' + this.deg + 'deg)';
             this.pastTime += 10;
             this.changeCurrentTIme();
-            this.move();
           }, 10)
         }
         else {
@@ -89,7 +93,7 @@
           this.timer = null;
         }
       },
-      // 歌曲进行时计时
+      // 计算歌曲进行的当前时间
       changeCurrentTIme() {
         let seconds = this.pastTime / 1000;
         let minutes = parseInt(seconds / 60);
@@ -97,45 +101,20 @@
         minutes = minutes < 10 ? '0' + minutes : ''+minutes;
         seconds = seconds < 10 ? '0' + seconds : ''+seconds;
         this.currentTime  =  `${minutes}:${seconds}`;
-      },
-      // 进度条走动
-      move() {
         // 通过百分比计算进度条长度
-        this.allTime = parseInt(this.totalTime.slice(0, -3)) * 60 + parseInt(this.totalTime.slice(-2));
-        let len = this.pastTime / 1000 / this.allTime * 100;
-        this.$refs.moveBar.style.width = len + '%';
-        console.log(len + '%');
-        if(len >= 100)  
+        this.movePercent = this.pastTime / 1000 / this.allTime * 100;
+        if(this.movePercent >= 100)  
         {
           this.isPlay = false;
           clearInterval(this.timer);
           this.timer = null;
         }
       },
-      // 拖动进度条
-      drogBar(event) {
-        let ele = event.target;
-        let disX = event.clientX;
-        document.onmouseover = (event) => {
-          this.barWidth = event.clientX - disX + ele.offsetLeft;
-          ele.style.width = this.barWidth + 'px';
-        };
-        document.touchmove = (event) => {
-          this.barWidth = event.clientX - disX + ele.offsetLeft;
-          ele.style.width = this.barWidth + 'px';
-        };
-        document.onmouseup  = (event) => {
-          document.onmouseover = null;
-          document.onmouseup = null;
-        };
-        document.touchend  = (event) => {
-          document.onmouseover = null;
-          document.onmouseup = null;
-          document.touchmove = null;
-          document.touchend = null;
-          
-        };
-      }
+      // 子组件通过拖动点击进度条从而触发父组件修改时间，参数为子组件传递过来的参数(百分比)
+      changePercent(percent) {
+        this.pastTime = parseInt(percent / 100 * this.allTime * 1000);    // 统一以毫秒的形式
+        this.changeCurrentTIme();
+      },
     },
     computed: {
       // 是否喜欢歌曲显示红心
