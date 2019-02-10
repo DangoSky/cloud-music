@@ -81,7 +81,7 @@
         this.timer = setInterval(() => {
           this.deg += 0.15;
           if(this.deg >= 360)  this.deg = 0;
-          this.$refs.musicDom.style.transform = 'rotate(' + this.deg + 'deg)';
+          this.$refs.musicDom.style.transform = `rotate(${this.deg}deg)`;
           this.pastTime += 10;
           this.changeCurrentTime();
         }, 10)

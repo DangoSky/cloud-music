@@ -6,7 +6,7 @@
   height: calc(95vw / 2.171617);
   overflow: hidden;
   /* 轮播图向上滑动使会覆盖住按钮使得无法点击 */
-  z-index: -999;
+  /* z-index: -999; */
 }
 /* 使用伪类来制造轮播图的背景红色 */
 .carousel::before {
@@ -19,7 +19,7 @@
 }
 .carousel-picture {
   width: 100%;
-  height: 100%; 
+  height: 100%;
   list-style-type: none;
   position: absolute;
   z-index: -98;
@@ -50,6 +50,7 @@ img {
   background-color: rgba(216, 228, 224, 0.6);
   display: inline-block;
   margin: 0 3px;
+  z-index: 999;
 }
 /* 设置圆点激活时的颜色变化，如果不加！important就无法覆盖原先的背景颜色 */
 .activeCarousel {

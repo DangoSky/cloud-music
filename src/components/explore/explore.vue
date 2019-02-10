@@ -8,9 +8,9 @@
         <label :class="[isClickRecommendation ? '' : 'activeClass']" @click="clickBroadcasting">主播电台</label>
       </div>
     </div>
-    <div class="exploreBody">
+    <!-- <div class="exploreBody"> -->
       <component :is="componentId"></component>
-    </div>
+    <!-- </div> -->
   </div>
   
 </template>
