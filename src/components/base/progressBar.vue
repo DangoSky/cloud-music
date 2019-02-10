@@ -39,6 +39,7 @@ export default {
         Math.max(0, barWidth)
       );
       this.changeMoveBar(barWidth);
+      this.computePercent();
     },
     touchEnd() {
       this.touch.initiated = false;

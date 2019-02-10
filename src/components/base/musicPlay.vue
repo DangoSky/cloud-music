@@ -70,7 +70,6 @@
       // 播放暂停
       playPause() {
         this.isPlay = !this.isPlay;
-        this.rotateMusicLogo();        
       },
       // 改变播放顺序
       changePlayOrder() {
@@ -79,22 +78,16 @@
       },
       // 歌曲封面旋转
       rotateMusicLogo() {
-        if(this.isPlay === true) {
-          this.timer = setInterval(() => {
-            this.deg += 0.15;
-            if(this.deg >= 360)  this.deg = 0;
-            this.$refs.musicDom.style.transform = 'rotate(' + this.deg + 'deg)';
-            this.pastTime += 10;
-            this.changeCurrentTIme();
-          }, 10)
-        }
-        else {
-          clearInterval(this.timer);
-          this.timer = null;
-        }
-      },
+        this.timer = setInterval(() => {
+          this.deg += 0.15;
+          if(this.deg >= 360)  this.deg = 0;
+          this.$refs.musicDom.style.transform = 'rotate(' + this.deg + 'deg)';
+          this.pastTime += 10;
+          this.changeCurrentTime();
+        }, 10)
+     },
       // 计算歌曲进行的当前时间
-      changeCurrentTIme() {
+      changeCurrentTime() {
         let seconds = this.pastTime / 1000;
         let minutes = parseInt(seconds / 60);
         seconds = Math.floor(seconds % 60 );
@@ -102,18 +95,12 @@
         seconds = seconds < 10 ? '0' + seconds : ''+seconds;
         this.currentTime  =  `${minutes}:${seconds}`;
         // 通过百分比计算进度条长度
-        this.movePercent = this.pastTime / 1000 / this.allTime * 100;
-        if(this.movePercent >= 100)  
-        {
-          this.isPlay = false;
-          clearInterval(this.timer);
-          this.timer = null;
-        }
+        this.movePercent = this.pastTime / 1000 / this.allTime * 100;    
       },
       // 子组件通过拖动点击进度条从而触发父组件修改时间，参数为子组件传递过来的参数(百分比)
       changePercent(percent) {
         this.pastTime = parseInt(percent / 100 * this.allTime * 1000);    // 统一以毫秒的形式
-        this.changeCurrentTIme();
+        this.changeCurrentTime();
       },
     },
     computed: {
@@ -133,6 +120,26 @@
         else if(this.playOrder === 2)  return require('../../assets/playRandom.png');
         else if(this.playOrder === 3)  return require('../../assets/playCycle.png');
       } 
+    },
+    watch: {
+      // 根据歌曲的进度控制是否播放
+      movePercent: function(newVal) {
+        if(this.movePercent >= 100)  
+        {
+          this.isPlay = false;
+        }
+        else {
+          this.isPlay = true;
+        }
+      },
+      isPlay: function(newVal) {
+        // 反复按播放暂停前需要先清除定时器，否则会进行叠加
+        clearInterval(this.timer);
+        this.timer = null;
+        if(newVal) {
+          this.rotateMusicLogo();        
+        }
+      }
     }
   }
 </script>
