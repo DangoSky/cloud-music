@@ -1,10 +1,12 @@
 <template>
   <div class="recomendationSongList">
     <p class="recomendationFont">推荐歌单</p>
-    <div v-for="item in songList" :key="item.id">
-      
+    <div class="box">
+      <div  class="songListBox" v-for="item in songList" :key="item.id">
+        <img :src="item.picUrl" alt="无法加载图片" class="songLogo">
+        <label class="songName">{{ item.name }}</label>
+      </div>
     </div>
-    <!-- <p v-for="item in songList" :key="item.id">{{ item.id }}</p> -->
   </div>
 </template>
 

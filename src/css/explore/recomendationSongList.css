@@ -9,3 +9,46 @@
   margin: 10px;
   background: url('../../assets//rightArrow2.png') no-repeat 4rem ;
 }
+.box {
+  margin: 0 5px 0 15px;
+  /* 阻止滚动时是div内部滚动的 */
+  overflow: hidden;
+}
+.songListBox {
+  width: calc((100% - 50px) / 3);
+  height: calc((100vw - 50px) / 3);
+  float: left;
+  margin: 0 10px 10px 0; 
+  font-size: 0.8rem;
+  padding-bottom: calc(1.6rem + 10px);    
+ 
+}
+/* 歌单图片 */
+.songLogo {
+  width: 100%;
+  height: 100%; 
+  border-radius: 3px;
+}
+/* 歌单名 */
+.songName {
+  width: 100%;
+  height: 2rem;
+  display: block;
+  overflow: hidden;
+  white-space: pre-wrap;
+  /* 设置对于超过两行的文本内容以省略号代替 */
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2; 
+  text-overflow: ellipsis;
+}
+/* footer是固定定位，设置一个伪元素占位 */
+.recomendationSongList::after {
+  content: '';
+  display: block;
+  position: relative;
+  left: 0;
+  width: 100%;
+  height: 50px;
+}
+
