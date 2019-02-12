@@ -8,9 +8,10 @@
         <label :class="[isClickRecommendation ? '' : 'activeClass']" @click="clickBroadcasting">主播电台</label>
       </div>
     </div>
-    <!-- <div class="exploreBody"> -->
-      <component :is="componentId"></component>
-    <!-- </div> -->
+    <!-- 使用一个空的div占据fixed定位的位置  -->
+    <div class="emptyClass"></div>  
+    <component :is="componentId"></component>
+    <recomendation-song-list></recomendation-song-list>
   </div>
   
 </template>
@@ -19,6 +20,7 @@
   import header from './header.vue'
   import personalRecommendation from './personalRecommendation.vue'
   import broadcasting from './broadcasting.vue'
+  import recomendationSongList from './recomendationSongList.vue'
   export default {
     data() {
       return {
@@ -29,7 +31,8 @@
     components: {
       'explore-header': header,
       'personal-recommendation': personalRecommendation,
-      'broadcasting': broadcasting
+      'broadcasting': broadcasting,
+      'recomendation-song-list': recomendationSongList
     },
     methods: {
       clickRecommendation() {

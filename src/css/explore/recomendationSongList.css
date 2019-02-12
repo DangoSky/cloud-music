@@ -1,0 +1,11 @@
+.recomendationSongList {
+  width: 100%;
+  position: relative;
+  left: 0;
+  top: 30px;
+  overflow-x: hidden;
+}
+.recomendationFont {
+  margin: 10px;
+  background: url('../../assets//rightArrow2.png') no-repeat 4rem ;
+}

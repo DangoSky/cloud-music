@@ -5,6 +5,14 @@
   position: fixed;
   z-index: 1000;
 }
+/* 使用一个空的div占据fixed定位的位置 */
+.emptyClass {
+  width: 100%;
+  height: 105px;
+  position: relative;
+  left: 0;
+  top: 0;
+}
 /* 个性推荐和主播电台 */
 .exploreHeaderBar {
   color: rgba(248, 248, 255, 1);

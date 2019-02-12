@@ -1,6 +1,5 @@
 .carousel {
   position: relative;
-  top: 105px;
   width: 100%;
   /* 根据轮播图片的宽高比例计算容器的高度 */
   height: calc(95vw / 2.171617);

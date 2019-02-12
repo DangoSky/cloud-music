@@ -123,7 +123,7 @@
     },
     watch: {
       // 根据歌曲的进度控制是否播放
-      movePercent: function(newVal) {
+      movePercent: function() {
         if(this.movePercent >= 100)  
         {
           this.isPlay = false;
