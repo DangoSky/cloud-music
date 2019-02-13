@@ -15,8 +15,7 @@ export default {
   getSongList(id, callback) {
     axios.get(`http://dangosky.com:3000/playlist/detail?id=${id}`)
       .then(function(response) {
-        // console.log(response.data.playlist.name);
-        callback(response.data.playlist.creator);
+        callback(response.data.playlist);
       })
       .catch(function(error) {
         alert(error);

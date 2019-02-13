@@ -3,11 +3,17 @@
 }
 .listData {
   width: 100%;
+  height: 40vw;
+  position: relative;
+  left: 0;
+  top: 0;
+  margin: 20px 0;
 }
+/* 歌单封面 */
 .picBox {
   width: 40vw;
   height: 40vw;
-  margin: 30px 20px;
+  margin-left: 10px;
   position: relative;
 }
 .playPic {
@@ -29,7 +35,33 @@
   right: 5px;
   bottom: 5px;
 }
-.creater {
-  display: inline-block;
-  border: 1px solid red;
+/* 歌单名和作者 */
+.creator {
+  width: 50vw;
+  height: 100%;
+  position: absolute;
+  left: calc(40vw + 20px);
+  top: 0;
+}
+.listTitle {
+  position: absolute;
+  top: 5vw;
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+.nickName {
+  position: absolute;
+  bottom: 5vw;
+  background: url('../../assets//rightArrow.png') no-repeat 100% 5px;
+  padding-left: 43px;
+  padding-right: 25px;
+  line-height: 35px;
+  font-size: 0.8rem;
+}
+.creatorPic {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 5vw;
 }

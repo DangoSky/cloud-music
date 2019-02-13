@@ -17,8 +17,7 @@ import api from '../../api/index.js'
     created() { 
       // 需要使用箭头函数，使得this指向vue实例
       api.getRecomendationSongListId((res) => this.songListId = res);  
-      
-      // console.log(this.songListId);
+
     },
     data() {
       return {
@@ -43,7 +42,9 @@ import api from '../../api/index.js'
         this.$router.push({
           name: 'songList',
           query: {
-            listId: item.id
+            listId: item.id,
+            playCount: this.playCount(item.playCount),
+            picUrl: item.picUrl
           }
         })
       }

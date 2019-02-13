@@ -37,7 +37,6 @@
 }
 .header {
   width: 100%;
-  /* height: 300px; */
   position: relative;
 }
 /* 毛玻璃背景图 */
@@ -49,11 +48,12 @@
   top: 0;
   z-index: -99;
   overflow: hidden;
-  filter: blur(70px); 
+  filter: blur(10px); 
   -webkit-filter: blur(70px);
   -moz-filter: blur(70px);
   -ms-filter: blur(70px);
   -o-filter: blur(70px);
+  border: 1px solid blue;
 }
 .searchBox {
   width: 100%;
@@ -76,4 +76,5 @@
   box-sizing: border-box;   
   outline: none;
   cursor: pointer;
+  color: #C0C0C0;
 }

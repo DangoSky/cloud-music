@@ -12,12 +12,12 @@
     <div class="emptyClass"></div>
     <div class="header">
       <!-- 制作毛玻璃背景图效果,因为bg是动态的url，所以只能再用一个空div -->
-      <!-- <div class="blurBg" :style="{background: 'url(' + listData.picUrl + ') center center fixed'}"></div>   -->
+      <div class="blurBg" :style="{background: 'url(' + picUrl + ') center center '}"></div>  
       <div class="searchBox">
         <input type="text" class="search" placeholder="搜索歌单内歌曲">
       </div>
+      <song-list-body :list="{listId: listId, playCount: playCount}"></song-list-body>
     </div>
-    <component :is="componentId" :listId="listId"></component>
   </div>
 </template>
 
@@ -30,17 +30,14 @@
     data() {
       return {
         isSearching: false,
-        listId: this.$route.query.listId
+        listId: this.$route.query.listId,
+        playCount: this.$route.query.playCount,
+        picUrl: this.$route.query.picUrl
       }
     },
     methods: {
       back() {
         this.$router.go(-1);
-      }
-    },
-    computed: {
-      componentId() {
-        if(!this.isSearching)  return 'song-list-body';
       }
     }
   }
