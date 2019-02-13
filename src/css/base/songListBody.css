@@ -1,0 +1,35 @@
+.songListBody {
+  width: 100%;
+}
+.listData {
+  width: 100%;
+}
+.picBox {
+  width: 40vw;
+  height: 40vw;
+  margin: 30px 20px;
+  position: relative;
+}
+.playPic {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.playCount {
+  font-size: 0.7rem;
+  color: #F0F8FF;  
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  background: url('../../assets/earphones.png') no-repeat;
+  padding-left: 15px;
+}
+.detail {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+.creater {
+  display: inline-block;
+  border: 1px solid red;
+}
