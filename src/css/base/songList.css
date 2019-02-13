@@ -1,0 +1,24 @@
+.songList { 
+  width: 100%;
+}
+.header {
+  background-color: #DB4139;
+  width: 100%;
+  height: 50px;
+  position: fixed;
+}
+.back {
+  padding: 10px;
+  float: left;
+}
+.more, .musicIcon {
+  padding: 10px;
+  float: right;
+}
+.songFont {
+  color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

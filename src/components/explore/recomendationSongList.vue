@@ -2,10 +2,13 @@
   <div class="recomendationSongList">
     <p class="recomendationFont">推荐歌单</p>
     <div class="box">
-      <div  class="songListBox" v-for="item in songList" :key="item.id">
-        <img :src="item.picUrl" alt="无法加载图片" class="songLogo">
-        <label class="songName">{{ item.name }}</label>
+      <router-link :to="{name: 'songList'}">
+         <div  class="songListBox" v-for="item in songList" :key="item.id">
+          <img :src="item.picUrl" alt="无法加载图片" class="songLogo">
+          <label class="playCount">{{ playCount(item.playCount) }}</label>
+          <label class="songName">{{ item.name }}</label>
       </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -20,6 +23,20 @@ import api from '../../api/index.js'
     data() {
       return {
         songList: []
+      }
+    },
+    methods: {
+      // 修正歌单播放数量的格式
+      playCount(count) {
+        if(count < 100000)  return parseInt(count);
+        else if(count > 100000000) {
+          count = parseInt(count / 100000000);
+          return `${count}亿`;
+        }
+        else if(count >= 100000)  {
+          count = parseInt(count / 10000);
+          return `${count}万`;
+        }
       }
     }
   }

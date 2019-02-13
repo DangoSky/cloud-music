@@ -21,13 +21,23 @@
   margin: 0 10px 10px 0; 
   font-size: 0.8rem;
   padding-bottom: calc(1.6rem + 10px);    
- 
+  position: relative;
 }
 /* 歌单图片 */
 .songLogo {
   width: 100%;
   height: 100%; 
   border-radius: 3px;
+}
+/* 歌单播放量 */
+.playCount {
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  color: 		#F0F8FF;  
+  font-size: 0.65rem;
+  background: url('../../assets/earphones.png') no-repeat;
+  padding-left: 15px;
 }
 /* 歌单名 */
 .songName {
@@ -41,6 +51,7 @@
   -webkit-box-orient:vertical;
   -webkit-line-clamp:2; 
   text-overflow: ellipsis;
+  color: black;
 }
 /* footer是固定定位，设置一个伪元素占位 */
 .recomendationSongList::after {

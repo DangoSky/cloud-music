@@ -8,6 +8,7 @@ import myself from '../components/myself/myself.vue'
 import friend from '../components/friend/friend.vue'
 import user from '../components/user/user.vue'
 import musicPlay from '../components/base/musicPlay.vue'
+import songList from '../components/base/songList.vue'
 //export default 是对外暴露这个配置
 export default new Router({
   // mode: 'history',
@@ -45,6 +46,11 @@ export default new Router({
       path: '/musicPlay',
       name: 'musicPlay',
       component: musicPlay
+    },
+    {
+      path: '/songList',
+      name: 'songList',
+      component: songList
     }
   ]
 })
