@@ -3,11 +3,10 @@
 }
 .listData {
   width: 100%;
-  height: 40vw;
   position: relative;
   left: 0;
   top: 0;
-  margin: 20px 0;
+  margin: 20px 0 0 0;
 }
 /* 歌单封面 */
 .picBox {
@@ -38,10 +37,11 @@
 /* 歌单名和作者 */
 .creator {
   width: 50vw;
-  height: 100%;
+  height: 40vw;
   position: absolute;
   left: calc(40vw + 20px);
-  top: 0;
+  top: 0;  
+  color: #DCDCDC;	;
 }
 .listTitle {
   position: absolute;
@@ -64,4 +64,28 @@
   border-radius: 50%;
   position: absolute;
   bottom: 5vw;
+}
+.bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.75rem;
+  color: #DCDCDC;	
+  padding: 15px 0 5px 0;
+}
+.commentCount {
+  background: url('../../assets/comments.png') no-repeat;
+  padding-top: 25px;
+}
+.shareCount {
+  background: url('../../assets/share2.png') no-repeat;
+  padding-top: 25px;
+}
+.download {
+  background: url('../../assets/download.png') no-repeat;
+  padding-top: 25px;
+}
+.selects {
+  background: url('../../assets/selects.png') no-repeat 2px 0;
+  padding-top: 25px;
 }

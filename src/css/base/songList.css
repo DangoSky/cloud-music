@@ -48,12 +48,11 @@
   top: 0;
   z-index: -99;
   overflow: hidden;
-  filter: blur(10px); 
-  -webkit-filter: blur(70px);
-  -moz-filter: blur(70px);
-  -ms-filter: blur(70px);
-  -o-filter: blur(70px);
-  border: 1px solid blue;
+  filter: blur(100px); 
+  -webkit-filter: blur(100px);
+  -moz-filter: blur(100px);
+  -ms-filter: blur(100px);
+  -o-filter: blur(100px);
 }
 .searchBox {
   width: 100%;

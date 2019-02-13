@@ -11,6 +11,12 @@
         <img :src="songList.creator.avatarUrl" class="creatorPic"> 
         <label class="nickName">{{ songList.creator.nickname}}</label>
       </div>
+      <div class="bar">
+        <label class="commentCount">{{ songList.commentCount}}</label>
+        <label class="shareCount">{{ songList.shareCount}}</label>
+        <label class="download">下载</label>
+        <label class="selects">多选</label>
+      </div>
     </div> 
   </div>
 </template>
