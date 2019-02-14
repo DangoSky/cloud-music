@@ -49,10 +49,10 @@
   z-index: -99;
   overflow: hidden;
   filter: blur(100px); 
-  -webkit-filter: blur(100px);
-  -moz-filter: blur(100px);
-  -ms-filter: blur(100px);
-  -o-filter: blur(100px);
+  -webkit-filter: blur(60px);
+  -moz-filter: blur(60px);
+  -ms-filter: blur(60px);
+  -o-filter: blur(60px);
 }
 .searchBox {
   width: 100%;
@@ -75,5 +75,5 @@
   box-sizing: border-box;   
   outline: none;
   cursor: pointer;
-  color: #C0C0C0;
+  color: white;
 }

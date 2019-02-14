@@ -3,6 +3,7 @@
 }
 .listData {
   width: 100%;
+  height: calc(40vw + 66px);
   position: relative;
   left: 0;
   top: 0;
@@ -41,7 +42,8 @@
   position: absolute;
   left: calc(40vw + 20px);
   top: 0;  
-  color: #DCDCDC;	;
+  /* color: #DCDCDC;	 */
+  color: white;
 }
 .listTitle {
   position: absolute;
@@ -70,7 +72,7 @@
   display: flex;
   justify-content: space-around;
   font-size: 0.75rem;
-  color: #DCDCDC;	
+  color: white;
   padding: 15px 0 5px 0;
 }
 .commentCount {
@@ -88,4 +90,35 @@
 .selects {
   background: url('../../assets/selects.png') no-repeat 2px 0;
   padding-top: 25px;
+}
+.songs {
+  width: 100%;
+}
+.songsBar {
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 10px;
+  box-sizing: border-box;
+}
+.playAll {
+  background: url('../../assets/play1.png') no-repeat 15px 30px;
+  padding: 30px 0  0 40px;
+  line-height: 47px;
+}
+.songCount {
+  font-size: 0.8rem;
+}
+.collect {
+  float: right;
+  font-size: 0.75rem;
+  width: 120px;
+  height: 50px;
+  background: #DB4139 url('../../assets/collect.png') no-repeat 5px 16px;
+  padding-left: 25px;
+  box-sizing: border-box;
+  line-height: 50px;
+  color: white;
+  border-top-right-radius: 10px;
 }

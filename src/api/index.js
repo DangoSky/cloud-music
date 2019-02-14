@@ -1,5 +1,5 @@
 import axios from 'axios';
-// const baseUrl = 'http://dangosky.com:3000';
+// const publicUrl = 'http://dangosky.com:3000';
 export default {
   // 获取推荐歌单的id
   getRecomendationSongListId(callback) {

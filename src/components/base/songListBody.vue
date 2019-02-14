@@ -18,6 +18,13 @@
         <label class="selects">多选</label>
       </div>
     </div> 
+    <div class="songs">
+    <div class="songsBar">
+      <label class="playAll">播放全部</label>
+      <label class="songCount">(共{{ songList.trackCount }}首)</label>
+      <label class="collect">收藏 ({{ songList.subscribedCount }})</label>
+    </div>
+  </div>
   </div>
 </template>
 
