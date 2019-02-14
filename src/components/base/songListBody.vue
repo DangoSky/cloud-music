@@ -2,14 +2,16 @@
   <div class="songListBody">
     <div class="listData" v-show="list.searchKey === ''">
       <div class="picBox">
-        <img :src="songList.coverImgUrl" alt="正在加载中..." class="playPic">
+        <img v-lazy="songList.coverImgUrl" alt="正在加载中..." class="playPic">
         <label class="playCount">{{ list.playCount }}</label>
         <img src="../../assets/detail.png" class="detail">
       </div>
       <div class="creator">
         <p class="listTitle">{{ songList.name }}</p>
-        <img :src="songList.creator.avatarUrl" class="creatorPic"> 
-        <label class="nickName">{{ songList.creator.nickname}}</label>
+        <img v-lazy="songList.creator.avatarUrl" class="creatorPic"> 
+        <div class="nickNameBox">
+          <label class="nickName">{{ songList.creator.nickname}}</label>
+        </div>
       </div>
       <div class="bar">
         <label class="commentCount">{{ songList.commentCount}}</label>
@@ -56,6 +58,7 @@
         let str = '';
         for(let i=0; i<name.length; i++) {
           str += name[i].name;
+          if(i !== name.length - 1) str += '/';  
         }
         str += ' - ' + album;
         return str;

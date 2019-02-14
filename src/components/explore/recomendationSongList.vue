@@ -3,7 +3,7 @@
     <p class="recomendationFont">推荐歌单</p>
     <div class="box">
       <div class="songListBox" v-for="item in songListId" :key="item.id"  @click="turnToRouter(item)">
-        <img :src="item.picUrl" alt="无法加载图片" class="songLogo">
+        <img v-lazy="item.picUrl" alt="无法加载图片" class="songLogo">
         <label class="playCount">{{ playCount(item.playCount) }}</label>
         <label class="songName">{{ item.name }}</label>
       </div>

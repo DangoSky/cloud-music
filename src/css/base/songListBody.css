@@ -55,14 +55,21 @@
   -webkit-line-clamp: 2; 
   text-overflow: ellipsis;
 }
-.nickName {
-  width: calc(100% - 70px);
+/* 设置一个容器装载是为了不论作者昵称多长右箭头都能紧挨在右边 */
+.nickNameBox {
+  width: calc(100% - 45px);
+  height: 35px;
   position: absolute;
   bottom: 5vw;
-  background: url('../../assets//rightArrow.png') no-repeat right 5px;
   padding-left: 43px;
-  padding-right: 25px;
+  overflow: hidden;
+}
+.nickName {
+  max-width: calc(100% - 55px);
   line-height: 35px;
+  padding-right: 10px;
+  position: absolute;
+  background: url('../../assets//rightArrow.png') no-repeat calc(100% + 10px) 5px;
   font-size: 0.8rem;
   white-space: nowrap;
   overflow: hidden;
@@ -83,14 +90,15 @@
   font-size: 0.75rem;
   color: white;
   padding: 15px 0 5px 0;
+  box-sizing: border-box;
 }
 .commentCount {
-  background: url('../../assets/comments.png') no-repeat;
-  padding-top: 25px;
+  background: url('../../assets/comments.png') no-repeat center 0;
+  padding: 25px 5px 0 5px;
 }
 .shareCount {
-  background: url('../../assets/share2.png') no-repeat;
-  padding-top: 25px;
+  background: url('../../assets/share2.png') no-repeat  center 0;
+  padding: 25px 5px 0 5px;
 }
 .download {
   background: url('../../assets/download.png') no-repeat;
