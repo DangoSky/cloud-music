@@ -17,7 +17,6 @@ import api from '../../api/index.js'
     created() { 
       // 需要使用箭头函数，使得this指向vue实例
       api.getRecomendationSongListId((res) => this.songListId = res);  
-
     },
     data() {
       return {

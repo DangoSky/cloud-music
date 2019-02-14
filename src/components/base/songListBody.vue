@@ -26,12 +26,13 @@
         <label class="songCount">(共{{ songList.trackCount }}首)</label>
         <label class="collect">收藏 ({{ songList.subscribedCount }})</label>
       </div>
-      <div v-for="(item, index) in searchArr" :key="item.id" class="song">
+      <div v-for="(item, index) in searchArr" :key="item.id" class="song"  @click="getSong(item)">
         <label class="songNum">{{index + 1}}</label>
         <label class="songName">{{ item.name}}</label>
-        <label class="writer"> {{ writer(item.ar, item.al.name) }}</label>
+        <label class="writer"> {{ getWriterAlbum(item.ar, item.al.name) }}</label>
         <span :class="{showMv: item.mv}"></span>
       </div>
+
     </div>
   </div>
 </template>
@@ -49,19 +50,46 @@
     data() {
       return {
         songList: {},
-        songs: []
+        songs: [],
+        singer: '',
+        songUrl: '',
+        songComments: 0,
+        songLyric: ''
       }
     },
     methods: {
       // 格式化作者和专辑名
-      writer(name, album) {
+      getWriterAlbum(name, album) {
+        let str = this.getWriter(name);
+        return  str + ' - ' + album;
+      },
+      getWriter(name) {
         let str = '';
         for(let i=0; i<name.length; i++) {
           str += name[i].name;
-          if(i !== name.length - 1) str += '/';  
-        }
-        str += ' - ' + album;
+          if(i !== name.length - 1)  str += '/';  
+        } 
         return str;
+      },
+      getSong(item) {
+        // let songUrl = '123';
+        api.getSongUrl(item.id, (res) => {
+          this.songUrl = res;
+          // console.log(this.songUrl);
+        });
+        api.getComments(item.id, (res) => {
+          this.songComments = res;
+          // console.log(this.songComments);
+        });
+        api.getLyric(item.id, (res) => {
+          this.songLyric = res;
+          // console.log(this.songLyric);
+        })
+        console.log("歌名" + item.name);
+        console.log("歌单封面" + item.al.picUrl);
+        console.log("歌手" + this.getWriter(item.ar));
+        console.log(this.songLyric);
+        // console.log("url" + this.songUrl)
       }
     },
     computed: {

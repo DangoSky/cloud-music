@@ -1,7 +1,6 @@
 <template>
   <div class="songList">
     <div class="headerBar">
-      <!-- <div class="headerBarBg" :style="{background: 'url(' + listData.picUrl + ') center top fixed'}"></div> -->
       <img src="../../assets/leftArrow.png" class="back" @click="back">
       <router-link :to="{name: 'musicPlay'}">
         <img src="../../assets/music.png" class="musicIcon">
