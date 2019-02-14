@@ -1,6 +1,6 @@
 <template>
   <div class="songListBody">
-    <div class="listData">
+    <div class="listData" v-show="list.searchKey === ''">
       <div class="picBox">
         <img :src="songList.coverImgUrl" alt="正在加载中..." class="playPic">
         <label class="playCount">{{ list.playCount }}</label>
@@ -18,13 +18,13 @@
         <label class="selects">多选</label>
       </div>
     </div> 
-    <div class="songs">
-      <div class="songsBar">
+    <div class="songs" >
+      <div class="songsBar" v-show="list.searchKey === ''">
         <label class="playAll">播放全部</label>
         <label class="songCount">(共{{ songList.trackCount }}首)</label>
         <label class="collect">收藏 ({{ songList.subscribedCount }})</label>
       </div>
-      <div v-for="(item, index) in songs" :key="item.id" class="song">
+      <div v-for="(item, index) in searchArr" :key="item.id" class="song">
         <label class="songNum">{{index + 1}}</label>
         <label class="songName">{{ item.name}}</label>
         <label class="writer"> {{ writer(item.ar, item.al.name) }}</label>
@@ -57,8 +57,20 @@
         for(let i=0; i<name.length; i++) {
           str += name[i].name;
         }
-        str += album;
+        str += ' - ' + album;
         return str;
+      }
+    },
+    computed: {
+      searchArr() {
+        if(this.list.searchKey === '') {
+          return this.songs;
+        }
+        else {
+          return this.songs.filter((val) => {
+            return val.name.includes(this.list.searchKey) || this.writer(val.ar, val.al.name).includes(this.list.searchKey);
+          })
+        }
       }
     }
   }

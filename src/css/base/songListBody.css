@@ -42,23 +42,31 @@
   position: absolute;
   left: calc(40vw + 20px);
   top: 0;  
-  /* color: #DCDCDC;	 */
   color: white;
+  overflow: hidden;
 }
 .listTitle {
   position: absolute;
   top: 5vw;
   overflow: hidden;
   white-space: pre-wrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; 
+  text-overflow: ellipsis;
 }
 .nickName {
+  width: calc(100% - 70px);
   position: absolute;
   bottom: 5vw;
-  background: url('../../assets//rightArrow.png') no-repeat 100% 5px;
+  background: url('../../assets//rightArrow.png') no-repeat right 5px;
   padding-left: 43px;
   padding-right: 25px;
   line-height: 35px;
   font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .creatorPic {
   width: 35px;
@@ -158,7 +166,7 @@
   /* 超出的宽度的文本用省略号显示 */
   overflow: hidden;
   white-space: nowrap;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
 }
 .writer {
   width: calc(100% - 120px);
@@ -169,7 +177,7 @@
   color: #C0C0C0;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
 }
 .showMv {
   width: 100%;

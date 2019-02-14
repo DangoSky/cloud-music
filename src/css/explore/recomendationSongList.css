@@ -47,9 +47,9 @@
   overflow: hidden;
   white-space: pre-wrap;
   /* 设置对于超过两行的文本内容以省略号代替 */
-  display:-webkit-box;
-  -webkit-box-orient:vertical;
-  -webkit-line-clamp:2; 
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; 
   text-overflow: ellipsis;
   color: black;
 }
