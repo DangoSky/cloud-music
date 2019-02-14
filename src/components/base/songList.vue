@@ -14,7 +14,7 @@
       <!-- 制作毛玻璃背景图效果,因为bg是动态的url，所以只能再用一个空div -->
       <div class="blurBg" :style="{background: 'url(' + picUrl + ') center center '}"></div>  
       <div class="searchBox">
-        <input type="text" class="search" placeholder="搜索歌单内歌曲">
+        <input type="text" class="search" placeholder="搜索歌单内的歌曲">
       </div>
       <song-list-body :list="{listId: listId, playCount: playCount}"></song-list-body>
     </div>

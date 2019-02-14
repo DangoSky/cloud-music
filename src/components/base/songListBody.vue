@@ -19,12 +19,18 @@
       </div>
     </div> 
     <div class="songs">
-    <div class="songsBar">
-      <label class="playAll">播放全部</label>
-      <label class="songCount">(共{{ songList.trackCount }}首)</label>
-      <label class="collect">收藏 ({{ songList.subscribedCount }})</label>
+      <div class="songsBar">
+        <label class="playAll">播放全部</label>
+        <label class="songCount">(共{{ songList.trackCount }}首)</label>
+        <label class="collect">收藏 ({{ songList.subscribedCount }})</label>
+      </div>
+      <div v-for="(item, index) in songs" :key="item.id" class="song">
+        <label class="songNum">{{index + 1}}</label>
+        <label class="songName">{{ item.name}}</label>
+        <label class="writer"> {{ writer(item.ar, item.al.name) }}</label>
+        <span :class="{showMv: item.mv}"></span>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -32,16 +38,28 @@
   import api from '../../api/index.js'
   export default {
     created() {
-      api.getSongList(this.list.listId, (res) => this.songList = res);
+      api.getSongList(this.list.listId, (res) => {
+        this.songList = res;
+        this.songs = res.tracks;
+      });
     },
     props: ['list'],
     data() {
       return {
-        songList: {}
+        songList: {},
+        songs: []
       }
     },
     methods: {
- 
+      // 格式化作者和专辑名
+      writer(name, album) {
+        let str = '';
+        for(let i=0; i<name.length; i++) {
+          str += name[i].name;
+        }
+        str += album;
+        return str;
+      }
     }
   }
 </script>

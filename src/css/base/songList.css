@@ -42,7 +42,8 @@
 /* 毛玻璃背景图 */
 .blurBg {
   width: 100%;
-  height: 100%;
+  /* 作者部分40vw + 功能bar66px，阻止毛玻璃效果延伸下去 */
+  height: calc(40vw + 66px);
   position: absolute;
   left: 0;
   top: 0;
