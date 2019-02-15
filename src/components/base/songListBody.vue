@@ -26,19 +26,22 @@
         <label class="songCount">(共{{ songList.trackCount }}首)</label>
         <label class="collect">收藏 ({{ songList.subscribedCount }})</label>
       </div>
+      {{songUrl}} {{songComments}}
       <div v-for="(item, index) in searchArr" :key="item.id" class="song"  @click="getSong(item)">
         <label class="songNum">{{index + 1}}</label>
         <label class="songName">{{ item.name}}</label>
         <label class="writer"> {{ getWriterAlbum(item.ar, item.al.name) }}</label>
         <span :class="{showMv: item.mv}"></span>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
   import api from '../../api/index.js'
+  import { mapState } from 'vuex'
+  import { mapMutations} from 'vuex'
+
   export default {
     created() {
       api.getSongList(this.list.listId, (res) => {
@@ -71,26 +74,25 @@
         } 
         return str;
       },
+      // 将歌曲信息传递给state
       getSong(item) {
-        // let songUrl = '123';
         api.getSongUrl(item.id, (res) => {
           this.songUrl = res;
           // console.log(this.songUrl);
         });
-        api.getComments(item.id, (res) => {
-          this.songComments = res;
-          // console.log(this.songComments);
-        });
-        api.getLyric(item.id, (res) => {
-          this.songLyric = res;
-          // console.log(this.songLyric);
-        })
-        console.log("歌名" + item.name);
-        console.log("歌单封面" + item.al.picUrl);
-        console.log("歌手" + this.getWriter(item.ar));
-        console.log(this.songLyric);
-        // console.log("url" + this.songUrl)
-      }
+        let str = this.getWriter(item.ar);
+        this.setName(item.name);
+        this.setSinger(str);
+ 
+        console.log("歌名: " + this.name);
+        console.log("歌手:" + this.singer);
+
+      },
+      ...mapMutations([
+        'setName',
+        'setSinger',
+        'setUrl'
+      ])
     },
     computed: {
       searchArr() {
@@ -102,7 +104,12 @@
             return val.name.includes(this.list.searchKey) || this.writer(val.ar, val.al.name).includes(this.list.searchKey);
           })
         }
-      }
+      },
+      ...mapState([
+        'comments',
+        'url',
+        'name'
+      ])
     }
   }
 </script>

@@ -38,7 +38,7 @@ export default {
         callback(response.data.total);
       })
       .catch(function(error) {
-        console.log(error);
+        console.log("error");
       }) 
   },
   // 获取歌词
@@ -52,14 +52,3 @@ export default {
       }) 
   }
 }
-  // axios.get('/user', {
-  //   params: {
-  //     ID: 12345
-  //   }
-  // })
-  // .then(function(response) {
-  //   alert(response);
-  // })
-  // .catch(function(error) {
-  //   alert(error);
-  // });
