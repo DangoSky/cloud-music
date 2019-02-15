@@ -10,13 +10,16 @@
       </div>
     </div>
     <div class="musicLogo">
-      <img :src="this.picUrl" ref="musicDom">
+      <img v-lazy="this.picUrl" ref="musicDom">
     </div>
     <div class="musicBar">
       <img :src="loveSrc" @click="clickLove">
       <img src="../../assets/download.png">
       <img src="../../assets/soundEffect.png">
-      <img src="../../assets/comments.png">
+      <div class="commentsBox">
+        <img src="../../assets/comments.png">
+        <label class="commentsFont">{{ commentsSum }}</label>
+      </div>
       <img src="../../assets/more.png">
     </div>
     <div class="progress">
@@ -36,6 +39,7 @@
 
 <script>
   import progressBar from './progressBar.vue'
+  import api from '../../api/index.js'
   import { mapState } from 'vuex'
   import { mapMutations} from 'vuex'
 
@@ -49,6 +53,7 @@
         playOrder: 1,    // 播放顺序
         timer: null,    // 旋转定时器
         deg: 0,        // 旋转角度 
+        commentsSum: '',
         currentTime: '00:00',      // 歌曲播放进度
         totalTime: '00:43',       // 歌曲总长，字符串形式
         pastTime: 0,             // 已经播放的时长 
@@ -58,10 +63,20 @@
     },
     mounted() {
       // 马上计算歌曲总长
-      this.allTime = parseInt(this.totalTime.slice(0, -3)) * 60 + parseInt(this.totalTime.slice(-2));
-      if(this.isPlaying)  {
-        this.$refs.player.play();
-      }
+      // this.allTime = parseInt(this.totalTime.slice(0, -3)) * 60 + parseInt(this.totalTime.slice(-2));
+      api.getSongUrl(this.songId, (res) => {
+        this.setUrl(res);
+        this.$refs.player.autoplay = 'autoplay';
+        this.rotateMusicLogo();
+      });
+      api.getComments(this.songId, (res) => {
+        this.commentsSum = res;
+        if(this.commentsSum > 1000000)  this.commentsSum = "100w+";
+        else if(this.commentsSum > 100000)  this.commentsSum = "10w+";
+        else if(this.commentsSum > 10000)  this.commentsSum = "1w+";
+        else if(this.commentsSum > 999)  this.commentsSum = "999+";
+        else this.commentsSum = this.commentsSum;
+      })
     },
     methods: {
       // 后退
@@ -110,8 +125,9 @@
         this.changeCurrentTime();
       },
       ...mapMutations([
-        'setPlaying'
-        
+        'setPlaying',
+        'setUrl',
+        'setComments'
       ])
     },
     computed: {
@@ -120,13 +136,13 @@
         if(this.isLove)  return require('../../assets/love1.png');
         else return require('../../assets/love.png');
       },
-
       // 播放顺序
       orderSrc() {
         if(this.playOrder === 1)  return require('../../assets/playInOrder.png');
         else if(this.playOrder === 2)  return require('../../assets/playRandom.png');
         else if(this.playOrder === 3)  return require('../../assets/playCycle.png');
       },
+      // 播放暂停
       playing() {
         if(this.isPlaying) {
           return require('../../assets/pause.png');
@@ -135,12 +151,22 @@
           return require('../../assets/play.png');
         }
       },
+      // 格式化评论数 
+      // commentsSum() {
+      //   if(this.comments > 1000000)  return "100w+";
+      //   else if(this.comments > 100000)  return "10w+";
+      //   else if(this.comments > 10000)  return "1w+";
+      //   else if(this.comments > 999)  return "999+";
+      //   else return this.comments;
+      // },
       ...mapState([
         'name',
         'singer',
         'picUrl',
         'url',
         'isPlaying',
+        'songId',
+        'comments'
       ])
     },
     watch: {
@@ -148,6 +174,7 @@
         if(newVal) 
         {
           this.$refs.player.play();
+          // this.rotateMusicLogo();
         }
         else {
           this.$refs.player.pause();

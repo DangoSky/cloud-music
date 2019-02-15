@@ -26,8 +26,7 @@
         <label class="songCount">(共{{ songList.trackCount }}首)</label>
         <label class="collect">收藏 ({{ songList.subscribedCount }})</label>
       </div>
-      {{songUrl}} {{songComments}}
-      <div v-for="(item, index) in searchArr" :key="item.id" class="song"  @click="getSong(item)">
+      <div v-for="(item, index) in searchArr" :key="item.id" class="song"  @click="getSong(item, index)">
         <label class="songNum">{{index + 1}}</label>
         <label class="songName">{{ item.name}}</label>
         <label class="writer"> {{ getWriterAlbum(item.ar, item.al.name) }}</label>
@@ -52,8 +51,8 @@
     props: ['list'],
     data() {
       return {
-        songList: {},
-        songs: []
+        songList: {},   // 歌单全部信息
+        songs: []       //  由每首的歌曲信息组成的歌单数组
       }
     },
     methods: {
@@ -71,25 +70,31 @@
         return str;
       },
       // 将歌曲信息传递给state
-      getSong(item) {
-        api.getSongUrl(item.id, (res) => {
-          this.setUrl(res);
-          this.setPlaying(true);
-          this.$router.push({
-            name: 'musicPlay'
-          });
-        });
+      getSong(item, index) {
+        // 将歌名等先传递个state，url等跳转页面后再获取
         let str = this.getWriter(item.ar);
         this.setName(item.name);
         this.setSinger(str);
         this.setPicUrl(item.al.picUrl);
+        this.setCurrentIndex(index);
+        this.setSongId(item.id);
+        this.setPlaying(true);
+        // 点击后使用该歌单，将歌曲id放入播放歌单列表中
+        for(let i=0; i<this.songs.length; i++) {
+          this.setSongList(this.songs[i].id);
+        }
+        this.$router.push({
+          name: 'musicPlay'
+        });
       },
       ...mapMutations([
         'setName',
         'setSinger',
         'setPicUrl',
-        'setUrl',
-        'setPlaying'
+        'setPlaying',
+        'setSongList',
+        'setCurrentIndex',
+        'setSongId'
       ])
     },
     computed: {
@@ -107,7 +112,9 @@
         'name',
         'singer',
         'picUrl',
-        'url',
+        'playingList',
+        'currentIndex',
+        'songId'
       ])
     }
   }

@@ -73,6 +73,16 @@
   position: absolute;
   bottom: 140px;
 }
+.commentsBox {
+  position: relative;
+}
+.commentsFont {
+  font-size: 0.7rem;
+  color: white;
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+}
 /* 进度条和时间显示 */
 .progress {
   width: 100%;
