@@ -76,20 +76,24 @@
         else if(this.commentsSum > 10000)  this.commentsSum = "1w+";
         else if(this.commentsSum > 999)  this.commentsSum = "999+";
         else this.commentsSum = this.commentsSum;
-      })
+      });
+      api.getLyric(this.songId, (res) => {
+        this.setLyric(res);
+        // console.log(this.lyric);
+      });
+      // console.log(this.$store.state);
     },
     beforeDestroy() {
       clearInterval(this.timer);
     },
     methods: {
-      // 后退
       turnBack() {
         this.$router.go(-1);
       },
       // 播放暂停
       playPause() {
-        this.setPlaying(!this.isPlaying);
-
+        if(this.isPlaying) this.play();
+        else  this.pause();
       },
       // 你喜欢吗
       clickLove() {
@@ -130,7 +134,10 @@
       ...mapMutations([
         'setPlaying',
         'setUrl',
-        'setComments'
+        'setComments',
+        'setLyric',
+        'play',
+        'pause'
       ])
     },
     computed: {
@@ -161,7 +168,8 @@
         'url',
         'isPlaying',
         'songId',
-        'comments'
+        'comments',
+        'lyric',
       ])
     },
     watch: {
@@ -178,8 +186,6 @@
           this.$refs.player.pause();
         } 
       }
-
-
       // 根据歌曲的进度控制是否播放
       // movePercent: function() {
       //   if(this.movePercent >= 100)  

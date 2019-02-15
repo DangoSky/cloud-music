@@ -69,7 +69,6 @@
         } 
         return str;
       },
-      // 将歌曲信息传递给state
       getSong(item, index) {
         // 将歌名等先传递个state，url等跳转页面后再获取
         let str = this.getWriter(item.ar);
@@ -78,7 +77,7 @@
         this.setPicUrl(item.al.picUrl);
         this.setCurrentIndex(index);
         this.setSongId(item.id);
-        this.setPlaying(true);
+        this.play();
         // 点击后使用该歌单，将歌曲id放入播放歌单列表中
         for(let i=0; i<this.songs.length; i++) {
           this.setSongList(this.songs[i].id);
@@ -91,10 +90,10 @@
         'setName',
         'setSinger',
         'setPicUrl',
-        'setPlaying',
         'setSongList',
+        'setSongId',
         'setCurrentIndex',
-        'setSongId'
+        'play'
       ])
     },
     computed: {

@@ -8,16 +8,20 @@
 <script>
   import carousel from './carousel.vue'
   import exploreBar from './exploreBar.vue'
+  import api from '../../api/index.js'
+
   export default {
+    created() {
+      api.getCarouselUrl((res) => {
+        for(let i=0; i<res.length; i++) {
+          this.carouselArr.push(res[i].imageUrl);
+        }
+      })
+    },
     data() {
       return {
         // 使用props组件传参，从而将轮播图组件复用到 主播电台里
-        carouselArr: [
-          require('../../assets/carousel1.jpg'),
-          require('../../assets/carousel2.jpg'),
-          require('../../assets/carousel3.png'),
-          require('../../assets/carousel4.jpg')
-        ]
+        carouselArr: []
       }
     },
     components: {

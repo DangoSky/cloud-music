@@ -1,11 +1,21 @@
 import axios from 'axios';
 // const publicUrl = 'http://dangosky.com:3000';
 export default {
+  // 获取轮播图
+  getCarouselUrl(callback) {
+    axios.get('http://dangosky.com:3000/banner')
+      .then(function(response) {
+        callback(response.data.banners);
+      })
+      .catch(function(error) {
+        console.log(error);
+      })
+    },
   // 获取推荐歌单的id
   getRecomendationSongListId(callback) {
     axios.get('http://dangosky.com:3000/personalized')
       .then(function(response)  {
-        callback(response.data.result) ;      // 异步的return是返回给下一个then，需要用回调
+        callback(response.data.result);      // 异步的return是返回给下一个then，需要用回调
       })
       .catch(function(error) {
         console.log(error);

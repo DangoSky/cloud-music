@@ -27,14 +27,8 @@ Vue.use(Vuex)
     setPicUrl(state, picUrl) {
       state.picUrl = picUrl;
     },
-    // setComments(state, comments) {
-    //   state.comments = comments;
-    // }, 
     setLyric(state, lyric) {
       state.lyric = lyric;
-    },
-    setPlaying(state, status) {
-      state.isPlaying = status;
     },
     setSongList(state, id) {
       state.playingList.push(id);
@@ -44,6 +38,12 @@ Vue.use(Vuex)
     },
     setSongId(state, id) {
       state.songId = id;
+    },
+    play(state) {
+      state.isPlaying = true;
+    },
+    pause(state) {
+      state.isPlaying = false;
     }
   }
 })

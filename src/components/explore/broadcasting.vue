@@ -13,13 +13,20 @@
       'carousel': carousel,
       'explore-bar-broadcasting': exploreBarBroadcasting
     },
+    created() {
+      // api.getCarouselUrl((res) => {
+      //   for(let i=0; i<res.length; i++) {
+      //     this.carouselArr.push(res[i].imageUrl);
+      //   }
+      // })
+    },
     data() {
       return {
          carouselArr: [
-          require('../../assets/carousel5.jpg'),
-          require('../../assets/carousel6.jpg'),
-          require('../../assets/carousel7.png'),
-          require('../../assets/carousel8.jpg')
+          require('../../assets/carousel1.jpg'),
+          require('../../assets/carousel2.png'),
+          require('../../assets/carousel3.jpg'),
+          require('../../assets/carousel4.jpg')
         ]
       }
     }

@@ -2,16 +2,14 @@
   position: relative;
   width: 100%;
   /* 根据轮播图片的宽高比例计算容器的高度 */
-  height: calc(95vw / 2.171617);
+  height: calc(95vw / 2.7);
   overflow: hidden;
-  /* 轮播图向上滑动使会覆盖住按钮使得无法点击 */
-  /* z-index: -999; */
 }
 /* 使用伪类来制造轮播图的背景红色 */
 .carousel::before {
   content: "";
   width: 100%;
-  height: calc(95vw / 3);
+  height: calc(95vw / 4);
   background-color: #DB4139;
   position: absolute;
   z-index: -99;
@@ -55,7 +53,8 @@ img {
 .activeCarousel {
   background-color: #DB4139 !important;
 }
-.carousel-enter {
+/* 类名选择器使第一张图片不右移 */
+.carousel-enter.noFirst {
   transform: translateX(100%);
 }
 .carousel-enter-to, .carousel-leave {
