@@ -104,7 +104,7 @@
         }
         else {
           return this.songs.filter((val) => {
-            return val.name.includes(this.list.searchKey) || this.writer(val.ar, val.al.name).includes(this.list.searchKey);
+            return val.name.includes(this.list.searchKey) || this.getWriterAlbum(val.ar, val.al.name).includes(this.list.searchKey);
           })
         }
       },

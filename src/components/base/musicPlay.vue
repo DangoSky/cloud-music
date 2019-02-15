@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="musicLogo">
-      <img v-lazy="this.picUrl" ref="musicDom">
+      <img :src="this.picUrl" ref="musicDom">
     </div>
     <div class="musicBar">
       <img :src="loveSrc" @click="clickLove">
@@ -78,6 +78,9 @@
         else this.commentsSum = this.commentsSum;
       })
     },
+    beforeDestroy() {
+      clearInterval(this.timer);
+    },
     methods: {
       // 后退
       turnBack() {
@@ -134,11 +137,11 @@
       // 是否喜欢歌曲显示红心
       loveSrc() {
         if(this.isLove)  return require('../../assets/love1.png');
-        else return require('../../assets/love.png');
+        else  return require('../../assets/love.png');
       },
       // 播放顺序
       orderSrc() {
-        if(this.playOrder === 1)  return require('../../assets/playInOrder.png');
+        if(this.playOrder === 1)       return require('../../assets/playInOrder.png');
         else if(this.playOrder === 2)  return require('../../assets/playRandom.png');
         else if(this.playOrder === 3)  return require('../../assets/playCycle.png');
       },
@@ -151,14 +154,6 @@
           return require('../../assets/play.png');
         }
       },
-      // 格式化评论数 
-      // commentsSum() {
-      //   if(this.comments > 1000000)  return "100w+";
-      //   else if(this.comments > 100000)  return "10w+";
-      //   else if(this.comments > 10000)  return "1w+";
-      //   else if(this.comments > 999)  return "999+";
-      //   else return this.comments;
-      // },
       ...mapState([
         'name',
         'singer',
@@ -171,10 +166,13 @@
     },
     watch: {
       isPlaying: function(newVal) {
+        // 反复按播放暂停前需要先清除定时器，否则会进行叠加
+        clearInterval(this.timer);
+        this.timer = null;
         if(newVal) 
         {
           this.$refs.player.play();
-          // this.rotateMusicLogo();
+          this.rotateMusicLogo();
         }
         else {
           this.$refs.player.pause();
@@ -193,14 +191,7 @@
       //   }
       // },
 
-      // this.isPlaying: function(newVal) {
-        // 反复按播放暂停前需要先清除定时器，否则会进行叠加
-      //   clearInterval(this.timer);
-      //   this.timer = null;
-      //   if(newVal) {
-      //     this.rotateMusicLogo();        
-      //   }
-      // }
+
     }
   }
 </script>
