@@ -53,11 +53,7 @@
     data() {
       return {
         songList: {},
-        songs: [],
-        singer: '',
-        songUrl: '',
-        songComments: 0,
-        songLyric: ''
+        songs: []
       }
     },
     methods: {
@@ -77,21 +73,23 @@
       // 将歌曲信息传递给state
       getSong(item) {
         api.getSongUrl(item.id, (res) => {
-          this.songUrl = res;
-          // console.log(this.songUrl);
+          this.setUrl(res);
+          this.setPlaying(true);
+          this.$router.push({
+            name: 'musicPlay'
+          });
         });
         let str = this.getWriter(item.ar);
         this.setName(item.name);
         this.setSinger(str);
- 
-        console.log("歌名: " + this.name);
-        console.log("歌手:" + this.singer);
-
+        this.setPicUrl(item.al.picUrl);
       },
       ...mapMutations([
         'setName',
         'setSinger',
-        'setUrl'
+        'setPicUrl',
+        'setUrl',
+        'setPlaying'
       ])
     },
     computed: {
@@ -106,9 +104,10 @@
         }
       },
       ...mapState([
-        'comments',
+        'name',
+        'singer',
+        'picUrl',
         'url',
-        'name'
       ])
     }
   }

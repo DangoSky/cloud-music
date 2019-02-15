@@ -6,10 +6,11 @@ Vue.use(Vuex)
   state: {
     name: '',
     singer: '',
-    url: '123',
+    url: '',
     picUrl: '',
     comments: 0,
-    lyric: ''
+    lyric: '',
+    isPlaying: false
   },
   mutations: {
     setName(state, name) {
@@ -30,6 +31,9 @@ Vue.use(Vuex)
     setLyric(state, lyric) {
       state.lyric = lyric;
     },
+    setPlaying(state, status) {
+      state.isPlaying = status;
+    }
   }
 })
 export default store
