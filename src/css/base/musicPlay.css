@@ -24,8 +24,8 @@
 }
 /* 歌手和歌名 */
 .songs {
-  position: absolute;
-  left: 50%;
+  position: relative;
+  left: calc((100% - 100px) / 2);
   transform: translateX(-50%);
   width: 60%;
   height: 50px;
@@ -38,15 +38,23 @@
 }
 .songTitle {
   font-size: 0.9rem;
-  position: relative;
+  position: absolute;
   top: 10px;
+  left: 0;
 }
 .singer {
-  padding-right: 20px;
-  background: url('../../assets/rightArrow1.png') no-repeat 90% 0;
+  max-width: 90%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-right: 15px;
+  box-sizing: border-box;
+  background: url('../../assets/rightArrow1.png') no-repeat right 0;
   font-size: 0.7rem;
-  position: relative;
-  bottom: -8px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 /* 播放歌曲的图片 */
 .musicLogo {

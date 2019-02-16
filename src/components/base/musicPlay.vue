@@ -4,8 +4,9 @@
     <div class="header">
       <img src="../../assets/leftArrow.png" class="leftArrow" @click="turnBack">
       <img src="../../assets/share1.png" class="share">
-      <div class="songs">
-        <p class="songTitle">{{ this.name }}</p>
+      <div class="songs" ref="songBox">
+        <label class="songTitle" ref="songTitle">{{ this.name }}</label>
+        <!-- <marquee class="songTitle" ref="">{{ this.name }}</marquee> -->
         <label class="singer">{{ this. singer }}</label>
       </div>
     </div>
@@ -52,17 +53,15 @@
         isLove: false,     // 是否喜欢歌曲
         playOrder: 1,    // 播放顺序
         timer: null,    // 旋转定时器
+        marqueeTimer: null,
         deg: 0,        // 旋转角度 
         commentsSum: '',
         currentTime: '00:00',         // 歌曲播放进度
         pastTime: 0,                // 已经播放的时长 
-        // allTime: 0,             // 歌曲总时间，数值形式 
         movePercent: 0,           // 歌曲进行百分比，传递给子组件控制进度条 
       }
     },
     mounted() {
-      // 马上计算歌曲总长
-      // this.allTime = parseInt(this.totalTime.slice(0, -3)) * 60 + parseInt(this.totalTime.slice(-2));
       api.getSongUrl(this.songId, (res) => {
         if(!res) {
           alert("该歌曲暂时无法播放QWQ");
@@ -71,11 +70,9 @@
           this.setUrl(res);
           this.$refs.player.autoplay = 'autoplay';
           this.rotateMusicLogo();
+          this.computeTotalTime();  
         }
-        return true;
-      },
-      this.computeTotalTime  
-      );
+      });
       api.getComments(this.songId, (res) => {
         this.commentsSum = res;
         if(this.commentsSum > 1000000)  this.commentsSum = "100w+";
@@ -88,10 +85,11 @@
         this.setLyric(res);
         // console.log(this.lyric);
       });
-
+      this.marquee();
     },
     beforeDestroy() {
       clearInterval(this.timer);
+      clearInterval(this.marqueeTimer);
     },
     methods: {
       turnBack() {
@@ -126,7 +124,6 @@
       computeTotalTime() {
         let ele = this.$refs.player;
         let getDurantion = setInterval(() => {
-          console.log("loading");
           if(ele.duration) {
             this.setDurationTime(ele.duration);
             let minutes = parseInt(parseInt(ele.duration) / 60);
@@ -153,6 +150,28 @@
       changePercent(percent) {
         this.pastTime = parseInt(percent / 100 * this.allTime * 1000);    // 统一以毫秒的形式
         this.changeCurrentTime();
+      },
+      // 手动实现跑马灯效果
+      marquee() {
+        let ele = this.$refs.songTitle;
+        let box = this.$refs.songBox;
+        let dis = 0;
+        let lefting = ele.offsetWidth;
+        if(ele.offsetWidth < box.offsetWidth) {
+          ele.style.right = 0;
+        }
+        else {
+          setTimeout(() => {
+            this.marqueeTimer = setInterval(() => {
+              dis -= 1;
+              ele.style.left = `${dis}px`;
+              if(parseInt(ele.style.left) * (-1) >= lefting) {
+                ele.style.left = `${box.offsetWidth}px`;
+                dis = box.offsetWidth;
+              }
+            }, 100);
+          }, 2000);      
+        }
       },
       ...mapMutations([
         'setPlaying',

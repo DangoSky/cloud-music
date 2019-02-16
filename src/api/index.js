@@ -32,13 +32,10 @@ export default {
       }) 
   },
   // 获取歌曲url
-  getSongUrl(id, callback, callback1) {
+  getSongUrl(id, callback) {
     axios.get(`https://api.imjad.cn/cloudmusic/?type=song&id=${id}`)
       .then(function(response) {
         callback(response.data.data[0].url);
-      })
-      .then(function() {
-        callback1();
       })
       .catch(function(error) {
         console.log(error);
