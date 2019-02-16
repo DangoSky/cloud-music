@@ -54,20 +54,29 @@
         timer: null,    // 旋转定时器
         deg: 0,        // 旋转角度 
         commentsSum: '',
-        currentTime: '00:00',      // 歌曲播放进度
-        totalTime: '00:43',       // 歌曲总长，字符串形式
-        pastTime: 0,             // 已经播放的时长 
-        allTime: 0,             // 歌曲总时间，数值形式 
-        movePercent: 0,        // 歌曲进行百分比，传递给子组件控制进度条 
+        currentTime: '00:00',         // 歌曲播放进度
+        pastTime: 0,                // 已经播放的时长 
+        // allTime: 0,             // 歌曲总时间，数值形式 
+        movePercent: 0,           // 歌曲进行百分比，传递给子组件控制进度条 
       }
     },
-    mounted() {
+    created() {
       // 马上计算歌曲总长
       // this.allTime = parseInt(this.totalTime.slice(0, -3)) * 60 + parseInt(this.totalTime.slice(-2));
       api.getSongUrl(this.songId, (res) => {
-        this.setUrl(res);
-        this.$refs.player.autoplay = 'autoplay';
-        this.rotateMusicLogo();
+        if(!res) {
+          alert("该歌曲暂时无法播放QWQ");
+        }
+        else {
+          this.setUrl(res);
+          this.$refs.player.autoplay = 'autoplay';
+          this.rotateMusicLogo();
+        }
+        // setTimeout(() => {
+          this.setDurationTime(this.$refs.player.duration);
+          this.computeTotalTime();
+        // },1000)
+
       });
       api.getComments(this.songId, (res) => {
         this.commentsSum = res;
@@ -81,7 +90,7 @@
         this.setLyric(res);
         // console.log(this.lyric);
       });
-      // console.log(this.$store.state);
+
     },
     beforeDestroy() {
       clearInterval(this.timer);
@@ -92,8 +101,8 @@
       },
       // 播放暂停
       playPause() {
-        if(this.isPlaying) this.play();
-        else  this.pause();
+        if(this.isPlaying) this.pause();
+        else  this.play();
       },
       // 你喜欢吗
       clickLove() {
@@ -114,7 +123,16 @@
           this.pastTime += 10;
           this.changeCurrentTime();
         }, 10)
-     },
+      },
+      // 格式化歌曲时长
+      computeTotalTime() {
+        let minutes = parseInt(parseInt(this.$refs.player.duration) / 60);
+        let seconds = parseInt(this.$refs.player.duration) % 60;
+        if(minutes < 10)  minutes = '0' + minutes;
+        if(seconds < 10)  seconds =  '0' + seconds;
+        this.setTotalTime(minutes + ':' + seconds);
+        console.log(this.totalTime);
+      },
       // 计算歌曲进行的当前时间
       changeCurrentTime() {
         let seconds = this.pastTime / 1000;
@@ -137,7 +155,9 @@
         'setComments',
         'setLyric',
         'play',
-        'pause'
+        'pause',
+        'setDurationTime',
+        'setTotalTime'
       ])
     },
     computed: {
@@ -170,6 +190,8 @@
         'songId',
         'comments',
         'lyric',
+        'durationTime',
+        'totalTime'
       ])
     },
     watch: {

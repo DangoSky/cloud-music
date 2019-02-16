@@ -115,7 +115,8 @@
         'picUrl',
         'playingList',
         'currentIndex',
-        'songId'
+        'songId',
+        'isPlaying'
       ])
     }
   }

@@ -12,7 +12,9 @@ Vue.use(Vuex)
     isPlaying: false,
     playingList: [],
     currentIndex: 0,
-    songId: ''
+    songId: '',
+    durationTime: 0,
+    totalTime: ''
   },
   mutations: {
     setName(state, name) {
@@ -44,6 +46,12 @@ Vue.use(Vuex)
     },
     pause(state) {
       state.isPlaying = false;
+    },
+    setDurationTime(state, time) {
+      state.durationTime = time;
+    },
+    setTotalTime(state, str) {
+      state.totalTime = str;
     }
   }
 })

@@ -37,6 +37,9 @@ export default {
       .then(function(response) {
         callback(response.data.data[0].url);
       })
+      .then(function() {
+        
+      })
       .catch(function(error) {
         console.log(error);
       }) 
@@ -48,14 +51,19 @@ export default {
         callback(response.data.total);
       })
       .catch(function(error) {
-        console.log("error");
+        console.log(error);
       }) 
   },
   // 获取歌词
   getLyric(id, callback) {
     axios.get(`https://api.imjad.cn/cloudmusic/?type=lyric&id=${id}`)
       .then(function(response) {
-        callback(response.data.lrc.lyric);
+        if(response.data.lrc) {
+          callback(response.data.lrc.lyric);
+        }
+        else {
+          callback("暂无歌词");
+        }
       })
       .catch(function(error) {
         console.log(error);
