@@ -8,9 +8,9 @@
       </div>
       <div class="creator">
         <p class="listTitle">{{ songList.name }}</p>
-        <img v-lazy="songList.creator.avatarUrl" class="creatorPic"> 
+        <img v-lazy="creator.avatarUrl" class="creatorPic"> 
         <div class="nickNameBox">
-          <label class="nickName">{{ songList.creator.nickname}}</label>
+          <label class="nickName">{{ creator.nickname}}</label>
         </div>
       </div>
       <div class="bar">
@@ -45,6 +45,7 @@
     created() {
       api.getSongList(this.list.listId, (res) => {
         this.songList = res;
+        this.creator = res.creator;
         this.songs = res.tracks;
       });
     },
@@ -52,6 +53,7 @@
     data() {
       return {
         songList: {},   // 歌单全部信息
+        creator: [],      // 不知道为什么直接获取songList.creator可以取到信息但一直报错
         songs: []       //  由每首的歌曲信息组成的歌单数组
       }
     },

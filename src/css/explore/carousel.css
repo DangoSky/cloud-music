@@ -32,6 +32,7 @@
 img {
   border-radius: 7px;
   width: 95%;
+  height: 100%;
 }
 /* 轮播图的圆点标记 */
 .carousel-label {

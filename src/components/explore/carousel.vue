@@ -1,7 +1,7 @@
 <template>
   <div class="carousel">
     <transition-group tag="ul" class="carousel-picture" name="carousel">
-      <li v-for="(item, index) in carouselArr" :key="item" v-show="currentIndex === index" :class="{'noFirst': index !== 0}"> 
+      <li v-for="(item, index) in carouselArr" :key="item" v-show="currentIndex === index" :class="{'noFirst': index !== 0}" ref="pic"> 
         <img v-lazy="item">
         <!-- v-show要放在img中，若放在li里不知道为什么页面会抖动(移动端才会)，但因为隐藏了img所以无法实现动画效果 -->
         <!-- v-show若要放在li里面的话，需要在加上overflow-x: hidden的样式不会抖动 -->
@@ -22,7 +22,8 @@
     data() {
       return {
         currentIndex: 0,
-        timer: null
+        timer: null,
+        addTimer: null
       }
     },
     created() {
@@ -30,10 +31,16 @@
         this.timer = setInterval(() => {
           this.autoPlay();
         }, 3000);   
-      })   
+      })
+      // 使第一张图片之后都做动画进入
+      this.addTimer = setTimeout(() => {
+        let ele = this.$refs.pic[0];
+        ele.classList.add('noFirst');
+      }, 1000)   
     },
     beforeDestroy() {
       clearInterval(this.timer);
+      clearInterval(this.addTimer);
     },
     methods: {
       autoPlay() {

@@ -2,6 +2,7 @@
   <div>
     <carousel :carouselArr="carouselArr"></carousel>
     <explore-bar></explore-bar>
+    <recomendation-song-list></recomendation-song-list>
   </div>
 </template>
 
@@ -9,6 +10,7 @@
   import carousel from './carousel.vue'
   import exploreBar from './exploreBar.vue'
   import api from '../../api/index.js'
+  import recomendationSongList from './recomendationSongList.vue'
 
   export default {
     created() {
@@ -26,7 +28,8 @@
     },
     components: {
       'carousel': carousel,
-      'explore-bar': exploreBar
+      'explore-bar': exploreBar,
+      'recomendation-song-list': recomendationSongList
     }
   }
 </script>
