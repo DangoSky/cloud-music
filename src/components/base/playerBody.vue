@@ -18,8 +18,7 @@
 
 <script>
   import api from '../../api/index.js'
-  import { mapState } from 'vuex'
-  import { mapMutations } from 'vuex'
+  import { mapState, mapMutations } from 'vuex'
 
   export default {
     mounted () {
@@ -32,7 +31,7 @@
         else this.commentsSum = this.commentsSum;
       });
       this.rotateMusicLogo();
-      console.log(this.picUrl);
+
     },
     beforeDestroy() {
       clearInterval(this.timer);
@@ -41,7 +40,7 @@
       return {
         commentsSum: '',
         timer: null,       
-        deg: 0,        // 旋转角度 
+        deg: 0,             // 旋转角度 
         isLove: false,     // 是否喜欢歌曲
       }
     },
@@ -56,13 +55,8 @@
           this.deg += 0.15;
           if(this.deg >= 360)  this.deg = 0;
           this.$refs.musicDom.style.transform = `rotate(${this.deg}deg)`;
-          this.setPastTime(this.pastTime + 10);
-          // 每隔一秒再改变显示的时长
-          // if(this.pastTime % 1000 === 0) {
-          //   this.changeCurrentTime();
-          // }
-        }, 10)
-      },
+          }, 10)
+        },
       ...mapMutations([
         'setPastTime'
       ])
@@ -76,8 +70,23 @@
       ...mapState([
         'picUrl',
         'songId',
-        'pastTime'
+        'pastTime',
+        'isPlaying'
       ])
+    },
+    watch: {
+      isPlaying: function(newVal) { 
+        if(newVal) {
+          // 反复按播放暂停前需要先清除定时器，否则会进行叠加
+          clearInterval(this.timer);
+          this.timer = null;
+          this.rotateMusicLogo();
+        }
+        else {
+          clearInterval(this.timer);
+          this.timer = null;
+        }
+      }
     }
   }
 </script>

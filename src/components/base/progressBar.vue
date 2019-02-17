@@ -15,6 +15,9 @@
 </template>
 
 <script>
+  import api from '../../api/index.js'
+  import { mapState, mapMutations } from 'vuex'
+
   export default {
     data() {
       return {
@@ -37,7 +40,8 @@
       },
       touchEnd() {
         this.touch.initiated = false;
-        this.$emit('changeTime');
+        // this.$emit('changeTime');
+        this.setDraged(true);
       },
       // 通过点击进度条进行修改
       clickBar(e) {
@@ -45,7 +49,8 @@
         let barWidth = e.pageX - rect.left;
         this.changeMoveBar(barWidth);
         this.computePercent();
-        this.$emit('changeTime');
+        // this.$emit('changeTime');
+        this.setDraged(true);
       },
       // 修改进度条的长度
       changeMoveBar(barWidth) {
@@ -54,15 +59,25 @@
       },
       // 计算完成的百分比并触发父组件函数，修改歌曲时间
       computePercent() {
-        let percent = this.$refs.moveBar.clientWidth / this.$refs.progressBar.clientWidth * 100;
+        let percent = this.$refs.moveBar.clientWidth / this.$refs.progressBar.clientWidth;
         this.$emit('changePercent', percent);
-      }
+      },
+      ...mapMutations([
+        'setDraged'
+      ])
+    },
+    computed: {
+      ...mapState([
+        'movePercent',
+      ])
     },
     // 监听父组件传递过来的歌曲进行百分比
     watch: {
-      movePercent: function(newVal, lastVal) {
-        let barWidth = newVal / 100 * this.$refs.progressBar.clientWidth;
-        this.changeMoveBar(barWidth);
+      movePercent: function(newVal) {
+        if(!this.touch.initiated) {
+          let barWidth = newVal * this.$refs.progressBar.clientWidth;
+          this.changeMoveBar(barWidth);
+        }
       }
     }
   };

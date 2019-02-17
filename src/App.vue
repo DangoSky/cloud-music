@@ -1,14 +1,13 @@
 <template>
   <div class="box">
-    
-    <div class="footer">
+    <div class="footer" >
       <button-explore></button-explore>
       <button-video></button-video>
       <button-myself></button-myself>
       <button-friend></button-friend>
       <button-user></button-user>
     </div>
-    <router-view name="musicPlay" class="musicPlayer"></router-view>
+    <player></player>
     <router-view></router-view>
   </div>
 </template>

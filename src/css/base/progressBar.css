@@ -21,7 +21,7 @@
 }
 /* 按钮容器，增大宽高 */
 .moveBtn-wrapper {
-  width: 30px;
+  width: 15px;
   height: 30px;
   position: absolute;
   left: 0;

@@ -1,6 +1,5 @@
 <template>
   <div class="musicPlay">
-    <audio :src="this.url" ref="player"></audio>
     <div class="header">
       <img src="../../assets/leftArrow.png" class="leftArrow" @click="turnBack">
       <img src="../../assets/share1.png" class="share">
@@ -12,7 +11,7 @@
     <component :is="componentId"></component>
     <div class="progress">
       <label class="currentTime">{{ currentTime }}</label>
-      <progress-bar @changePercent="changePercent" @changeTime="changeTime"></progress-bar>
+      <progress-bar @changePercent="changePercent"></progress-bar>
       <label class="totalTime">{{ totalTime }}</label>
     </div>
     <div class="musicFooter">
@@ -29,8 +28,7 @@
   import progressBar from './progressBar.vue'
   import playerBody from './playerBody.vue'
   import api from '../../api/index.js'
-  import { mapState } from 'vuex'
-  import { mapMutations} from 'vuex'
+  import { mapState, mapMutations } from 'vuex'
 
   export default {
     components: {
@@ -51,10 +49,7 @@
           alert("该歌曲暂时无法播放QWQ");
         }
         else {
-          console.log("歌曲加载完成，开始播放");
           this.setUrl(res);
-          this.$refs.player.autoplay = 'autoplay';
-          this.computeTotalTime();  
         }
       });
 
@@ -64,42 +59,22 @@
       });
     },
     beforeDestroy() {
-      clearInterval(this.timer);
       clearInterval(this.marqueeTimer);
-      this.play();
     },
     methods: {
       turnBack() {
         this.$router.go(-1);
       },
-      // 播放暂停
+      // 点击播放暂停
       playPause() {
         if(this.isPlaying) this.pause();
         else  this.play();
       },
-      changeCurrentTime() {
-        this.setCurrentTime(parseInt(this.$refs.player.currentTime));
-        this.setMovePercent(this.pastTime / 1000 / this.durationTime * 100);
-      },
-      // 格式化歌曲时长,设置定时器获取歌曲时长，获取到后关闭
-      computeTotalTime() {
-        let ele = this.$refs.player;
-        let getDurantion = setInterval(() => {
-          if(ele.duration) {
-            this.setDurationTime(parseInt(ele.duration));
-            this.setTotalTime();
-            clearInterval(getDurantion);     
-          }
-        },10)
-      },
+
       // 子组件通过拖动点击进度条从而触发父组件修改时间
       changePercent(percent) {
-        this.setPastTime(parseInt(percent / 100 * this.durationTime) * 1000);
-        this.setCurrentTime(parseInt(this.pastTime / 1000));
-      },
-      // 拖动点击完成后跳转播放
-      changeTime() {
-        this.$refs.player.currentTime = this.pastTime / 1000;
+        this.setPastTime(parseInt(percent * this.durationTime));
+        this.setCurrentTime(this.pastTime);
       },
       // 手动实现跑马灯效果
       marquee() {
@@ -135,7 +110,8 @@
         'setPlayOrder',
         'setPastTime',
         'setCurrentTime',
-        'setMovePercent'
+        'setMovePercent',
+        'setShowPlayer'
       ])
     },
     computed: {
@@ -151,7 +127,7 @@
         else if(this.playOrder === 2)  return require('../../assets/playRandom.png');
         else if(this.playOrder === 3)  return require('../../assets/playCycle.png');
       },
-      // 播放暂停
+      // 播放暂停icon
       playing() {
         if(this.isPlaying) {
           return require('../../assets/pause.png');
@@ -174,23 +150,11 @@
         'playOrder',
         'pastTime',
         'currentTime',
-        'movePercent'
+        'movePercent',
+        'showPlayer'
       ])
     },
     watch: {
-      isPlaying: function(newVal) {
-        // 反复按播放暂停前需要先清除定时器，否则会进行叠加
-        clearInterval(this.timer);
-        this.timer = null;
-        if(newVal) 
-        {
-          this.$refs.player.play();
-          // this.rotateMusicLogo();
-        }
-        else {
-          this.$refs.player.pause();
-        } 
-      },
       // 根据歌曲的进度控制是否播放
       movePercent: function(newVal) {
         if(newVal > 100) {

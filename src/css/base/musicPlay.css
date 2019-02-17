@@ -4,7 +4,6 @@
   position: relative;
   left: 0;
   top: 0;
-  /* z-index: 9999; */
   overflow-y: hidden;
   background-color: 	rgba(121, 137, 108, 0.4);
 }
