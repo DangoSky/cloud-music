@@ -54,8 +54,13 @@ Vue.use(Vuex)
     setDurationTime(state, time) {
       state.durationTime = time;
     },
-    setTotalTime(state, str) {
-      state.totalTime = str;
+    setTotalTime(state) {
+      let dura = parseInt(state.durationTime);
+      let minutes = parseInt(dura / 60);
+      let seconds = dura % 60;
+      minutes = minutes < 10 ? '0' + minutes : '' + minutes;
+      seconds = seconds < 10 ? '0' + seconds : '' + seconds;
+      state.totalTime = `${minutes}:${seconds}`;
     },
     setPlayOrder(state) {
       if(state.playOrder === 3) {

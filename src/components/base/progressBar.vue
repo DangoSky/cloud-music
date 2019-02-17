@@ -15,10 +15,6 @@
 </template>
 
 <script>
-  import api from '../../api/index.js'
-  import { mapState } from 'vuex'
-  import { mapMutations} from 'vuex'
-
   export default {
     data() {
       return {
@@ -27,14 +23,14 @@
     },
     methods: {
       touchStart(e) {
-        this.touch.initiated = true; // 标记拖动开始
-        this.touch.start = e.touches[0].pageX; // 开始点击的位置
-        this.touch.moveBarWidth = this.$refs.moveBar.clientWidth; // 已开始的进度条长度
+        this.touch.initiated = true;  // 标记拖动开始
+        this.touch.start = e.touches[0].pageX;  // 开始点击的位置
+        this.touch.moveBarWidth = this.$refs.moveBar.clientWidth;  // 已开始的进度条长度
       },
       touchMove(e) {
         if (!this.touch.initiated) return;
         let dis = e.touches[0].pageX - this.touch.start; // 拖动的距离
-        let barWidth = this.touch.moveBarWidth + dis; // 已开始的进度条长度 + 拖动的距离 = 现在进度条的长度
+        let barWidth = this.touch.moveBarWidth + dis;   // 已开始的进度条长度 + 拖动的距离 = 现在进度条的长度
         barWidth = Math.min(this.$refs.progressBar.clientWidth,Math.max(0, barWidth));
         this.changeMoveBar(barWidth);
         this.computePercent();        // 拖动的时候改变显示的时间，拖动结束后再播放
@@ -60,16 +56,8 @@
       computePercent() {
         let percent = this.$refs.moveBar.clientWidth / this.$refs.progressBar.clientWidth * 100;
         this.$emit('changePercent', percent);
-      },
-      ...mapMutations([
-        'setCurrentTime'
-      ])
+      }
     },
-    // computed: {
-    //   ...mapState([
-    //     'currentTime'
-    //   ])
-    // },
     // 监听父组件传递过来的歌曲进行百分比
     watch: {
       movePercent: function(newVal, lastVal) {

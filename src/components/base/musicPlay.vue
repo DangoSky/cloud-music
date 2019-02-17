@@ -123,13 +123,8 @@
         let ele = this.$refs.player;
         let getDurantion = setInterval(() => {
           if(ele.duration) {
-            let dura = parseInt(ele.duration);
-            this.setDurationTime(dura);
-            let minutes = parseInt(dura / 60);
-            let seconds = dura % 60;
-            minutes = minutes < 10 ? '0' + minutes : '' + minutes;
-            seconds = seconds < 10 ? '0' + seconds : '' + seconds;
-            this.setTotalTime(minutes + ':' + seconds);
+            this.setDurationTime(parseInt(ele.duration));
+            this.setTotalTime();
             clearInterval(getDurantion);     
           }
         },10)
@@ -137,8 +132,9 @@
       // 子组件通过拖动点击进度条从而触发父组件修改时间
       changePercent(percent) {
         this.setPastTime(parseInt(percent / 100 * this.durationTime) * 1000);
-         this.setCurrentTime(parseInt(this.pastTime / 1000));
+        this.setCurrentTime(parseInt(this.pastTime / 1000));
       },
+      // 拖动点击完成后跳转播放
       changeTime() {
         this.$refs.player.currentTime = this.pastTime / 1000;
       },
@@ -233,7 +229,7 @@
       },
       // 根据歌曲的进度控制是否播放
       movePercent: function(newVal) {
-        if(newVal >= 100) {
+        if(newVal > 100) {
           this.pause();
         }
       },
