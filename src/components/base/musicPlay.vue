@@ -5,9 +5,8 @@
       <img src="../../assets/leftArrow.png" class="leftArrow" @click="turnBack">
       <img src="../../assets/share1.png" class="share">
       <div class="songs" ref="songBox">
-        <label class="songTitle" ref="songTitle">{{ this.name }}</label>
-        <!-- <marquee class="songTitle" ref="">{{ this.name }}</marquee> -->
-        <label class="singer">{{ this. singer }}</label>
+        <label class="songTitle" ref="songTitle">{{ name }}</label>
+        <label class="singer">{{ singer }}</label>
       </div>
     </div>
     <div class="musicLogo">
@@ -25,11 +24,11 @@
     </div>
     <div class="progress">
       <label class="currentTime">{{ currentTime }}</label>
-      <progress-bar :movePercent="movePercent" @changePercent="changePercent"></progress-bar>
+      <progress-bar @changePercent="changePercent" @changeTime="changeTime"></progress-bar>
       <label class="totalTime">{{ totalTime }}</label>
     </div>
     <div class="musicFooter">
-      <img :src="orderSrc" @click="changePlayOrder">
+      <img :src="orderSrc" @click="this.setPlayOrder">
       <img src="../../assets/previous.png">
       <img :src="playing" @click="playPause">
       <img src="../../assets/next.png">
@@ -51,22 +50,21 @@
     data() {
       return {
         isLove: false,     // 是否喜欢歌曲
-        playOrder: 1,    // 播放顺序
         timer: null,    // 旋转定时器
         marqueeTimer: null,
         deg: 0,        // 旋转角度 
         commentsSum: '',
-        currentTime: '00:00',         // 歌曲播放进度
-        pastTime: 0,                // 已经播放的时长 
-        movePercent: 0,           // 歌曲进行百分比，传递给子组件控制进度条 
       }
     },
     mounted() {
+      this.marquee();
+      this.setPastTime(0);
       api.getSongUrl(this.songId, (res) => {
         if(!res) {
           alert("该歌曲暂时无法播放QWQ");
         }
         else {
+          console.log("歌曲加载完成，开始播放");
           this.setUrl(res);
           this.$refs.player.autoplay = 'autoplay';
           this.rotateMusicLogo();
@@ -85,7 +83,6 @@
         this.setLyric(res);
         // console.log(this.lyric);
       });
-      this.marquee();
     },
     beforeDestroy() {
       clearInterval(this.timer);
@@ -104,52 +101,46 @@
       clickLove() {
         this.isLove = !this.isLove;
       },
-
-      // 改变播放顺序
-      changePlayOrder() {
-        if(this.playOrder === 3)  this.playOrder = 1;
-        else this.playOrder++;
-      },
       // 歌曲封面旋转
       rotateMusicLogo() {
         this.timer = setInterval(() => {
           this.deg += 0.15;
           if(this.deg >= 360)  this.deg = 0;
           this.$refs.musicDom.style.transform = `rotate(${this.deg}deg)`;
-          this.pastTime += 10;
-          this.changeCurrentTime();
+          this.setPastTime(this.pastTime + 10);
+          // 每隔一秒再改变显示的时长
+          if(this.pastTime % 1000 === 0) {
+            this.changeCurrentTime();
+          }
         }, 10)
+      },
+      changeCurrentTime() {
+        this.setCurrentTime(parseInt(this.$refs.player.currentTime));
+        this.setMovePercent(this.pastTime / 1000 / this.durationTime * 100);
       },
       // 格式化歌曲时长,设置定时器获取歌曲时长，获取到后关闭
       computeTotalTime() {
         let ele = this.$refs.player;
         let getDurantion = setInterval(() => {
           if(ele.duration) {
-            this.setDurationTime(ele.duration);
-            let minutes = parseInt(parseInt(ele.duration) / 60);
-            let seconds = parseInt(ele.duration) % 60;
-            if(minutes < 10)  minutes = '0' + minutes;
-            if(seconds < 10)  seconds =  '0' + seconds;
+            let dura = parseInt(ele.duration);
+            this.setDurationTime(dura);
+            let minutes = parseInt(dura / 60);
+            let seconds = dura % 60;
+            minutes = minutes < 10 ? '0' + minutes : '' + minutes;
+            seconds = seconds < 10 ? '0' + seconds : '' + seconds;
             this.setTotalTime(minutes + ':' + seconds);
             clearInterval(getDurantion);     
           }
         },10)
       },
-      // 计算歌曲进行的当前时间
-      changeCurrentTime() {
-        let seconds = this.pastTime / 1000;
-        let minutes = parseInt(seconds / 60);
-        seconds = Math.floor(seconds % 60 );
-        minutes = minutes < 10 ? '0' + minutes : ''+minutes;
-        seconds = seconds < 10 ? '0' + seconds : ''+seconds;
-        this.currentTime  =  `${minutes}:${seconds}`;
-        // 通过百分比计算进度条长度
-        this.movePercent = this.pastTime / 1000 / this.allTime * 100;    
-      },
-      // 子组件通过拖动点击进度条从而触发父组件修改时间，参数为子组件传递过来的参数(百分比)
+      // 子组件通过拖动点击进度条从而触发父组件修改时间
       changePercent(percent) {
-        this.pastTime = parseInt(percent / 100 * this.allTime * 1000);    // 统一以毫秒的形式
-        this.changeCurrentTime();
+        this.setPastTime(parseInt(percent / 100 * this.durationTime) * 1000);
+         this.setCurrentTime(parseInt(this.pastTime / 1000));
+      },
+      changeTime() {
+        this.$refs.player.currentTime = this.pastTime / 1000;
       },
       // 手动实现跑马灯效果
       marquee() {
@@ -181,7 +172,11 @@
         'play',
         'pause',
         'setDurationTime',
-        'setTotalTime'
+        'setTotalTime',
+        'setPlayOrder',
+        'setPastTime',
+        'setCurrentTime',
+        'setMovePercent'
       ])
     },
     computed: {
@@ -215,7 +210,11 @@
         'comments',
         'lyric',
         'durationTime',
-        'totalTime'
+        'totalTime',
+        'playOrder',
+        'pastTime',
+        'currentTime',
+        'movePercent'
       ])
     },
     watch: {
@@ -231,19 +230,13 @@
         else {
           this.$refs.player.pause();
         } 
-      }
+      },
       // 根据歌曲的进度控制是否播放
-      // movePercent: function() {
-      //   if(this.movePercent >= 100)  
-      //   {
-      //     this.isPlaying = false;
-      //   }
-      //   else {
-      //     this.isPlaying = true;
-      //   }
-      // },
-
-
+      movePercent: function(newVal) {
+        if(newVal >= 100) {
+          this.pause();
+        }
+      },
     }
   }
 </script>
