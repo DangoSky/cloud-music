@@ -1,5 +1,6 @@
 <template>
   <div class="box">
+    
     <div class="footer">
       <button-explore></button-explore>
       <button-video></button-video>
@@ -18,7 +19,9 @@
   import buttonMyself from './components/myself/buttonMyself'
   import buttonFriend from './components/friend/buttonFriend'
   import buttonUser from './components/user/buttonUser'
+  import player from './components/base/player.vue'
   import './css//base/appvue.css'
+
   export default {
     name: 'app',
     components: {
@@ -26,7 +29,8 @@
       'button-video': buttonVideo,
       'button-myself': buttonMyself,
       'button-friend': buttonFriend,
-      'button-user': buttonUser
+      'button-user': buttonUser,
+      player
     }
   }
 </script>

@@ -18,7 +18,8 @@ Vue.use(Vuex)
     totalTime: '',        // 歌曲显示时长(字符串)
     pastTime: 0,          // 已进行时间
     currentTime: '00:00',      // 歌曲显示时间(字符串)
-    movePercent: 0        // 歌曲进行百分比
+    movePercent: 0,        // 歌曲进行百分比
+    test: null
   },
   mutations: {
     setName(state, name) {
@@ -82,6 +83,9 @@ Vue.use(Vuex)
     },
     setMovePercent(state, num) {
       state.movePercent = num;
+    },
+    settest(state, num) {
+      state.test = num;
     }
   }
 })

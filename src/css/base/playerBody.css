@@ -1,0 +1,35 @@
+/* 播放歌曲的图片 */
+.musicLogo {
+  width: 70vmin;
+  height: 70vmin;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  /* 除去上面的50px和下面160px后，实现空白部分的垂直居中，先top50%,再top-50%自身高度 */
+  top: calc((100% - 160px - 50px ) / 2 + 50px - 35vmin);
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px	#DCDCDC;
+}
+.musicLogo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+/* 歌曲选项 */
+.musicBar {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 140px;
+}
+.commentsBox {
+  position: relative;
+}
+.commentsFont {
+  font-size: 0.7rem;
+  color: white;
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+}

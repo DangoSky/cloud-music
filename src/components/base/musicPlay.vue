@@ -9,19 +9,7 @@
         <label class="singer">{{ singer }}</label>
       </div>
     </div>
-    <div class="musicLogo">
-      <img :src="this.picUrl" ref="musicDom">
-    </div>
-    <div class="musicBar">
-      <img :src="loveSrc" @click="clickLove">
-      <img src="../../assets/download.png">
-      <img src="../../assets/soundEffect.png">
-      <div class="commentsBox">
-        <img src="../../assets/comments.png">
-        <label class="commentsFont">{{ commentsSum }}</label>
-      </div>
-      <img src="../../assets/more.png">
-    </div>
+    <component :is="componentId"></component>
     <div class="progress">
       <label class="currentTime">{{ currentTime }}</label>
       <progress-bar @changePercent="changePercent" @changeTime="changeTime"></progress-bar>
@@ -39,21 +27,20 @@
 
 <script>
   import progressBar from './progressBar.vue'
+  import playerBody from './playerBody.vue'
   import api from '../../api/index.js'
   import { mapState } from 'vuex'
   import { mapMutations} from 'vuex'
 
   export default {
     components: {
-      'progress-bar': progressBar
+      'progress-bar': progressBar,
+      'player-body': playerBody
     },
     data() {
       return {
-        isLove: false,     // 是否喜欢歌曲
-        timer: null,    // 旋转定时器
         marqueeTimer: null,
-        deg: 0,        // 旋转角度 
-        commentsSum: '',
+        showLyric: false,
       }
     },
     mounted() {
@@ -67,18 +54,10 @@
           console.log("歌曲加载完成，开始播放");
           this.setUrl(res);
           this.$refs.player.autoplay = 'autoplay';
-          this.rotateMusicLogo();
           this.computeTotalTime();  
         }
       });
-      api.getComments(this.songId, (res) => {
-        this.commentsSum = res;
-        if(this.commentsSum > 1000000)  this.commentsSum = "100w+";
-        else if(this.commentsSum > 100000)  this.commentsSum = "10w+";
-        else if(this.commentsSum > 10000)  this.commentsSum = "1w+";
-        else if(this.commentsSum > 999)  this.commentsSum = "999+";
-        else this.commentsSum = this.commentsSum;
-      });
+
       api.getLyric(this.songId, (res) => {
         this.setLyric(res);
         // console.log(this.lyric);
@@ -87,6 +66,7 @@
     beforeDestroy() {
       clearInterval(this.timer);
       clearInterval(this.marqueeTimer);
+      this.play();
     },
     methods: {
       turnBack() {
@@ -96,23 +76,6 @@
       playPause() {
         if(this.isPlaying) this.pause();
         else  this.play();
-      },
-      // 你喜欢吗
-      clickLove() {
-        this.isLove = !this.isLove;
-      },
-      // 歌曲封面旋转
-      rotateMusicLogo() {
-        this.timer = setInterval(() => {
-          this.deg += 0.15;
-          if(this.deg >= 360)  this.deg = 0;
-          this.$refs.musicDom.style.transform = `rotate(${this.deg}deg)`;
-          this.setPastTime(this.pastTime + 10);
-          // 每隔一秒再改变显示的时长
-          if(this.pastTime % 1000 === 0) {
-            this.changeCurrentTime();
-          }
-        }, 10)
       },
       changeCurrentTime() {
         this.setCurrentTime(parseInt(this.$refs.player.currentTime));
@@ -176,11 +139,12 @@
       ])
     },
     computed: {
-      // 是否喜欢歌曲显示红心
-      loveSrc() {
-        if(this.isLove)  return require('../../assets/love1.png');
-        else  return require('../../assets/love.png');
+      componentId() {
+        if(!this.showLyric)  {
+          return 'player-body';
+        }
       },
+
       // 播放顺序
       orderSrc() {
         if(this.playOrder === 1)       return require('../../assets/playInOrder.png');
@@ -221,7 +185,7 @@
         if(newVal) 
         {
           this.$refs.player.play();
-          this.rotateMusicLogo();
+          // this.rotateMusicLogo();
         }
         else {
           this.$refs.player.pause();
