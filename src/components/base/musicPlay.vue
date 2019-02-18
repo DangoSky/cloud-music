@@ -27,26 +27,23 @@
 <script>
   import progressBar from './progressBar.vue'
   import playerBody from './playerBody.vue'
+  import lyric from './lyric.vue'
   import api from '../../api/index.js'
   import { mapState, mapMutations } from 'vuex'
 
   export default {
     components: {
       'progress-bar': progressBar,
-      'player-body': playerBody
+      'player-body': playerBody,
+      lyric
     },
     data() {
       return {
-        marqueeTimer: null,
-        showLyric: false,
+        marqueeTimer: null
       }
     },
     mounted() {
       this.marquee();
-      api.getLyric(this.songId, (res) => {
-        this.setLyric(res);
-        // console.log(this.lyric);
-      });
     },
     beforeDestroy() {
       clearInterval(this.marqueeTimer);
@@ -118,7 +115,6 @@
         }
       },
       ...mapMutations([
-        'setLyric',
         'pause',
         'play',
         'setPlayOrder',
@@ -132,6 +128,9 @@
       componentId() {
         if(!this.showLyric)  {
           return 'player-body';
+        }
+        else {
+          return 'lyric'
         }
       },
       // 播放顺序icon
@@ -156,13 +155,13 @@
         'picUrl',
         'isPlaying',
         'songId',
-        'lyric',
         'durationTime',
         'totalTime',
         'pastTime',
         'currentTime',
         'playingList',
-        'playOrder'
+        'playOrder',
+        'showLyric'
       ])
     }
   }

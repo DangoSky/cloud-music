@@ -1,0 +1,8 @@
+.lyric {
+  width: 100%;
+  height: calc(100% - 250px);
+  position: relative;
+  top: 40px;
+  text-align: center;
+  overflow: hidden;
+}

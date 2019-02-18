@@ -34,7 +34,25 @@
           }
         },1000)
       },
-
+      formatLyric() {
+        // 提取出每一句歌词
+        let reg = /\].*?\[/g;
+        let val = this.lyric.match(reg)
+        // 提取出每一个时间点
+        let reg1 = /\[\d*:\d*\.\d*\]/g;
+        let key = this.lyric.match(reg1);
+        let arr = [];
+        for(let i=0; i<val.length; i++) {
+          let obj = {};
+          obj.text = val[i].slice(2, -2);
+          let minutes = Number(String(key[i].match(/\[\d*:/)).slice(1, -1));
+          let seconds = Number(String(key[i].match(/:\d*./)).slice(1, -1));
+          let ms = Number(String(key[i].match(/\.\d*\]/)).slice(1, -1));
+          obj.time = minutes * 60 + seconds + Math.round(ms / 1000);
+          arr.push(obj);
+        }
+      ths.setLyricArr(arr);
+      },
       ...mapMutations([
         'setSongId',
         'setUrl',
@@ -50,12 +68,15 @@
         'setMovePercent',
         'setDraged',
         'setCurrentIndex',
+        'setLyric',
+        'setLyricArr'
       ])
     },
     computed: {
       ...mapState([
         'songId',
         'url',
+        'lyric',
         'isPlaying',
         'playingList',
         'pastTime',
@@ -124,6 +145,9 @@
           this.setName(res.name);
           this.setSingers(res.ar);
           this.setPicUrl(res.al.picUrl);
+        });
+        api.getLyric(id, (res) => {
+          this.setLyric(res);
         });
       } 
     }

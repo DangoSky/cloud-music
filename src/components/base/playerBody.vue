@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="musicLogo">
-      <img :src="this.picUrl" ref="musicDom">
+      <img :src="this.picUrl" ref="musicDom" @click="setShowLyric(!showLyric)">
     </div>
     <div class="musicBar">
       <img :src="loveSrc" @click="clickLove">
@@ -18,7 +18,7 @@
 
 <script>
   import api from '../../api/index.js'
-  import { mapState } from 'vuex'
+  import { mapState, mapMutations } from 'vuex'
 
   export default {
     mounted () {
@@ -54,8 +54,11 @@
           this.deg += 0.15;
           if(this.deg >= 360)  this.deg = 0;
           this.$refs.musicDom.style.transform = `rotate(${this.deg}deg)`;
-          }, 10)
-        },
+        }, 10)
+      },
+      ...mapMutations([
+        'setShowLyric'
+      ])
     },
     computed: {
       // 是否喜欢歌曲显示红心
@@ -66,7 +69,8 @@
       ...mapState([
         'picUrl',
         'songId',
-        'isPlaying'
+        'isPlaying',
+        'showLyric'
       ])
     },
     watch: {
