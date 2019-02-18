@@ -38,7 +38,6 @@
 
 <script>
   import api from '../../api/index.js'
-  import { mapState } from 'vuex'
   import { mapMutations} from 'vuex'
 
   export default {
@@ -67,28 +66,20 @@
         } 
         return  str + ' - ' + album;
       },
+      // 点击播放后先获取歌曲id和index，再以此在播放页面获取其他信息
       getSong(item, index) {
-        // 将歌名等先传递个state，url等跳转页面后再获取
         this.setSongId(item.id);
         this.setCurrentIndex(index);
         // 点击后使用该歌单，将歌曲id放入播放歌单列表中
-        this.setSongList(this.songs);
-
-        this.setName(item.name);
-        this.setSingers(item.ar);
-        this.setPicUrl(item.al.picUrl);
+        this.setPlayingList(this.songs);
         this.$router.push({
           name: 'musicPlay'
         });
       },
       ...mapMutations([
-        'setName',
-        'setSingers',
-        'setPicUrl',
-        'setSongList',
         'setSongId',
         'setCurrentIndex',
-        'play'
+        'setPlayingList',
       ])
     },
     computed: {
@@ -101,16 +92,7 @@
             return val.name.includes(this.list.searchKey) || this.getWriterAlbum(val.ar, val.al.name).includes(this.list.searchKey);
           })
         }
-      },
-      ...mapState([
-        'name',
-        'singer',
-        'picUrl',
-        'playingList',
-        'currentIndex',
-        'songId',
-        'isPlaying'
-      ])
+      }
     }
   }
 </script>

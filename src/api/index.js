@@ -41,6 +41,16 @@ export default {
         console.log(error);
       }) 
   },
+  // 获取歌曲的详细信息
+  getSongDetail(id, callback) {
+    axios.get(`http://dangosky.com:3000/song/detail?ids=${id}`)
+      .then(function(response) {
+        callback(response.data.songs[0]);
+      })
+      .catch(function(error) {
+        console.log(error);
+      })
+  },
   // 获取歌曲评论数
   getComments(id, callback) {
     axios.get(`https://api.imjad.cn/cloudmusic/?type=comments&id=${id}`)

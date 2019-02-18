@@ -43,16 +43,6 @@
     },
     mounted() {
       this.marquee();
-      this.setPastTime(0);
-      api.getSongUrl(this.songId, (res) => {
-        if(!res) {
-          alert("该歌曲暂时无法播放QWQ");
-        }
-        else {
-          this.setUrl(res);
-        }
-      });
-
       api.getLyric(this.songId, (res) => {
         this.setLyric(res);
         // console.log(this.lyric);
@@ -98,19 +88,12 @@
         }
       },
       ...mapMutations([
-        'setPlaying',
-        'setUrl',
-        'setComments',
         'setLyric',
-        'play',
         'pause',
-        'setDurationTime',
-        'setTotalTime',
+        'play',
         'setPlayOrder',
         'setPastTime',
-        'setCurrentTime',
-        'setMovePercent',
-        'setShowPlayer'
+        'setCurrentTime'
       ])
     },
     computed: {
@@ -138,22 +121,15 @@
         'name',
         'singer',
         'picUrl',
-        'url',
         'isPlaying',
         'songId',
-        'comments',
         'lyric',
         'durationTime',
         'totalTime',
-        'playOrder',
         'pastTime',
         'currentTime',
-        'movePercent',
-        'showPlayer'
+        'playOrder'
       ])
-    },
-    watch: {
-
     }
   }
 </script>

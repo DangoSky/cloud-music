@@ -42,7 +42,7 @@ Vue.use(Vuex)
     setLyric(state, lyric) {
       state.lyric = lyric;
     },
-    setSongList(state, songlist) {
+    setPlayingList(state, songlist) {
       state.playingList = [];
       for(let i=0; i<songlist.length; i++) {
         state.playingList.push(songlist[i].id);

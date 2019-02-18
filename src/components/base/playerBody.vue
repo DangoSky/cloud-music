@@ -18,7 +18,7 @@
 
 <script>
   import api from '../../api/index.js'
-  import { mapState, mapMutations } from 'vuex'
+  import { mapState } from 'vuex'
 
   export default {
     mounted () {
@@ -31,7 +31,6 @@
         else this.commentsSum = this.commentsSum;
       });
       this.rotateMusicLogo();
-
     },
     beforeDestroy() {
       clearInterval(this.timer);
@@ -57,9 +56,6 @@
           this.$refs.musicDom.style.transform = `rotate(${this.deg}deg)`;
           }, 10)
         },
-      ...mapMutations([
-        'setPastTime'
-      ])
     },
     computed: {
       // 是否喜欢歌曲显示红心
@@ -70,7 +66,6 @@
       ...mapState([
         'picUrl',
         'songId',
-        'pastTime',
         'isPlaying'
       ])
     },
