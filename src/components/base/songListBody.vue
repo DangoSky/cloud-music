@@ -60,37 +60,30 @@
     methods: {
       // 格式化作者和专辑名
       getWriterAlbum(name, album) {
-        let str = this.getWriter(name);
-        return  str + ' - ' + album;
-      },
-      getWriter(name) {
         let str = '';
         for(let i=0; i<name.length; i++) {
           str += name[i].name;
           if(i !== name.length - 1)  str += '/';  
         } 
-        return str;
+        return  str + ' - ' + album;
       },
       getSong(item, index) {
         // 将歌名等先传递个state，url等跳转页面后再获取
-        let str = this.getWriter(item.ar);
-        this.setName(item.name);
-        this.setSinger(str);
-        this.setPicUrl(item.al.picUrl);
-        this.setCurrentIndex(index);
         this.setSongId(item.id);
-        this.play();
+        this.setCurrentIndex(index);
         // 点击后使用该歌单，将歌曲id放入播放歌单列表中
-        for(let i=0; i<this.songs.length; i++) {
-          this.setSongList(this.songs[i].id);
-        }
+        this.setSongList(this.songs);
+
+        this.setName(item.name);
+        this.setSingers(item.ar);
+        this.setPicUrl(item.al.picUrl);
         this.$router.push({
           name: 'musicPlay'
         });
       },
       ...mapMutations([
         'setName',
-        'setSinger',
+        'setSingers',
         'setPicUrl',
         'setSongList',
         'setSongId',

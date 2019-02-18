@@ -70,7 +70,6 @@
         if(this.isPlaying) this.pause();
         else  this.play();
       },
-
       // 子组件通过拖动点击进度条从而触发父组件修改时间
       changePercent(percent) {
         this.setPastTime(parseInt(percent * this.durationTime));
@@ -120,8 +119,7 @@
           return 'player-body';
         }
       },
-
-      // 播放顺序
+      // 播放顺序icon
       orderSrc() {
         if(this.playOrder === 1)       return require('../../assets/playInOrder.png');
         else if(this.playOrder === 2)  return require('../../assets/playRandom.png');
@@ -155,12 +153,7 @@
       ])
     },
     watch: {
-      // 根据歌曲的进度控制是否播放
-      movePercent: function(newVal) {
-        if(newVal > 100) {
-          this.pause();
-        }
-      },
+
     }
   }
 </script>

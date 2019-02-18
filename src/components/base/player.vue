@@ -41,10 +41,13 @@
         'setDurationTime',
         'setTotalTime',
         'play',
+        'pause',
         'setCurrentTime',
         'setPastTime',
         'setMovePercent',
         'setDraged',
+        'setUrl',
+        'setCurrentIndex',
       ])
     },
     computed: {
@@ -55,6 +58,10 @@
         'movePercent',
         'durationTime',
         'draged',
+        'playingList',
+        'currentIndex',
+        'playOrder',
+        'songId'
       ])
     },
     watch: {
@@ -69,6 +76,7 @@
       },
       // 切歌的时候自动播放
       url: function(newVal) {
+        // console.log(this.playingList);
         if(newVal) {
           this.$refs.player.autoplay = 'autoplay';
           this.play();
@@ -79,7 +87,28 @@
       draged: function() {
         this.$refs.player.currentTime = this.pastTime;
         this.setDraged(false);
-      }
+      },    
+      // 根据歌曲的进度控制是否播放,播放完后改变songId
+      movePercent: function(newVal) {
+        if(newVal >= 1) {
+          if(this.playOrder === 1) {
+            if(this.currentIndex >= this.playingList.length)  this.setCurrentIndex(0)
+            else  this.setCurrentIndex(this.currentIndex + 1);
+            console.log(this.currentIndex);
+          }
+        }
+      },
+      // 根据songId来更新播放详情页
+      songId: function(newVal) {
+        // api.getSongUrl(this.playingList[nextIndex], (res) => {
+        //   if(!res) {
+        //     alert("该歌曲暂时无法播放QWQ");
+        //   }
+        //   else {
+        //     this.setUrl(res);
+        //   }
+        // });
+      } 
     }
   }
 </script>

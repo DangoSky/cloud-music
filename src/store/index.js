@@ -25,8 +25,13 @@ Vue.use(Vuex)
     setName(state, name) {
       state.name = name;
     }, 
-    setSinger(state, singer) {
-      state.singer = singer;
+    setSingers(state, singers) {
+      let str = '';
+      for(let i=0; i<singers.length; i++) {
+        str += singers[i].name;
+        if(i !== singers.length - 1)  str += '/';  
+      } 
+      state.singer = str;
     }, 
     setUrl(state, url) {
       state.url = url;
@@ -37,8 +42,11 @@ Vue.use(Vuex)
     setLyric(state, lyric) {
       state.lyric = lyric;
     },
-    setSongList(state, id) {
-      state.playingList.push(id);
+    setSongList(state, songlist) {
+      state.playingList = [];
+      for(let i=0; i<songlist.length; i++) {
+        state.playingList.push(songlist[i].id);
+      }
     },
     setCurrentIndex(state, index) {
       state.currentIndex = index;
