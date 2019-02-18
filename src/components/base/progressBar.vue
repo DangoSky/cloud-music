@@ -29,6 +29,7 @@
         this.touch.initiated = true;  // 标记拖动开始
         this.touch.start = e.touches[0].pageX;  // 开始点击的位置
         this.touch.moveBarWidth = this.$refs.moveBar.clientWidth;  // 已开始的进度条长度
+        this.setDraging(true);
       },
       touchMove(e) {
         if (!this.touch.initiated) return;
@@ -40,7 +41,7 @@
       },
       touchEnd() {
         this.touch.initiated = false;
-        // this.$emit('changeTime');
+        this.setDraging(false);
         this.setDraged(true);
       },
       // 通过点击进度条进行修改
@@ -49,7 +50,6 @@
         let barWidth = e.pageX - rect.left;
         this.changeMoveBar(barWidth);
         this.computePercent();
-        // this.$emit('changeTime');
         this.setDraged(true);
       },
       // 修改进度条的长度
@@ -57,18 +57,25 @@
         this.$refs.moveBar.style.width = `${barWidth}px`;
         this.$refs.moveBtn.style.left = `${barWidth}px`;
       },
-      // 计算完成的百分比并触发父组件函数，修改歌曲时间
+      // 计算完成的百分比并修改歌曲时间
       computePercent() {
+        // 设置一个新的值去改变或设置一个bool标记touchmove
         let percent = this.$refs.moveBar.clientWidth / this.$refs.progressBar.clientWidth;
-        this.$emit('changePercent', percent);
+        this.setPastTime(parseInt(percent * this.durationTime));
+        this.setCurrentTime(this.pastTime);
       },
       ...mapMutations([
-        'setDraged'
+        'setDraged',
+        'setPastTime',
+        'setCurrentTime',
+        'setDraging'
       ])
     },
     computed: {
       ...mapState([
         'movePercent',
+        'pastTime',
+        'durationTime'
       ])
     },
     // 监听父组件传递过来的歌曲进行百分比

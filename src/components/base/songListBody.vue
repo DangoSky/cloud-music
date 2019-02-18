@@ -27,7 +27,8 @@
         <label class="collect">收藏 ({{ songList.subscribedCount }})</label>
       </div>
       <div v-for="(item, index) in searchArr" :key="item.id" class="song"  @click="getSong(item, index)">
-        <label class="songNum">{{index + 1}}</label>
+        <img src="../../assets/playing.png" v-if="item.id === songId" class="playing">
+        <label class="songNum" v-else>{{index + 1}}</label>
         <label class="songName">{{ item.name}}</label>
         <label class="writer"> {{ getWriterAlbum(item.ar, item.al.name) }}</label>
         <span :class="{showMv: item.mv}"></span>
@@ -38,7 +39,7 @@
 
 <script>
   import api from '../../api/index.js'
-  import { mapMutations} from 'vuex'
+  import { mapMutations, mapState} from 'vuex'
 
   export default {
     created() {
@@ -92,7 +93,10 @@
             return val.name.includes(this.list.searchKey) || this.getWriterAlbum(val.ar, val.al.name).includes(this.list.searchKey);
           })
         }
-      }
+      },
+      ...mapState([
+        'songId'
+      ])
     }
   }
 </script>

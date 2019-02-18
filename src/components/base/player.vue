@@ -26,11 +26,12 @@
       // 实时显示歌曲正进行的时间
       changeCurrentTime() {
         setInterval(() => {
-          let past = parseInt(this.$refs.player.currentTime)
-          this.setCurrentTime(past);
-          this.setPastTime(past);
-          console.log(this.pastTime);
-          this.setMovePercent(past / this.durationTime);
+          if(!this.draging) {
+            let past = parseInt(this.$refs.player.currentTime)
+            this.setCurrentTime(past);
+            this.setPastTime(past);
+            this.setMovePercent(past / this.durationTime);
+          }
         },1000)
       },
 
@@ -61,8 +62,9 @@
         'movePercent',
         'durationTime',
         'currentIndex',
-        'draged',
         'playOrder',
+        'draged',
+        'draging'
       ])
     },
     watch: {
@@ -84,7 +86,7 @@
         }
       },
       // 监听进度条的拖动点击以此跳转歌曲
-      draged: function() {
+      draged: function(newVal) {
         this.$refs.player.currentTime = this.pastTime;
         this.setDraged(false);
       },    
@@ -95,6 +97,15 @@
             if(this.currentIndex >= this.playingList.length)  this.setCurrentIndex(0)
             else  this.setCurrentIndex(this.currentIndex + 1);
             this.setSongId(this.playingList[this.currentIndex]);
+          }
+          else if(this.playOrder === 2) {
+            let ran = parseInt(Math.random() * this.playingList.length);
+            this.setCurrentIndex(ran);
+            this.setSongId(this.playingList[ran]);
+          }
+          else if(this.playOrder === 3) {
+            this.$refs.player.currentTime = 0;
+            this.$refs.player.play();
           }
         }
       },

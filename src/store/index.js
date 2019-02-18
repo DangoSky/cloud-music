@@ -20,6 +20,7 @@ Vue.use(Vuex)
     currentTime: '00:00',      // 歌曲显示时间(字符串)
     movePercent: 0,        // 歌曲进行百分比
     draged: false,        // 记录是否拖动点击以此跳转歌曲
+    draging: false       // 为true时进度条正在拖动，不显示当前进行的时间
   },
   mutations: {
     setName(state, name) {
@@ -97,6 +98,9 @@ Vue.use(Vuex)
     },
     setDraged(state, bool) {
       state.draged = bool;
+    },
+    setDraging(state, bool) {
+      state.draging = bool;
     }
   }
 })

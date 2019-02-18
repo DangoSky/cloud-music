@@ -165,6 +165,12 @@
   text-align: center;
   color: #C0C0C0;
 }
+.playing {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .songName {
   width: calc(100% - 120px);
   position: absolute;

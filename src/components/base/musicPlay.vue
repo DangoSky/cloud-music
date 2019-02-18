@@ -11,14 +11,14 @@
     <component :is="componentId"></component>
     <div class="progress">
       <label class="currentTime">{{ currentTime }}</label>
-      <progress-bar @changePercent="changePercent"></progress-bar>
+      <progress-bar></progress-bar>
       <label class="totalTime">{{ totalTime }}</label>
     </div>
     <div class="musicFooter">
       <img :src="orderSrc" @click="this.setPlayOrder">
-      <img src="../../assets/previous.png">
+      <img src="../../assets/previous.png" @click="previous">
       <img :src="playing" @click="playPause">
-      <img src="../../assets/next.png">
+      <img src="../../assets/next.png" @click="next">
       <img src="../../assets/recentMusic1.png">
     </div>
   </div>
@@ -60,10 +60,40 @@
         if(this.isPlaying) this.pause();
         else  this.play();
       },
-      // 子组件通过拖动点击进度条从而触发父组件修改时间
-      changePercent(percent) {
-        this.setPastTime(parseInt(percent * this.durationTime));
-        this.setCurrentTime(this.pastTime);
+      previous() {
+        if(this.playOrder === 2) {
+          let ran = parseInt(Math.random() * this.playingList.length);
+          this.setCurrentIndex(ran);
+          this.setSongId(this.playingList[ran]);
+        }
+        else {
+          if(this.currentIndex === 0) {
+            this.setCurrentIndex(this.playingList.length - 1);
+            this.setSongId(this.playingList[this.currentIndex]);
+          }
+          else {
+            this.setCurrentIndex(this.currentIndex - 1);
+            this.setSongId(this.playingList[this.currentIndex]);            
+          }
+        }
+      },
+      next() {
+        if(this.playOrder === 2) {
+          let ran = parseInt(Math.random() * this.playingList.length);
+          this.setCurrentIndex(ran);
+          this.setSongId(this.playingList[ran]);
+        }
+        else {
+          let index = this.currentIndex;
+          if(index === this.playingList.length - 1) {
+            this.setCurrentIndex(0);
+            this.setSongId(this.playingList[0]);
+          }
+          else {
+            this.setCurrentIndex(index + 1);
+            this.setSongId(this.playingList[this.currentIndex]);             
+          }
+        }
       },
       // 手动实现跑马灯效果
       marquee() {
@@ -93,7 +123,9 @@
         'play',
         'setPlayOrder',
         'setPastTime',
-        'setCurrentTime'
+        'setCurrentTime',
+        'setCurrentIndex',
+        'setSongId'
       ])
     },
     computed: {
@@ -120,6 +152,7 @@
       ...mapState([
         'name',
         'singer',
+        'currentIndex',
         'picUrl',
         'isPlaying',
         'songId',
@@ -128,6 +161,7 @@
         'totalTime',
         'pastTime',
         'currentTime',
+        'playingList',
         'playOrder'
       ])
     }
