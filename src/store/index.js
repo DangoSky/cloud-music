@@ -22,7 +22,7 @@ Vue.use(Vuex)
     draged: false,        // 记录是否拖动点击以此跳转歌曲
     draging: false,       // 为true时进度条正在拖动，不显示当前进行的时间
     showLyric: false,
-    lyrciArr: [],       // 时间点为键，歌词为值
+    lyricArr: [],       // 时间点为键，歌词为值
   },
   mutations: {
     setName(state, name) {
@@ -107,8 +107,24 @@ Vue.use(Vuex)
     setShowLyric(state, bool) {
       state.showLyric = bool;
     },
-    setLyricArr(state, arr) {
-      state.lyricArr = arr;
+    setLyricArr(state) {
+      // 先把每一句歌词及其对应的时间通过\n分割成数组
+      let lyrics = state.lyric.split('\n');
+      state.lyricArr = [];
+      for(let i=0; i<lyrics.length; i++) {
+        let reg = /\[[\s\S]*\]/g;
+        let txt = lyrics[i].replace(reg, '');      // 歌词部分
+        let key = lyrics[i].match(reg);            // 时间点部分，但是一个数组
+        if(!key)  continue   // lyrics最后还有一个\n，执行下去会出错
+        for(let j=0; j<key.length; j++) {
+          let obj = {};
+          let minutes = Number(String(key[j].match(/\[[\s\S]*:/)).slice(1, -1));
+          let seconds = Number(String(key[j].match(/:[\s\S]*\]/)).slice(1, -1));
+          obj.time = Math.round(minutes * 60 + seconds);
+          obj.text = txt;
+          state.lyricArr.push(obj);
+        }
+      }
     }
   }
 })

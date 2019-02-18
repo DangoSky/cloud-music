@@ -8,9 +8,9 @@
       <button-user></button-user>
     </div>
     <player></player>
-    <keep-alive>
+    <!-- <keep-alive> -->
       <router-view></router-view>
-    </keep-alive>
+    <!-- </keep-alive> -->
   </div>
 </template>
 

@@ -1,6 +1,10 @@
 <template>
   <div class="lyric" @click="setShowLyric(!showLyric)">
-    <p>{{ lyric }}</p>
+    <div class="lyricBox" tyle="transition: all 2s ease" :style="{'transform': `translateY(${offsetLen}px)`}">
+      <p v-for="(item, index) in lyricArr" :key="index" :class="{'curLyric': index === currentLyric}">
+        {{item.text}}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -10,18 +14,37 @@
   export default {
     data() {
       return {
-
+        currentLyric: 0
       }
     },
     methods: {
       ...mapMutations([
-        'setShowLyric'
+        'setShowLyric',
+        'setLyricArr'
       ])
     },
     computed: {
+      offsetLen() {
+        for(let i=0; i<this.lyricArr.length; i++) {
+          if(this.pastTime == this.lyricArr[i].time) {
+            this.currentLyric = i;
+            return  i * (-33);
+          }
+        }
+      },
+      // currentLyric() {
+      //   for(let i=0; i<this.lyricArr.length; i++) {
+      //     if(this.lyricArr[i].time <= this.pastTime && this.lyricArr[i+1].time >= this.pastTime ) {
+      //       console.log(i);
+      //       return i;
+      //     }
+      //   }
+      // },
       ...mapState([
         'showLyric',
-        'lyric'
+        'lyricArr',
+        'pastTime',
+        'lyricArr'
       ])
     }
   }

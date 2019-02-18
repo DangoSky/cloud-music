@@ -34,25 +34,27 @@
           }
         },1000)
       },
-      formatLyric() {
-        // 提取出每一句歌词
-        let reg = /\].*?\[/g;
-        let val = this.lyric.match(reg)
-        // 提取出每一个时间点
-        let reg1 = /\[\d*:\d*\.\d*\]/g;
-        let key = this.lyric.match(reg1);
-        let arr = [];
-        for(let i=0; i<val.length; i++) {
-          let obj = {};
-          obj.text = val[i].slice(2, -2);
-          let minutes = Number(String(key[i].match(/\[\d*:/)).slice(1, -1));
-          let seconds = Number(String(key[i].match(/:\d*./)).slice(1, -1));
-          let ms = Number(String(key[i].match(/\.\d*\]/)).slice(1, -1));
-          obj.time = minutes * 60 + seconds + Math.round(ms / 1000);
-          arr.push(obj);
-        }
-      ths.setLyricArr(arr);
-      },
+      // formatLyric() {
+      //   // 提取出每一句歌词
+      //   let reg = /\][\s\S]*?\[/g;
+      //   let val = this.lyric.match(reg);
+      //   // console.log(val);
+      //   // 提取出每一个时间点
+      //   let reg1 = /\[\d*:\d*\.\d*\]/g;
+      //   let key = this.lyric.match(reg1);
+      //   let arr = [];
+      //   // console.log(key);
+      //   for(let i=0; i<val.length; i++) {
+      //     let obj = {};
+      //     obj.text = val[i].slice(2, -2);
+      //     let minutes = Number(String(key[i].match(/\[\d*:/)).slice(1, -1));
+      //     let seconds = Number(String(key[i].match(/:\d*./)).slice(1, -1));
+      //     let ms = Number(String(key[i].match(/\.\d*\]/)).slice(1, -1));
+      //     obj.time = minutes * 60 + seconds + Math.round(ms / 1000);
+      //     arr.push(obj);
+      //   }
+      //   this.setLyricArr(arr);
+      // },
       ...mapMutations([
         'setSongId',
         'setUrl',
@@ -85,7 +87,8 @@
         'currentIndex',
         'playOrder',
         'draged',
-        'draging'
+        'draging',
+        'lyricArr'
       ])
     },
     watch: {
@@ -148,6 +151,7 @@
         });
         api.getLyric(id, (res) => {
           this.setLyric(res);
+          this.setLyricArr();
         });
       } 
     }
