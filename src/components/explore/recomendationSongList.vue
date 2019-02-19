@@ -41,6 +41,7 @@ import api from '../../api/index.js'
         this.$router.push({
           name: 'songList',
           query: {
+            listName: item.name,
             listId: item.id,
             playCount: this.playCount(item.playCount),
             picUrl: item.picUrl

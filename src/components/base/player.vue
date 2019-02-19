@@ -39,6 +39,7 @@
         'setUrl',
         'setName',
         'setSingers',
+        'setAlbum',
         'setPicUrl',
         'play',
         'pause',
@@ -50,7 +51,9 @@
         'setDraged',
         'setCurrentIndex',
         'setLyric',
-        'setLyricArr'
+        'setLyricArr',
+        'setLoading',
+        'setMv'
       ])
     },
     computed: {
@@ -95,6 +98,13 @@
       },    
       // 歌曲播放完后改变songId
       movePercent: function(newVal) {
+        // 是否显示加载小圈
+        if(newVal > 0 && this.isPlaying) {
+          this.setLoading(false);
+        }
+        else if(newVal === 0 && this.isPlaying) {
+          this.setLoading(true);
+        }
         if(newVal >= 1) {
           if(this.playOrder === 1) {
             if(this.currentIndex >= this.playingList.length)  this.setCurrentIndex(0)
@@ -128,6 +138,8 @@
           this.setName(res.name);
           this.setSingers(res.ar);
           this.setPicUrl(res.al.picUrl);
+          this.setAlbum(res.al.name);
+          this.setMv(res.mv);
         });
         api.getLyric(id, (res) => {
           this.setLyric(res);

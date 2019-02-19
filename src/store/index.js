@@ -6,11 +6,14 @@ Vue.use(Vuex)
   state: {
     name: '',
     singer: '',
+    album: '',
     url: '',
     picUrl: '',
     lyric: '',
+    mv: '',
     isPlaying: false,
     playingList: [],      // 当前使用的歌单
+    playingListId: '',
     currentIndex: 0,
     songId: '',
     playOrder: 1,          // 播放顺序
@@ -23,6 +26,7 @@ Vue.use(Vuex)
     draging: false,       // 为true时进度条正在拖动，不显示当前进行的时间
     showLyric: false,
     lyricArr: [],       // 时间点为键，歌词为值
+    loading: false     // 如果为true则显示加载小圈
   },
   mutations: {
     setName(state, name) {
@@ -36,6 +40,12 @@ Vue.use(Vuex)
       } 
       state.singer = str;
     }, 
+    setAlbum(state, str) {
+      state.album = str;
+    },
+    setMv(state, str) {
+      state.mv = str;
+    },
     setUrl(state, url) {
       state.url = url;
     },
@@ -50,6 +60,9 @@ Vue.use(Vuex)
       for(let i=0; i<songlist.length; i++) {
         state.playingList.push(songlist[i].id);
       }
+    },
+    setPlayingListId(state, id) {
+      state.playingListId = id;
     },
     setCurrentIndex(state, index) {
       state.currentIndex = index;
@@ -131,6 +144,9 @@ Vue.use(Vuex)
         return a.time - b.time;
       });
       state.lyricArr = arr.slice();
+    },
+    setLoading(state, bool) {
+      state.loading = bool;
     }
   }
 })

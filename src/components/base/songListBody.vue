@@ -2,20 +2,20 @@
   <div class="songListBody">
     <div class="listData" v-show="list.searchKey === ''">
       <div class="picBox">
-        <img v-lazy="songList.coverImgUrl" alt="正在加载中..." class="playPic">
+        <img v-lazy="list.picUrl" alt="正在加载中..." class="playPic">
         <label class="playCount">{{ list.playCount }}</label>
         <img src="../../assets/detail.png" class="detail">
       </div>
       <div class="creator">
-        <p class="listTitle">{{ songList.name }}</p>
-        <img v-lazy="creator.avatarUrl" class="creatorPic"> 
+        <p class="listTitle">{{ list.listName }}</p>
+        <img v-lazy="avatarUrl" class="creatorPic"> 
         <div class="nickNameBox">
-          <label class="nickName">{{ creator.nickname}}</label>
+          <label class="nickName">{{ nickname}}</label>
         </div>
       </div>
       <div class="bar">
-        <label class="commentCount">{{ songList.commentCount}}</label>
-        <label class="shareCount">{{ songList.shareCount}}</label>
+        <label class="commentCount">{{ list.commentCount || songList.commentCount}}</label>
+        <label class="shareCount">{{ list.shareCount || songList.shareCount}}</label>
         <label class="download">下载</label>
         <label class="selects">多选</label>
       </div>
@@ -23,8 +23,8 @@
     <div class="songs" >
       <div class="songsBar" v-show="list.searchKey === ''">
         <label class="playAll">播放全部</label>
-        <label class="songCount">(共{{ songList.trackCount }}首)</label>
-        <label class="collect">收藏 ({{ songList.subscribedCount }})</label>
+        <label class="songCount">(共{{ list.trackCount || songList.trackCount }}首)</label>
+        <label class="collect">收藏 ({{ list.subscribedCount || songList.subscribedCount }})</label>
       </div>
       <div v-for="(item, index) in searchArr" :key="item.id" class="song"  @click="getSong(item, index)">
         <img src="../../assets/playing.png" v-if="item.id === songId" class="playing">
@@ -43,18 +43,31 @@
 
   export default {
     created() {
-      api.getSongList(this.list.listId, (res) => {
-        this.songList = res;
-        this.creator = res.creator;
-        this.songs = res.tracks;
-      });
+      // 通过api获取的歌单
+      if(this.list.listId) {
+        api.getSongList(this.list.listId, (res) => {
+          this.songList = res;
+          this.nickname = res.creator.nickname;
+          this.avatarUrl = res.creator.avatarUrl;
+          this.songs = res.tracks;
+        });
+      }
+      else {
+        // 我喜欢的歌单以及其他歌单
+        // 又没有登陆功能，就只有我一个用户嘛orz，等以后看看能不能增加个登陆管理
+        this.nickname = '团子的天空幻想';
+        this.avatarUrl = 'http://p2.music.126.net/e6G_JLkLGcIQLw9vsdgt0g==/109951163763088598.jpg?param=170y170';
+        this.songs = list.songs;
+      }
     },
     props: ['list'],
     data() {
       return {
-        songList: {},   // 歌单全部信息
-        creator: [],      // 不知道为什么直接获取songList.creator可以取到信息但一直报错
-        songs: []       //  由每首的歌曲信息组成的歌单数组
+        songList: {},    // 歌单全部信息
+        songs: [],       //  由每首的歌曲信息组成的歌单数组
+        nickname: '',   
+        avatarUrl: '',
+
       }
     },
     methods: {

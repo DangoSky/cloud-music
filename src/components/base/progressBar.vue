@@ -10,6 +10,7 @@
       @touchend="touchEnd"
     >
       <div class="moveBtn"></div>
+      <img src="../../assets/loading.png" class="loading" v-show="loading">
     </div>
   </div>
 </template>
@@ -75,7 +76,8 @@
       ...mapState([
         'movePercent',
         'pastTime',
-        'durationTime'
+        'durationTime',
+        'loading'
       ])
     },
     // 监听父组件传递过来的歌曲进行百分比
@@ -85,7 +87,7 @@
           let barWidth = newVal * this.$refs.progressBar.clientWidth;
           this.changeMoveBar(barWidth);
         }
-      }
+      },
     }
   };
 </script>

@@ -13,7 +13,7 @@
   export default {
     computed: {
       userName() {
-        return '还是要温柔'
+        return '团子的天空幻想'
       }
     }
   }

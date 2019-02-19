@@ -20,7 +20,7 @@
   export default {
     data() {
       return {
-        userName: '还是要温柔',
+        userName: '团子的天空幻想',
         level: '8',
         isVip: true,
         userBodyBarArr: [

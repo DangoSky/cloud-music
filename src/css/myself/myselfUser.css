@@ -31,7 +31,7 @@
 }
 .musicBag {
   position: absolute;
-  left: calc(12vmin + 120px );
+  left: calc(12vmin + 150px );
   top: 50%;
   transform: translateY(-50%);
 }

@@ -30,7 +30,6 @@
         else if(this.commentsSum > 999)  this.commentsSum = "999+";
         else this.commentsSum = this.commentsSum;
       });
-      this.rotateMusicLogo();
     },
     beforeDestroy() {
       clearInterval(this.timer);
@@ -47,6 +46,33 @@
       // 你喜欢吗
       clickLove() {
         this.isLove = !this.isLove;
+        // 将喜欢的歌曲信息格式化后存储到localStorage里。需要先取出localStorage里歌单，再把新喜欢的歌曲信息拼接到它后面后再存储
+        if(this.isLove) {
+          let loveObj = {};
+          loveObj.songId = this.songId;
+          loveObj.name = this.name;
+          loveObj.singer = this.singer;
+          loveObj.album = this.album;
+          loveObj.mv = this.mv;
+          let mylove = localStorage.getItem('cloudmusicLoveSongs');
+          mylove += JSON.stringify(loveObj);
+          localStorage.setItem('cloudmusicLoveSongs', mylove);
+          // console.log(localStorage.getItem('cloudmusicLoveSongs'));
+        }
+        // 取消喜欢。先从localStorage里取出歌单后用正则匹配成数组的形式，再删除不喜欢的歌曲后重新字符串化再存储
+        else {
+          let myloveArr = (localStorage.getItem('cloudmusicLoveSongs')).match(/{[\s\S]*?}/g);
+          let myloveStr = '';
+          for(let i=0; i<myloveArr.length; i++) {
+            let item = JSON.parse(myloveArr[i]);
+            if(item.songId === this.songId)  continue;
+            else {
+              myloveStr += JSON.stringify(item); 
+            }
+          }
+          localStorage.setItem('cloudmusicLoveSongs', myloveStr);
+          console.log(localStorage.getItem('cloudmusicLoveSongs'));
+        }
       },
       // 歌曲封面旋转
       rotateMusicLogo() {
@@ -67,16 +93,33 @@
         else  return require('../../assets/love.png');
       },
       ...mapState([
-        'picUrl',
         'songId',
+        'singer',
+        'album',
+        'mv',
+        'name',
+        'picUrl',
         'isPlaying',
-        'showLyric'
+        'showLyric',
+        'loading',
+        'pastTime'
       ])
     },
     watch: {
-      isPlaying: function(newVal) { 
-        if(newVal) {
+      pastTime: function() {
+        if(!this.loading && this.isPlaying) {
           // 反复按播放暂停前需要先清除定时器，否则会进行叠加
+          clearInterval(this.timer);
+          this.timer = null;
+          this.rotateMusicLogo();
+        }
+        else {
+          clearInterval(this.timer);
+          this.timer = null;
+        }
+      },
+      isPlaying: function(newVal) {
+        if(!this.loading && newVal) {
           clearInterval(this.timer);
           this.timer = null;
           this.rotateMusicLogo();
