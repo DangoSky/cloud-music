@@ -17,6 +17,7 @@
   top: 0;
 }
 .lyricBox p {
+  overflow: auto;
   padding: 8px;
   box-sizing: border-box;
 }
