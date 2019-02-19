@@ -111,20 +111,26 @@ Vue.use(Vuex)
       // 先把每一句歌词及其对应的时间通过\n分割成数组
       let lyrics = state.lyric.split('\n');
       state.lyricArr = [];
+      let arr = [];
       for(let i=0; i<lyrics.length; i++) {
-        let reg = /\[[\s\S]*\]/g;
+        let reg = /\[[\s\S]*?\]/g;
         let txt = lyrics[i].replace(reg, '');      // 歌词部分
         let key = lyrics[i].match(reg);            // 时间点部分，但是一个数组
-        if(!key)  continue   // lyrics最后还有一个\n，执行下去会出错
+        if(!key)  continue        // lyrics最后还有一个\n，执行下去会出错
         for(let j=0; j<key.length; j++) {
           let obj = {};
           let minutes = Number(String(key[j].match(/\[[\s\S]*:/)).slice(1, -1));
           let seconds = Number(String(key[j].match(/:[\s\S]*\]/)).slice(1, -1));
           obj.time = Math.round(minutes * 60 + seconds);
           obj.text = txt;
-          state.lyricArr.push(obj);
+          arr.push(obj);
         }
       }
+      // 按时间点排序，因为会有一些歌词重复
+      arr.sort( (a, b) => {
+        return a.time - b.time;
+      });
+      state.lyricArr = arr.slice();
     }
   }
 })

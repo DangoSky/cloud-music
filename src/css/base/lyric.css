@@ -5,7 +5,7 @@
   top: 60px;
   text-align: center;
   overflow: hidden;
-  color: white;
+  color: #808080;
   font-size: 0.9rem;
 }
 .lyricBox {
@@ -21,5 +21,5 @@
   box-sizing: border-box;
 }
 .curLyric {
-  color: red;
+  color: white;
 }

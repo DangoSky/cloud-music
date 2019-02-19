@@ -136,6 +136,7 @@
       // 根据songId来更新播放详情页
       songId: function(newVal) {
         let id = this.songId;
+        this.setUrl('');
         api.getSongUrl(id, (res) => {
           if(!res) {
             alert("该歌曲暂时无法播放QWQ");
