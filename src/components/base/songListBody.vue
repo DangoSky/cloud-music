@@ -14,8 +14,8 @@
         </div>
       </div>
       <div class="bar">
-        <label class="commentCount">{{ list.commentCount || songList.commentCount}}</label>
-        <label class="shareCount">{{ list.shareCount || songList.shareCount}}</label>
+        <label class="commentCount">{{ commentCount }}</label>
+        <label class="shareCount">{{ shareCount }}</label>
         <label class="download">下载</label>
         <label class="selects">多选</label>
       </div>
@@ -23,14 +23,14 @@
     <div class="songs" >
       <div class="songsBar" v-show="list.searchKey === ''">
         <label class="playAll">播放全部</label>
-        <label class="songCount">(共{{ list.trackCount || songList.trackCount }}首)</label>
-        <label class="collect">收藏 ({{ list.subscribedCount || songList.subscribedCount }})</label>
+        <label class="songCount">(共{{ trackCount }}首)</label>
+        <label class="collect">收藏 ({{ subscribedCount }})</label>
       </div>
       <div v-for="(item, index) in searchArr" :key="item.id" class="song"  @click="getSong(item, index)">
         <img src="../../assets/playing.png" v-if="item.id === songId" class="playing">
         <label class="songNum" v-else>{{index + 1}}</label>
         <label class="songName">{{ item.name}}</label>
-        <label class="writer"> {{ getWriterAlbum(item.ar, item.al.name) }}</label>
+        <label class="writer"> {{ item.singer || getWriterAlbum(item.ar, item.al.name) }}</label>
         <span :class="{showMv: item.mv}"></span>
       </div>
     </div>
@@ -44,20 +44,34 @@
   export default {
     created() {
       // 通过api获取的歌单
-      if(this.list.listId) {
+      // 刷新页面后从url解析该值成了string，从组件传递过来的是boolean
+      if(!this.list.ownSongList || this.list.ownSongList === 'false') {
         api.getSongList(this.list.listId, (res) => {
           this.songList = res;
-          this.nickname = res.creator.nickname;
-          this.avatarUrl = res.creator.avatarUrl;
-          this.songs = res.tracks;
-        });
+          this.nickname = res.creator.nickname;         // 作者昵称
+          this.avatarUrl = res.creator.avatarUrl;       // 作者头像
+          this.songs = res.tracks;                          
+          this.commentCount =  res.commentCount;        // 评论次数
+          this.shareCount = res.shareCount;             // 分享次数
+          this.trackCount = res.trackCount;             // 歌曲总数
+          this.subscribedCount = res.subscribedCount;   // 收藏次数
+        })
       }
       else {
         // 我喜欢的歌单以及其他歌单
         // 又没有登陆功能，就只有我一个用户嘛orz，等以后看看能不能增加个登陆管理
         this.nickname = '团子的天空幻想';
         this.avatarUrl = 'http://p2.music.126.net/e6G_JLkLGcIQLw9vsdgt0g==/109951163763088598.jpg?param=170y170';
-        this.songs = list.songs;
+        let localLoveSongs = (localStorage.getItem(this.list.listId)).match(/{[\s\S]*?}/g);
+        this.songs = [];
+        for(let i=localLoveSongs.length-1; i>=0; i--) {
+          let item = JSON.parse(localLoveSongs[i]);
+          this.songs.push(item);
+        }
+        this.commentCount =  1;
+        this.shareCount = 1;
+        this.trackCount = this.songs.length;
+        this.subscribedCount = 1;
       }
     },
     props: ['list'],
@@ -67,7 +81,11 @@
         songs: [],       //  由每首的歌曲信息组成的歌单数组
         nickname: '',   
         avatarUrl: '',
-
+        commentCount: '',
+        shareCount: '',
+        trackCount: '',
+        subscribedCount: '',
+        songsLen: ''
       }
     },
     methods: {
@@ -92,6 +110,7 @@
       },
       ...mapMutations([
         'setSongId',
+        'setSingers',
         'setCurrentIndex',
         'setPlayingList',
       ])
@@ -110,6 +129,15 @@
       ...mapState([
         'songId'
       ])
+    },
+    watch: {
+      trackCount: function() {
+        console.log(this.trackCount);
+        if(this.list.ownSongList || this.list.ownSongList === 'true') {
+          console.log("change");
+          this.list.picUrl = this.songs[this.songs.length-1].picUrl;
+        }
+      }
     }
   }
 </script>

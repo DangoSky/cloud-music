@@ -85,30 +85,48 @@
 /* 功能选项 */
 .bar {
   width: 100%;
-  display: flex;
-  justify-content: space-around;
   font-size: 0.75rem;
   color: white;
-  padding: 15px 0 5px 0;
+  padding: 10px 0 5px 0;
   box-sizing: border-box;
+  position: relative;
 }
 .commentCount {
   background: url('../../assets/comments1.png') no-repeat center 0;
-  padding: 25px 5px 0 5px;
+  position: absolute;
+  left: 0;
+  width: 25%;
+  height: 40px;
+  text-align: center;
+  line-height: 70px;
 }
 .shareCount {
   background: url('../../assets/share2.png') no-repeat  center 0;
-  padding: 25px 5px 0 5px;
+  position: absolute;
+  left: 25%;
+  height: 40px;
+  width: 25%;
+  text-align: center;
+  line-height: 70px;
 }
 .download {
-  background: url('../../assets/download.png') no-repeat;
-  padding-top: 25px;
+  background: url('../../assets/download.png') no-repeat center 0;
+  position: absolute;
+  left: 50%;
+  width: 25%;
+  height: 40px;
+  text-align: center;
+  line-height: 70px;
 }
 .selects {
-  background: url('../../assets/selects.png') no-repeat 2px 0;
-  padding-top: 25px;
+  background: url('../../assets/selects.png') no-repeat center 0;
+  position: absolute;
+  left: 75%;
+  width: 25%;
+  height: 40px;
+  text-align: center;
+  line-height: 70px;
 }
-/* 歌曲列表 */
 .songs {
   width: 100%;
 }

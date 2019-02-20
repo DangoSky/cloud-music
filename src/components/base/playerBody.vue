@@ -23,7 +23,7 @@
   export default {
     created() {
       // 判断是否喜欢该歌曲
-      this.changeLove();
+      this.judgeLove();
     },
     beforeDestroy() {
       clearInterval(this.timer);
@@ -42,13 +42,15 @@
         // 将喜欢的歌曲信息格式化后存储到localStorage里。需要先取出localStorage里歌单，再把新喜欢的歌曲信息拼接到它后面后再存储
         if(this.isLove) {
           let loveObj = {};
-          loveObj.songId = this.songId;
+          loveObj.id = this.songId;
           loveObj.name = this.name;
           loveObj.singer = this.singer;
           loveObj.album = this.album;
           loveObj.mv = this.mv;
           loveObj.picUrl = this.picUrl;
           let mylove = localStorage.getItem('cloudmusicLoveSongs');
+          // console.log(mylove);
+          if(!mylove)  mylove = '';
           mylove += JSON.stringify(loveObj);
           localStorage.setItem('cloudmusicLoveSongs', mylove);
         }
@@ -58,13 +60,12 @@
           let myloveStr = '';
           for(let i=0; i<myloveArr.length; i++) {
             let item = JSON.parse(myloveArr[i]);
-            if(item.songId === this.songId)  continue;
+            if(item.id === this.songId)  continue;
             else {
               myloveStr += JSON.stringify(item); 
             }
           }
           localStorage.setItem('cloudmusicLoveSongs', myloveStr);
-          // console.log(localStorage.getItem('cloudmusicLoveSongs'));
         }
       },
       // 歌曲封面旋转
@@ -75,17 +76,18 @@
           this.$refs.musicDom.style.transform = `rotate(${this.deg}deg)`;
         }, 10)
       },
-      changeLove() {
-        console.log(localStorage.getItem('cloudmusicLoveSongs'));
-        let localLoveSongs = (localStorage.getItem('cloudmusicLoveSongs')).match(/{[\s\S]*?}/g);
-        for(let i=0; i<localLoveSongs.length; i++) {
-          let item = JSON.parse(localLoveSongs[i]);
-          if(item.songId === this.songId)  {
-            this.isLove = true;
-            return; 
+      judgeLove() {
+        if(localStorage.getItem('cloudmusicLoveSongs')) {
+          let localLoveSongs = (localStorage.getItem('cloudmusicLoveSongs')).match(/{[\s\S]*?}/g);
+          for(let i=0; i<localLoveSongs.length; i++) {
+            let item = JSON.parse(localLoveSongs[i]);
+            if(item.id === this.songId)  {
+              this.isLove = true;
+              return; 
+            }
           }
-        }
-        this.isLove = false;
+          this.isLove = false;
+        } 
       },
       ...mapMutations([
         'setShowLyric',
@@ -136,8 +138,17 @@
           this.timer = null;
         }
       },
-      url: function() {
-        this.changeLove();
+      url: function(newVal) {
+        // 如果不指定使新值还是旧值的话，会执行两次watch！！
+        if(newVal) {
+          this.judgeLove();
+          if(this.isLove)  {
+            let tem = parseInt(localStorage.getItem('cloudmusicLoveSongsPlayCount'));
+            if(!tem)  tem = 1;
+            else  tem++;
+            localStorage.setItem('cloudmusicLoveSongsPlayCount', String(tem));
+          }
+        }
       }
     }
   }
