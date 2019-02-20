@@ -1,0 +1,73 @@
+.mySongList {
+  width: 100%;
+  position: relative;
+}
+.listBar {
+  width: 100%;
+  padding: 6px 0;
+  font-size: 0.75rem;
+  background-color: #eeee;
+}
+.listBarFont {
+  padding-left: 30px;
+  box-sizing: border-box;
+}
+.more {
+  float: right;
+  padding-right: 10px;
+}
+.loveSongList {
+  width: 100%;
+  height: 50px;
+  position: relative;
+}
+.loveSongPicBox {
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  position: relative;
+  display: inline-block;
+  border-radius: 5px;
+  margin: 4px 0 0 4px;
+}
+.loveSongPicBox::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+}
+.loveSongPic {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.loveListTitle {
+  width: calc(100% - 70px);
+  position: absolute;
+  left: 60px;
+  top: 10px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.loveListCount {
+  position: absolute;
+  left: 60px;
+  bottom: 4px;
+  font-size: 0.7rem;
+}
+/* 下划线 */
+.loveSongList::before {
+  content: "";
+  width: calc(100% - 60px);
+  position: absolute;
+  left: 60px;
+  top: 100%;
+  margin-top: 4px;
+  border-bottom: 1px solid rgba(211, 211, 211, 0.6);
+}

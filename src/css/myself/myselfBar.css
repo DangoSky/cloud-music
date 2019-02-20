@@ -3,6 +3,7 @@
   font-size: 0.9rem;
   position: relative;
   top: 5vmin;
+  margin-bottom: 5vmin;
 }
 /* 五个bar的统一样式 */
 .localMusic {
@@ -12,6 +13,7 @@
   /* 必须，否则页面可以水平拖动，右边出现60px的空白 */
   box-sizing: border-box;
   line-height: 50px;
+
 }
 /* 下划线 */
 .localMusic::before {

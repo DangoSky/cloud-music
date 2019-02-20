@@ -21,25 +21,18 @@
   import { mapState, mapMutations } from 'vuex'
 
   export default {
-    mounted () {
-      api.getComments(this.songId, (res) => {
-        this.commentsSum = res;
-        if(this.commentsSum > 1000000)  this.commentsSum = "100w+";
-        else if(this.commentsSum > 100000)  this.commentsSum = "10w+";
-        else if(this.commentsSum > 10000)  this.commentsSum = "1w+";
-        else if(this.commentsSum > 999)  this.commentsSum = "999+";
-        else this.commentsSum = this.commentsSum;
-      });
+    created() {
+      // 判断是否喜欢该歌曲
+      this.changeLove();
     },
     beforeDestroy() {
       clearInterval(this.timer);
     },
     data() {
       return {
-        commentsSum: '',
-        timer: null,       
-        deg: 0,             // 旋转角度 
-        isLove: false,     // 是否喜欢歌曲
+        timer: null,     
+        isLove: false,  
+        deg: 0             // 旋转角度 
       }
     },
     methods: {
@@ -54,10 +47,10 @@
           loveObj.singer = this.singer;
           loveObj.album = this.album;
           loveObj.mv = this.mv;
+          loveObj.picUrl = this.picUrl;
           let mylove = localStorage.getItem('cloudmusicLoveSongs');
           mylove += JSON.stringify(loveObj);
           localStorage.setItem('cloudmusicLoveSongs', mylove);
-          // console.log(localStorage.getItem('cloudmusicLoveSongs'));
         }
         // 取消喜欢。先从localStorage里取出歌单后用正则匹配成数组的形式，再删除不喜欢的歌曲后重新字符串化再存储
         else {
@@ -71,7 +64,7 @@
             }
           }
           localStorage.setItem('cloudmusicLoveSongs', myloveStr);
-          console.log(localStorage.getItem('cloudmusicLoveSongs'));
+          // console.log(localStorage.getItem('cloudmusicLoveSongs'));
         }
       },
       // 歌曲封面旋转
@@ -82,8 +75,20 @@
           this.$refs.musicDom.style.transform = `rotate(${this.deg}deg)`;
         }, 10)
       },
+      changeLove() {
+        console.log(localStorage.getItem('cloudmusicLoveSongs'));
+        let localLoveSongs = (localStorage.getItem('cloudmusicLoveSongs')).match(/{[\s\S]*?}/g);
+        for(let i=0; i<localLoveSongs.length; i++) {
+          let item = JSON.parse(localLoveSongs[i]);
+          if(item.songId === this.songId)  {
+            this.isLove = true;
+            return; 
+          }
+        }
+        this.isLove = false;
+      },
       ...mapMutations([
-        'setShowLyric'
+        'setShowLyric',
       ])
     },
     computed: {
@@ -93,16 +98,18 @@
         else  return require('../../assets/love.png');
       },
       ...mapState([
+        'url',
         'songId',
         'singer',
         'album',
+        'commentsSum',
         'mv',
         'name',
         'picUrl',
         'isPlaying',
         'showLyric',
         'loading',
-        'pastTime'
+        'pastTime',
       ])
     },
     watch: {
@@ -128,6 +135,9 @@
           clearInterval(this.timer);
           this.timer = null;
         }
+      },
+      url: function() {
+        this.changeLove();
       }
     }
   }

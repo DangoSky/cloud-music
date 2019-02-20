@@ -40,6 +40,7 @@
         'setName',
         'setSingers',
         'setAlbum',
+        'setComments',
         'setPicUrl',
         'play',
         'pause',
@@ -106,6 +107,7 @@
           this.setLoading(true);
         }
         if(newVal >= 1) {
+          
           if(this.playOrder === 1) {
             if(this.currentIndex >= this.playingList.length)  this.setCurrentIndex(0)
             else  this.setCurrentIndex(this.currentIndex + 1);
@@ -144,6 +146,9 @@
         api.getLyric(id, (res) => {
           this.setLyric(res);
           this.setLyricArr();
+        });
+        api.getComments(id, (res) => {
+          this.setComments(res);
         });
       } 
     }

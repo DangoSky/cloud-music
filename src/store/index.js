@@ -5,17 +5,18 @@ Vue.use(Vuex)
  const store = new Vuex.Store({
   state: {
     name: '',
+    songId: '',
     singer: '',
     album: '',
     url: '',
     picUrl: '',
     lyric: '',
+    commentsSum: '',
     mv: '',
     isPlaying: false,
     playingList: [],      // 当前使用的歌单
     playingListId: '',
     currentIndex: 0,
-    songId: '',
     playOrder: 1,          // 播放顺序
     durationTime: 0,      // 歌曲时长/秒
     totalTime: '',        // 歌曲显示时长(字符串)
@@ -51,6 +52,13 @@ Vue.use(Vuex)
     },
     setPicUrl(state, picUrl) {
       state.picUrl = picUrl;
+    },
+    setComments(state, num) {
+      if(num > 1000000)  state.commentsSum = "100w+";
+      else if(num > 100000)  state.commentsSum = "10w+";
+      else if(num > 10000)  state.commentsSum = "1w+";
+      else if(num > 999)  state.commentsSum = "999+";
+      else state.commentsSum = num.toString();
     },
     setLyric(state, lyric) {
       state.lyric = lyric;
