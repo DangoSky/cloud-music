@@ -27,6 +27,8 @@
   
   export default {
     created() {
+      // 重新进入搜索页面后还保留刚才的搜索结果
+      this.key = this.searchKey;
       if(this.searchKey) {
         api.search(this.searchKey, (res) => {
           if(res.length) {
@@ -49,8 +51,6 @@
     methods: {
       search() {
         if(this.key) {
-          // console.log(this.key);
-          // this.setSearchKey(this.key);
             api.search(this.key, (res) => {
               if(res.length) {
                 this.songs = res.slice();
@@ -97,15 +97,11 @@
     },
     watch: {
       key: function() {
-        console.log(this.key);
         this.setSearchKey(this.key);
         if(this.key) {
           this.setIsSearch(true);
         }
         else {
-          this.setIsSearch(false);
-        }
-        if(!this.key && this.isSearch) {
           this.setIsSearch(false);
         }
       }

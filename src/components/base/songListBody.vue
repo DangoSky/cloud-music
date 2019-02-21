@@ -45,16 +45,18 @@
     created() {
       // 通过api获取的歌单
       // 刷新页面后从url解析该值成了string，从组件传递过来的是boolean
+      // console.log(!this.list.ownSongList);
+      // console.log(this.list.ownSongList === 'false');
       if(!this.list.ownSongList || this.list.ownSongList === 'false') {
         api.getSongList(this.list.listId, (res) => {
           this.nickname = res.creator.nickname;         // 作者昵称
           this.avatarUrl = res.creator.avatarUrl;       // 作者头像
-          this.songs = res.tracks;                          
+          this.songs = res.tracks;      
           this.commentCount =  res.commentCount;        // 评论次数
           this.shareCount = res.shareCount;             // 分享次数
           this.trackCount = res.trackCount;             // 歌曲总数
           this.subscribedCount = res.subscribedCount;   // 收藏次数
-
+          this.coverUrl = this.list.picUrl;
         })
       }
       else {
@@ -74,11 +76,11 @@
         this.shareCount = 54;
         this.trackCount = this.songs.length;
         this.subscribedCount = 43;
-      }
-      // 如果取消对歌单内唯一一首歌的喜欢，后退到歌单页面的时候显示指定的图片，否则会报错
-      if(!this.songs.length)  this.coverUrl = require('../../assets/cd.png');
-      else {
-        this.coverUrl = this.list.picUrl;
+        // 如果取消对歌单内唯一一首歌的喜欢，后退到歌单页面的时候显示指定的图片，否则会报错
+        if(!this.songs.length)  this.coverUrl = require('../../assets/cd.png');
+        else {
+          this.coverUrl = this.list.picUrl;
+        }
       }
     },
     props: ['list'],

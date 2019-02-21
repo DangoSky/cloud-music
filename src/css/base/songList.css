@@ -54,11 +54,11 @@
   top: 0;
   z-index: -99;
   overflow: hidden;
-  filter: blur(50px); 
-  -webkit-filter: blur(50px);
-  -moz-filter: blur(50px);
-  -ms-filter: blur(50px);
-  -o-filter: blur(50px);
+  filter: blur(40px); 
+  -webkit-filter: blur(40px);
+  -moz-filter: blur(40px);
+  -ms-filter: blur(40px);
+  -o-filter: blur(40px);
 }
 .blurBg::after {
   content: '';

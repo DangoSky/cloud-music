@@ -107,20 +107,21 @@
           this.setLoading(true);
         }
         if(newVal >= 1) {
-          
-          if(this.playOrder === 1) {
-            if(this.currentIndex >= this.playingList.length)  this.setCurrentIndex(0)
+          // 循环播放或是歌单里只有一首歌曲
+          if(this.playOrder === 3 || this.playingList.length === 1) {
+            this.$refs.player.currentTime = 0;
+            this.$refs.player.play();
+          }
+          else if(this.playOrder === 1) {
+            if((this.currentIndex + 1) >= this.playingList.length)  this.setCurrentIndex(0)
             else  this.setCurrentIndex(this.currentIndex + 1);
             this.setSongId(this.playingList[this.currentIndex]);
+            console.log(this.currentIndex);
           }
           else if(this.playOrder === 2) {
             let ran = parseInt(Math.random() * this.playingList.length);
             this.setCurrentIndex(ran);
             this.setSongId(this.playingList[ran]);
-          }
-          else if(this.playOrder === 3) {
-            this.$refs.player.currentTime = 0;
-            this.$refs.player.play();
           }
         }
       },

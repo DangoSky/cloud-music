@@ -30,13 +30,16 @@
       this.$nextTick(() => {
         this.timer = setInterval(() => {
           this.autoPlay();
+           let ele = this.$refs.pic[0];
+        ele.classList.add('noFirst');
         }, 3000);   
       })
+      // 不知道为什么，这样的话在点击圆形标签跳转轮播图的时候第一张图片会丢失noFirst类
       // 使第一张图片之后都做动画进入
-      this.addTimer = setTimeout(() => {
-        let ele = this.$refs.pic[0];
-        ele.classList.add('noFirst');
-      }, 1000)   
+      // this.addTimer = setTimeout(() => {
+      //   let ele = this.$refs.pic[0];
+      //   ele.classList.add('noFirst');
+      // }, 1000)   
     },
     beforeDestroy() {
       clearInterval(this.timer);

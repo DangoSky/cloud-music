@@ -33,7 +33,8 @@ export default {
   },
   // 获取歌曲url
   getSongUrl(id, callback) {
-    axios.get(`https://api.imjad.cn/cloudmusic/?type=song&id=${id}`)
+    // axios.get(`https://api.imjad.cn/cloudmusic/?type=song&id=${id}`)
+    axios.get(`http://dangosky.com:3000/song/url?id=${id}`)
       .then(function(response) {
         callback(response.data.data[0].url);
       })
