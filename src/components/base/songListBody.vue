@@ -2,7 +2,7 @@
   <div class="songListBody">
     <div class="listData" v-show="list.searchKey === ''">
       <div class="picBox">
-        <img v-lazy="list.picUrl" alt="正在加载中..." class="playPic">
+        <img :src="coverUrl" class="playPic">
         <label class="playCount">{{ list.playCount }}</label>
         <img src="../../assets/detail.png" class="detail">
       </div>
@@ -47,7 +47,6 @@
       // 刷新页面后从url解析该值成了string，从组件传递过来的是boolean
       if(!this.list.ownSongList || this.list.ownSongList === 'false') {
         api.getSongList(this.list.listId, (res) => {
-          this.songList = res;
           this.nickname = res.creator.nickname;         // 作者昵称
           this.avatarUrl = res.creator.avatarUrl;       // 作者头像
           this.songs = res.tracks;                          
@@ -55,6 +54,7 @@
           this.shareCount = res.shareCount;             // 分享次数
           this.trackCount = res.trackCount;             // 歌曲总数
           this.subscribedCount = res.subscribedCount;   // 收藏次数
+
         })
       }
       else {
@@ -64,28 +64,34 @@
         this.avatarUrl = 'http://p2.music.126.net/e6G_JLkLGcIQLw9vsdgt0g==/109951163763088598.jpg?param=170y170';
         let localLoveSongs = (localStorage.getItem(this.list.listId)).match(/{[\s\S]*?}/g);
         this.songs = [];
-        for(let i=localLoveSongs.length-1; i>=0; i--) {
-          let item = JSON.parse(localLoveSongs[i]);
-          this.songs.push(item);
+        if(localLoveSongs) {
+          for(let i=localLoveSongs.length-1; i>=0; i--) {
+            let item = JSON.parse(localLoveSongs[i]);
+            this.songs.push(item);
+          }
         }
-        this.commentCount =  1;
-        this.shareCount = 1;
+        this.commentCount =  27;
+        this.shareCount = 54;
         this.trackCount = this.songs.length;
-        this.subscribedCount = 1;
+        this.subscribedCount = 43;
+      }
+      // 如果取消对歌单内唯一一首歌的喜欢，后退到歌单页面的时候显示指定的图片，否则会报错
+      if(!this.songs.length)  this.coverUrl = require('../../assets/cd.png');
+      else {
+        this.coverUrl = this.list.picUrl;
       }
     },
     props: ['list'],
     data() {
       return {
-        songList: {},    // 歌单全部信息
-        songs: [],       //  由每首的歌曲信息组成的歌单数组
+        songs: [],       
         nickname: '',   
         avatarUrl: '',
         commentCount: '',
         shareCount: '',
         trackCount: '',
         subscribedCount: '',
-        songsLen: ''
+        coverUrl: ''        
       }
     },
     methods: {
@@ -131,11 +137,15 @@
       ])
     },
     watch: {
+      // 若取消喜欢歌单里的第一首歌，及时更新歌单封面的图片
       trackCount: function() {
-        console.log(this.trackCount);
-        if(this.list.ownSongList || this.list.ownSongList === 'true') {
-          console.log("change");
-          this.list.picUrl = this.songs[this.songs.length-1].picUrl;
+        if(this.list.ownSongList && String(this.list.ownSongList) === 'true') {
+          if(this.songs.length) {
+            this.coverUrl = this.songs[0].picUrl;
+          }
+          else {
+            this.coverUrl = require('../../assets/cd.png');
+          }
         }
       }
     }

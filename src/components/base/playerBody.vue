@@ -49,7 +49,6 @@
           loveObj.mv = this.mv;
           loveObj.picUrl = this.picUrl;
           let mylove = localStorage.getItem('cloudmusicLoveSongs');
-          // console.log(mylove);
           if(!mylove)  mylove = '';
           mylove += JSON.stringify(loveObj);
           localStorage.setItem('cloudmusicLoveSongs', mylove);

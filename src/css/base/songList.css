@@ -54,11 +54,18 @@
   top: 0;
   z-index: -99;
   overflow: hidden;
-  filter: blur(60px); 
-  -webkit-filter: blur(60px);
-  -moz-filter: blur(60px);
-  -ms-filter: blur(60px);
-  -o-filter: blur(60px);
+  filter: blur(50px); 
+  -webkit-filter: blur(50px);
+  -moz-filter: blur(50px);
+  -ms-filter: blur(50px);
+  -o-filter: blur(50px);
+}
+.blurBg::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 .searchBox {
   width: 100%;
