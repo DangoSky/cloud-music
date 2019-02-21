@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <img class="audio" :src="audioSRC">    
+      <img class="audio" src="../../assets/audio.png">    
       <input class="search" type="search" placeholder="但愿日子清净，抬头遇见的都是柔情" 
         @input="search"
         v-model="key"
@@ -40,8 +40,6 @@
         })
       }
     },
-    // 父组件给子组件传右上方音频icon的src
-    props: ['audioSRC'],
     data() {
       return {
         key: '',

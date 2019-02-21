@@ -1,28 +1,21 @@
 <template>
   <div class="video">
-    <video-header :audioSRC="videoSRC"></video-header>
+    <video-header></video-header>
     <video-bar></video-bar>
+    <fixed-footer></fixed-footer>
   </div>
 </template>
 
 <script>
-  import header from '../explore/header.vue'
+  import videoHeader from './videoHeader.vue'
   import videoBar from './videoBar.vue'
+  import footer from '../base/footer.vue'
+
   export default {
     components: {
-      'video-header': header,
-      'video-bar': videoBar
-    },
-    data() {
-      return {
-        videoSRC: require('../../assets/video.png')
-      }
-    },
-    methods: {
-    
-    },
-    computed: {
-    
+      'video-header': videoHeader,
+      'video-bar': videoBar,
+      'fixed-footer': footer
     }
   }
 </script>

@@ -17,15 +17,17 @@
       </div>
       <song-list-body :list="{listName: listName, listId: listId, playCount: playCount, picUrl: picUrl, searchKey: searchKey, ownSongList: ownSongList}"></song-list-body>
     </div>
+    <fixed-footer></fixed-footer>
   </div>
 </template>
-
+      
 <script>
   import songListBody from './songListBody.vue'
-
+  import footer from '../base/footer.vue'
   export default {
     components: {
-      'song-list-body': songListBody
+      'song-list-body': songListBody,
+      'fixed-footer': footer
     },
     data() {
       return {

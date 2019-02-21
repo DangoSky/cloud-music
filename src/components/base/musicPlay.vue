@@ -1,7 +1,7 @@
 <template>
   <div class="musicPlay">
     <!-- 制作毛玻璃背景图效果,因为bg是动态的url，所以只能再用一个空div -->
-    <div class="blurBg" :style="{background: 'url(' + picUrl + ') top center no-repeat '}"></div>  
+    <div class="blurBg" :style="{background: 'url(' + picUrl + ') top center'}"></div>  
     <div class="header">
       <img src="../../assets/leftArrow.png" class="leftArrow" @click="turnBack">
       <img src="../../assets/share1.png" class="share">

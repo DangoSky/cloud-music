@@ -1,0 +1,63 @@
+a {
+  text-decoration: none;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 3px;
+  background-color: rgb(216, 228, 224);
+  display: flex; 
+  justify-content: space-around;
+  z-index: 99;
+}
+/* 未点击路由时的字体样式 */
+ .footer p {
+  font-size: 0.7rem;
+  text-align: center;
+  color: #C0C0C0;
+}
+/* 点击路由后将字体颜色变成红色 */
+.router-link-active > p {
+  color: #DB4139;
+}
+.explore {
+  background-image: url('../../assets/exploreUnclick.png');
+  width: 30px;
+  height: 30px;
+}
+.router-link-active > .explore {
+  background-image: url('../../assets/exploreClick.png');
+}
+.video {
+  background-image: url('../../assets/videoUnclick.png');
+  width: 30px;
+  height: 30px;
+}
+.router-link-active > .video {
+  background-image: url('../../assets/videoClick.png');
+}
+.myself {
+  background-image: url('../../assets/myselfUnclick.png');
+  width: 30px;
+  height: 30px;
+}
+.router-link-active > .myself {
+  background-image: url('../../assets/myselfClick.png');
+}
+.friend {
+  background-image: url('../../assets/friendUnclick.png');
+  width: 30px;
+  height: 30px;
+}
+.router-link-active > .friend {
+  background-image: url('../../assets/friendClick.png');
+}
+.user {
+  background-image: url('../../assets/userUnclick.png');
+  width: 30px;
+  height: 30px;
+}
+.router-link-active > .user {
+  background-image: url('../../assets/userClick.png');
+}
