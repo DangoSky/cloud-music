@@ -27,7 +27,9 @@ Vue.use(Vuex)
     draging: false,       // 为true时进度条正在拖动，不显示当前进行的时间
     showLyric: false,
     lyricArr: [],       // 时间点为键，歌词为值
-    loading: false     // 如果为true则显示加载小圈
+    loading: false,     // 如果为true则显示加载小圈
+    isSearch: false,       // 是否正在搜索
+    searchKey: ''         // 搜索的关键词
   },
   mutations: {
     setName(state, name) {
@@ -155,6 +157,12 @@ Vue.use(Vuex)
     },
     setLoading(state, bool) {
       state.loading = bool;
+    },
+    setIsSearch(state, bool) {
+      state.isSearch = bool;
+    },
+    setSearchKey(state, str) {
+      state.searchKey = str;
     }
   }
 })
