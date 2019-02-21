@@ -20,7 +20,7 @@
         <label class="selects">多选</label>
       </div>
     </div> 
-    <div class="songs">
+    <div class="songs" >
       <div class="songsBar" v-show="list.searchKey === ''">
         <label class="playAll">播放全部</label>
         <label class="songCount">(共{{ trackCount }}首)</label>

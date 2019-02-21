@@ -75,15 +75,5 @@ export default {
       .catch(function(error) {
         console.log(error);
       }) 
-  },
-  // 搜索
-  search(name, callback) {
-    axios.get(`https://api.imjad.cn/cloudmusic/?type=search&search_type=1&s=${name}`)
-      .then(function(response) {
-        callback(response.data.result.songs);
-      })
-      .catch(function(error) {
-        console.log(error);
-      })
   }
 }
