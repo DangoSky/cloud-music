@@ -37,3 +37,63 @@
   height: 30px;
 }
 
+.searchSongs {
+  width: 100%;
+  height: calc(100vh - 105px);
+  position: relative;
+  top: 0;
+  left: 0;
+  overflow-y: scroll;
+}
+.song {
+  width: 100%;
+  padding: 25px;
+  box-sizing: border-box;
+  position: relative;
+  background: url('../../assets/more2.png') no-repeat calc(100% - 10px) center;
+}
+.song:after {
+  content: '';
+  width: calc(100% - 40px);
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-top: 1px solid #DCDCDC;
+  margin-left: 40px;
+}
+.playing {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.songName {
+  width: calc(100% - 120px);
+  position: absolute;
+  left: 40px;
+  top: 7px;
+  font-size: 0.92rem;
+  /* 超出的宽度的文本用省略号显示 */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.writer {
+  width: calc(100% - 120px);
+  font-size: 0.7rem;
+  position: absolute;
+  left: 40px;
+  bottom: 7px;
+  color: #C0C0C0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.showMv {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: url('../../assets/video2.png') no-repeat calc(100% - 45px) center;
+}
