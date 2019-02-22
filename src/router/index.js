@@ -48,7 +48,7 @@ export default new Router({
       component: musicPlay
     },
     {
-      path: '/songList',
+      path: '/explore//songList',
       name: 'songList',
       component: songList
     }

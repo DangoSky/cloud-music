@@ -2,8 +2,8 @@
   <div class="friendHeader">
     <img src="../../assets/addFriend.png" class="addFriend">
     <div class="friendHeaderFont">
-      <label class="dynamic" @click="clickDynamic" :class="{dynamicActive: isClickDynamic}">动态</label>
-      <label class="nearBy" @click="clickNearby" :class="{nearByActive: isClicknearBy}">附近</label>
+      <label class="dynamic" @click="clickDynamic" :class="{active: isClickDynamic}">动态</label>
+      <label class="nearBy" @click="clickNearby" :class="{active: !isClickDynamic}">附件</label>
     </div>
     <router-link :to="{name: 'musicPlay'}">
       <img class="friendMusic" src="../../assets/music.png">
@@ -19,18 +19,15 @@
   export default {
     data() {
       return {
-        isClickDynamic: true,
-        isClicknearBy: false
+        isClickDynamic: true
       }
     },
     methods: {
       clickDynamic() {
         this.isClickDynamic = true;
-        this.isClicknearBy = false;
       },
       clickNearby() {
         this.isClickDynamic = false;
-        this.isClicknearBy = true;
       }
     }
   }

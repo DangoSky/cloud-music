@@ -77,7 +77,10 @@
     watch: {
       isPlaying: function(newVal, old) {
         if(newVal)  {
-          this.$refs.player.play();
+          // this.$refs.player.play();
+          setTimeout(() => {
+            this.$refs.player.play();
+          },10)
           this.changeCurrentTime();
         }
         else {
@@ -87,7 +90,10 @@
       // 切歌的时候自动播放
       url: function(newVal) {
         if(newVal) {
-          this.$refs.player.autoplay = 'autoplay';
+          // this.$refs.player.autoplay = 'autoplay';
+          setTimeout(() => {
+            this.$refs.player.play();
+          },10)
           this.play();
           this.computeTotalTime();
         }
@@ -116,7 +122,6 @@
             if((this.currentIndex + 1) >= this.playingList.length)  this.setCurrentIndex(0)
             else  this.setCurrentIndex(this.currentIndex + 1);
             this.setSongId(this.playingList[this.currentIndex]);
-            console.log(this.currentIndex);
           }
           else if(this.playOrder === 2) {
             let ran = parseInt(Math.random() * this.playingList.length);

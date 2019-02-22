@@ -3,60 +3,43 @@
   position: fixed;
   background-color: #DB4139;
 }
-/* 字体 */
 .friendHeaderFont {
-  border: 1px solid #DCDCDC;
+  width: calc(4rem + 80px);
+  height: 30px;
+  position: relative;
+  left: calc((100% - 100px) / 2);
+  top: 10px;
+  transform: translateX(-50%);
+  display: inline-block;
+  border: 1px solid #DCDCDC; 
+  box-sizing: border-box;
   border-radius: 30px;
-  padding: 5px 20px;
   color: #DCDCDC;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  text-align: center;
+  margin-bottom: 20px;
 }
-/* 使动态和附近左右间隔开来 */
 .dynamic {
-  padding-right: 20px;
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  line-height: 30px;
   cursor: pointer;
 }
 .nearBy {
-  padding-left: 20px;
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  line-height: 30px;
   cursor: pointer;
 }
-/* 动态激活时的样式 */
-.dynamicActive {
-  position: relative;
-  color: #DB4139;
-}
-.dynamicActive::after {
-  content: "";
-  /* 需要计算出伪元素的宽高以及left和top */
-  width: calc(100% + 20px);
-  height: calc(100% + 10px);
-  position: absolute;
-  /* 除了padding外还得算上1px的边框 */
-  left: -21px;
-  top: -6px; 
-  border: 1px solid #DCDCDC;
+.active {
   background-color: white;
-  z-index: -99;
-  border-radius: 30px;  
-}
-/* 附近激活时的样式 */
-.nearByActive {
-  position: relative;
   color: #DB4139;
-}
-.nearByActive::after {
-  content: "";
-  width: calc(100% + 20px);
-  height: calc(100% + 10px);
-  position: absolute;
-  right: -21px;
-  top: -6px; 
-  border: 1px solid #DCDCDC;
-  background-color: white;
-  z-index: -99;
   border-radius: 30px;  
 }
 /* 左右两个icon */
@@ -82,7 +65,7 @@
   font-size: 0.8rem;
   position: relative;
   left: 0;
-  top: 50px;
+  /* top: 50px; */
   background-color: #DB4139;
   padding: 10px;
 }
