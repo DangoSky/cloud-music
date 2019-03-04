@@ -75,12 +75,11 @@
       ])
     },
     watch: {
-      isPlaying: function(newVal, old) {
-        if(newVal)  {
-          // this.$refs.player.play();
+      isPlaying(newVal) {
+        if(newVal) {
           setTimeout(() => {
             this.$refs.player.play();
-          },10)
+          }, 0)
           this.changeCurrentTime();
         }
         else {
@@ -88,23 +87,23 @@
         }
       },
       // 切歌的时候自动播放
-      url: function(newVal) {
+      url(newVal) {
         if(newVal) {
           // this.$refs.player.autoplay = 'autoplay';
           setTimeout(() => {
             this.$refs.player.play();
-          },10)
+          }, 0)
           this.play();
           this.computeTotalTime();
         }
       },
       // 监听进度条的拖动点击以此跳转歌曲
-      draged: function(newVal) {
+      draged(newVal) {
         this.$refs.player.currentTime = this.pastTime;
         this.setDraged(false);
       },    
       // 歌曲播放完后改变songId
-      movePercent: function(newVal) {
+      movePercent(newVal) {
         // 是否显示加载小圈
         if(newVal > 0 && this.isPlaying) {
           this.setLoading(false);
@@ -131,7 +130,7 @@
         }
       },
       // 根据songId来更新播放详情页
-      songId: function(newVal) {
+      songId(newVal) {
         let id = this.songId;
         this.setUrl('');
         api.getSongUrl(id, (res) => {

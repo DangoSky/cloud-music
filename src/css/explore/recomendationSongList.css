@@ -50,8 +50,13 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2; 
+  -moz-box-orient: vertical;
+  -moz-line-clamp: 2;
+  box-orient: vertical;
+  line-clamp: 2; 
+  -moz-text-overflow: ellipsis;
   text-overflow: ellipsis;
-  color: black;
+  color: b1lack;
 }
 /* footer是固定定位，设置一个伪元素占位 */
 .recomendationSongList::after {

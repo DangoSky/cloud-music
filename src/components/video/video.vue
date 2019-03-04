@@ -1,21 +1,38 @@
 <template>
   <div class="video">
-    <video-header></video-header>
-    <video-bar></video-bar>
+    <video-header @changeShow="changeShow"></video-header>
+    <!-- <mv v-if="showMv"></mv> -->
+    <component :is="componentId"></component>
     <fixed-footer></fixed-footer>
   </div>
 </template>
 
 <script>
   import videoHeader from './videoHeader.vue'
-  import videoBar from './videoBar.vue'
   import footer from '../base/footer.vue'
+  import mv from './mv.vue'
 
   export default {
     components: {
       'video-header': videoHeader,
-      'video-bar': videoBar,
-      'fixed-footer': footer
+      'fixed-footer': footer,
+      'MV': mv
+    },
+    data() {
+      return {
+        showMv: true,
+        componentId: 'MV'
+      }
+    },
+    methods: {
+      changeShow(name) {
+        if(name === 'MV') {
+          this.componentId = name;
+        }
+        else {
+          this.componentId = '';
+        }
+      }
     }
   }
 </script>

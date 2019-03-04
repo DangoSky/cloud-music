@@ -10,7 +10,7 @@
         <p class="listTitle">{{ list.listName }}</p>
         <img v-lazy="avatarUrl" class="creatorPic"> 
         <div class="nickNameBox">
-          <label class="nickName">{{ nickname}}</label>
+          <label class="nickName">{{ nickname }}</label>
         </div>
       </div>
       <div class="bar">
@@ -42,11 +42,16 @@
   import { mapMutations, mapState} from 'vuex'
 
   export default {
+    // activated() {
+    //   this.list.listName = this.$route.query.listName;
+    //   this.list.listId = this.$route.query.listId;
+    //   this.list.playCount = this.$route.query.playCount;
+    //   this.list.picUrl = this.$route.query.picUrl;
+    //   this.list.ownSongList = this.$route.query.ownSongList;
+    // },
     created() {
       // 通过api获取的歌单
       // 刷新页面后从url解析该值成了string，从组件传递过来的是boolean
-      // console.log(!this.list.ownSongList);
-      // console.log(this.list.ownSongList === 'false');
       if(!this.list.ownSongList || this.list.ownSongList === 'false') {
         api.getSongList(this.list.listId, (res) => {
           this.nickname = res.creator.nickname;         // 作者昵称
@@ -93,7 +98,7 @@
         shareCount: '',
         trackCount: '',
         subscribedCount: '',
-        coverUrl: ''        
+        coverUrl: ''     
       }
     },
     methods: {
@@ -118,7 +123,6 @@
       },
       ...mapMutations([
         'setSongId',
-        'setSingers',
         'setCurrentIndex',
         'setPlayingList',
       ])

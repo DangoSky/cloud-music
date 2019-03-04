@@ -86,5 +86,26 @@ export default {
       .catch(function(error) {
         console.log(error);
       })
+  },
+  // 获取最新的mv(只有30条)
+  getMvId(callback) {
+    // axios.get('http://dangosky.com:3000/mv/first')
+    axios.get('http://dangosky.com:3000/top/mv')
+      .then(function(response) {
+        callback(response.data.data);
+      })
+      .catch(function(error) {
+        console.log(error);
+      })
+  },
+  // 获取mv的url
+  getMvDetail(id, callback) {
+    axios.get(`https://api.imjad.cn/cloudmusic/?type=mv&id=${id}`)
+      .then(function(response) {
+        callback(response.data.data);
+      })
+      .catch(function(error) {
+        console.log(error);
+      })
   }
 }

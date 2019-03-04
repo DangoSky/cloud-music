@@ -1,6 +1,25 @@
 .header {
   background-color: #DB4139;
   width: 100%;
+  position: fixed;
+  z-index: 1;
+}
+.headerBox:after {
+  content: '';
+  width: 100%;
+  height: calc(50px + 33px);
+  position: relative;
+  left: 0;
+  top: 0;
+  display: block;
+  background-color: yellow;
+}
+/* 移动端隐藏滚动条 */
+::-webkit-scrollbar {
+  width: 0px;
+}
+::-webkit-scrollbar {
+  display: none;
 }
 /* 左上方的音频icon */
 .audio {
@@ -36,3 +55,56 @@
   width: 30px;
   height: 30px;
 }
+
+/* 选择条 */
+.barBox  {
+  width: 100%;
+  position: relative;
+  background-color: #DB4139;
+  overflow-x: auto;
+}
+.videoBar {
+  color: white;
+  background-color: #DB4139;
+  width: 100%;
+  /* 字体水平排列不换行 */
+  /* overflow-x: scroll; */
+  white-space: nowrap;
+  padding-bottom: 10px;
+  position: relative;
+}
+.barFont {
+  display: inline-block;
+  padding: 0 12px;
+  font-size: 0.9rem;
+  line-height: 20px;
+}
+/* 使第一个和最后一个的padding同中间一样 */
+/* .videoBar label:first-child {
+  padding-left: 24px;
+}
+.videoBar label:last-child {
+  padding-right: 24px;
+} */
+/* 设置下划线 */
+.activeClass {
+  position: relative;
+}
+.activeClass::after {
+  content: "";
+  width: 50%;
+  border: 1.2px solid white;
+  border-radius: 20%;
+  position: absolute;
+  bottom: -5px;
+  left: 20%;
+}
+/* .activeLabel-enter {
+  transform: translateX(-100%);
+}
+.activeLabel-enter-to {
+  transform: translateX(200%);
+}
+.activeLabel-enter-active {
+  transition: all 5s ease;
+} */

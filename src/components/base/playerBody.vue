@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="musicLogo">
-      <img :src="this.picUrl" ref="musicDom" @click="setShowLyric(!showLyric)">
+      <img :src="this.picUrl" ref="musicDom" @click="setShowLyric(!showLyric)" v-show="this.picUrl">
     </div>
     <div class="musicBar">
       <img :src="loveSrc" @click="clickLove">
@@ -17,7 +17,6 @@
 </template>
 
 <script>
-  import api from '../../api/index.js'
   import { mapState, mapMutations } from 'vuex'
 
   export default {

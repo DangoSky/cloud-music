@@ -3,7 +3,7 @@
     <img src="../../assets/addFriend.png" class="addFriend">
     <div class="friendHeaderFont">
       <label class="dynamic" @click="clickDynamic" :class="{active: isClickDynamic}">动态</label>
-      <label class="nearBy" @click="clickNearby" :class="{active: !isClickDynamic}">附件</label>
+      <label class="nearBy" @click="clickNearby" :class="{active: !isClickDynamic}">附近</label>
     </div>
     <router-link :to="{name: 'musicPlay'}">
       <img class="friendMusic" src="../../assets/music.png">

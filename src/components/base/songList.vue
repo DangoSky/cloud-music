@@ -25,6 +25,13 @@
   import songListBody from './songListBody.vue'
   import footer from '../base/footer.vue'
   export default {
+    // activated() {
+    //   this.listName = this.$route.query.listName;
+    //   this.listId = this.$route.query.listId;
+    //   this.playCount = this.$route.query.playCount;
+    //   this.picUrl = this.$route.query.picUrl;
+    //   this.ownSongList = this.$route.query.ownSongList;
+    // },
     components: {
       'song-list-body': songListBody,
       'fixed-footer': footer

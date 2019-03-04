@@ -19,7 +19,7 @@ a {
 }
 /* 点击路由后将字体颜色变成红色 */
 .router-link-active > p {
-  color: #DB4139;
+  color: red;
 }
 .explore {
   background-image: url('../../assets/exploreUnclick.png');

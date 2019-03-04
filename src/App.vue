@@ -1,9 +1,7 @@
 <template>
   <div class="box">
     <player></player>
-    <!-- <keep-alive> -->
-      <router-view></router-view>
-    <!-- </keep-alive> -->
+    <router-view></router-view>
   </div>
 </template>
 
