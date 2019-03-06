@@ -12,7 +12,6 @@
   left: 0;
   top: 0;
   display: block;
-  background-color: yellow;
 }
 /* 移动端隐藏滚动条 */
 ::-webkit-scrollbar {

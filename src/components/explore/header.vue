@@ -74,6 +74,7 @@
         this.setSongId(item.id);
         this.setCurrentIndex(index);
         this.setPlayingList(this.songs);
+        this.setPlayingListId('searchList');
         this.$router.push({
           name: 'musicPlay'
         });
@@ -84,7 +85,8 @@
         'setSearchKey',
         'setSongId',
         'setCurrentIndex',
-        'setPlayingList'
+        'setPlayingList',
+        'setPlayingListId'
       ])
     },
     computed: {

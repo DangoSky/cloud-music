@@ -23,6 +23,8 @@
     created() {
       // 判断是否喜欢该歌曲
       this.judgeLove();
+      // localStorage.removeItem('cloudmusic_我喜欢的音乐');
+      // localStorage.removeItem('cloudmusicSongList');
     },
     beforeDestroy() {
       clearInterval(this.timer);
@@ -38,23 +40,31 @@
       // 你喜欢吗
       clickLove() {
         this.isLove = !this.isLove;
-        // 将喜欢的歌曲信息格式化后存储到localStorage里。需要先取出localStorage里歌单，再把新喜欢的歌曲信息拼接到它后面后再存储
         if(this.isLove) {
-          let loveObj = {};
-          loveObj.id = this.songId;
-          loveObj.name = this.name;
-          loveObj.singer = this.singer;
-          loveObj.album = this.album;
-          loveObj.mv = this.mv;
-          loveObj.picUrl = this.picUrl;
-          let mylove = localStorage.getItem('cloudmusicLoveSongs');
-          if(!mylove)  mylove = '';
-          mylove += JSON.stringify(loveObj);
-          localStorage.setItem('cloudmusicLoveSongs', mylove);
+          let loveSong = {};
+          loveSong.id = this.songId;
+          loveSong.name = this.name;
+          loveSong.singer = this.singer;
+          loveSong.album = this.album;
+          loveSong.mv = this.mv;
+          loveSong.picUrl = this.picUrl;
+          // 如果还没有创建我喜欢的歌单，则新建localstorage记录
+          if(!localStorage.getItem('cloudmusic_我喜欢的音乐')) {
+            let songList = localStorage.getItem('cloudmusicSongList') ? localStorage.getItem('cloudmusicSongList') : '';
+            let loveList = {};
+            loveList.name = '我喜欢的音乐';
+            loveList.id = 'cloudmusic_我喜欢的音乐';
+            loveList.playCount = 0;
+            localStorage.setItem('cloudmusic_我喜欢的音乐', JSON.stringify(loveSong));
+            localStorage.setItem('cloudmusicSongList', songList + JSON.stringify(loveList));
+          }
+          else {
+            localStorage.setItem('cloudmusic_我喜欢的音乐', localStorage.getItem('cloudmusic_我喜欢的音乐') + JSON.stringify(loveSong));
+          }
         }
         // 取消喜欢。先从localStorage里取出歌单后用正则匹配成数组的形式，再删除不喜欢的歌曲后重新字符串化再存储
         else {
-          let myloveArr = (localStorage.getItem('cloudmusicLoveSongs')).match(/{[\s\S]*?}/g);
+          let myloveArr = (localStorage.getItem('cloudmusic_我喜欢的音乐')).match(/{[\s\S]*?}/g);
           let myloveStr = '';
           for(let i=0; i<myloveArr.length; i++) {
             let item = JSON.parse(myloveArr[i]);
@@ -63,7 +73,7 @@
               myloveStr += JSON.stringify(item); 
             }
           }
-          localStorage.setItem('cloudmusicLoveSongs', myloveStr);
+          localStorage.setItem('cloudmusic_我喜欢的音乐', myloveStr);
         }
       },
       // 歌曲封面旋转
@@ -75,8 +85,8 @@
         }, 10)
       },
       judgeLove() {
-        if(localStorage.getItem('cloudmusicLoveSongs')) {
-          let localLoveSongs = (localStorage.getItem('cloudmusicLoveSongs')).match(/{[\s\S]*?}/g);
+        if(localStorage.getItem('cloudmusic_我喜欢的音乐')) {
+          let localLoveSongs = (localStorage.getItem('cloudmusic_我喜欢的音乐')).match(/{[\s\S]*?}/g);
           for(let i=0; i<localLoveSongs.length; i++) {
             let item = JSON.parse(localLoveSongs[i]);
             if(item.id === this.songId)  {
@@ -110,6 +120,7 @@
         'showLyric',
         'loading',
         'pastTime',
+        'playingListId'
       ])
     },
     watch: {
@@ -139,12 +150,20 @@
       url: function(newVal) {
         // 如果不指定使新值还是旧值的话，会执行两次watch！！
         if(newVal) {
+          // 歌曲改变判断该歌曲是否喜欢
           this.judgeLove();
-          if(this.isLove)  {
-            let tem = parseInt(localStorage.getItem('cloudmusicLoveSongsPlayCount'));
-            if(!tem)  tem = 1;
-            else  tem++;
-            localStorage.setItem('cloudmusicLoveSongsPlayCount', String(tem));
+          // 使用自己的歌单才进行歌曲播放量统计
+          if(localStorage.getItem(this.playingListId)) {
+            let songList = localStorage.getItem('cloudmusicSongList').match(/{[\s\S]*?}/g);
+            let str = '';
+            for(let i=0; i<songList.length; i++) {
+              let list = JSON.parse(songList[i]);
+              if(list.name === this.playingListId) {
+                list.playCount === 0 ? 1 : list.playCount++ ;
+              }
+              str += JSON.stringify(list);
+            }
+
           }
         }
       }

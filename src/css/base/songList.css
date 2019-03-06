@@ -30,7 +30,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: center;
 }
 /* 占据fixed的空间 */
 .emptyClass {
@@ -65,7 +64,7 @@
   width: 100%;
   height: 100%;
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 .searchBox {
   width: 100%;

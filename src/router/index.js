@@ -48,8 +48,13 @@ export default new Router({
       component: musicPlay
     },
     {
-      path: '/explore//songList',
+      path: '/explore/songList',
       name: 'songList',
+      component: songList
+    },
+    {
+      path: '/myself/songList',
+      name: 'myself_songList',
       component: songList
     }
   ]

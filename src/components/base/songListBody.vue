@@ -117,6 +117,8 @@
         this.setCurrentIndex(index);
         // 点击后使用该歌单，将歌曲id放入播放歌单列表中
         this.setPlayingList(this.songs);
+        // 根据id判断是否使用自己的歌单，方便对歌单播放量进行统计
+        this.setPlayingListId(this.list.listId);
         this.$router.push({
           name: 'musicPlay'
         });
@@ -125,6 +127,7 @@
         'setSongId',
         'setCurrentIndex',
         'setPlayingList',
+        'setPlayingListId'
       ])
     },
     computed: {
@@ -139,13 +142,15 @@
         }
       },
       ...mapState([
-        'songId'
+        'songId',
+        'useOwnList',
+        'playingListId'
       ])
     },
     watch: {
       // 若取消喜欢歌单里的第一首歌，及时更新歌单封面的图片
       trackCount: function() {
-        if(this.list.ownSongList && String(this.list.ownSongList) === 'true') {
+        if(this.playingListId.includes('cloudmusic_')) {
           if(this.songs.length) {
             this.coverUrl = this.songs[0].picUrl;
           }

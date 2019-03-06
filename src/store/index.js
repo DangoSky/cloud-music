@@ -15,7 +15,7 @@ Vue.use(Vuex)
     mv: '',
     isPlaying: false,
     playingList: [],      // 当前使用的歌单
-    playingListId: '',
+    playingListId: '',     // 判断是否使用自己的歌单，方便对歌单播放量进行统计
     currentIndex: 0,
     playOrder: 1,          // 播放顺序
     durationTime: 0,      // 歌曲时长/秒
@@ -29,7 +29,7 @@ Vue.use(Vuex)
     lyricArr: [],       // 时间点为键，歌词为值
     loading: false,     // 如果为true则显示加载小圈
     isSearch: false,       // 是否正在搜索
-    searchKey: ''         // 搜索的关键词
+    searchKey: '',         // 搜索的关键词  
   },
   mutations: {
     setName(state, name) {
