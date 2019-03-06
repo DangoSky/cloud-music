@@ -34,9 +34,9 @@
   position: absolute;
   right: 5px;
   top: 2px;
-  color: 		#F0F8FF;  
+  color:	#F0F8FF;  
   font-size: 0.65rem;
-  background: url('../../assets/earphones.png') no-repeat;
+  background:  rgba(0, 0, 0, 0.2) url('../../assets/earphones.png') no-repeat;
   padding-left: 15px;
 }
 /* 歌单名 */

@@ -11,8 +11,21 @@
         <img src="../../assets/comments.png">
         <label class="commentsFont">{{ commentsSum }}</label>
       </div>
-      <img src="../../assets/more.png">
+      <img src="../../assets/more.png" @click.stop="showManagement">
     </div>
+
+    <div class="manage" v-if="isShowManagement">
+      <p class="title">歌曲: {{name}}</p>
+      <p v-for="(item, index) in manageList" :key="index" 
+        class="manageItem"
+        :class="{underline: index !== manageList.length-1}"
+        :style="{background: 'url('+ item.icon +') no-repeat 10px  center'}"
+      >
+        {{showManageItem(item)}}
+      </p>
+    </div>
+    <!--  -->
+    <div class="mask" v-if="isShowManagement" @click="hideManagement"></div>
   </div>
 </template>
 
@@ -23,8 +36,6 @@
     created() {
       // 判断是否喜欢该歌曲
       this.judgeLove();
-      // localStorage.removeItem('cloudmusic_我喜欢的音乐');
-      // localStorage.removeItem('cloudmusicSongList');
     },
     beforeDestroy() {
       clearInterval(this.timer);
@@ -33,7 +44,38 @@
       return {
         timer: null,     
         isLove: false,  
-        deg: 0             // 旋转角度 
+        deg: 0,   // 旋转角度 
+        isShowManagement: false,
+        manageList: [
+          {
+            name: '收藏到歌单',
+            icon: require('../../assets/add.png')
+          },
+          {
+            name: '相似推荐',
+            icon: require('../../assets/similar.png')
+          },
+          {
+            name: '歌手',
+            icon: require('../../assets/singer.png')
+          },
+          {
+            name: '专辑',
+            icon: require('../../assets/album.png')
+          },
+          {
+            name: '来源:歌单',
+            icon: require('../../assets/link.png')
+          },
+          {
+            name: '查看视频',
+            icon: require('../../assets/video3.png')
+          },
+          {
+            name: '定时关闭',
+            icon: require('../../assets/timer.png')
+          }
+        ]
       }
     },
     methods: {
@@ -96,6 +138,25 @@
           }
           this.isLove = false;
         } 
+      },
+      showManagement() {
+        this.isShowManagement = true;
+      },
+      hideManagement() {
+        this.isShowManagement = false;
+      },
+      // 根据不同列表返回不同的字段
+      showManageItem(item) {
+        if(item.name.includes('歌手')) {
+          return `歌手: ${this.singer}`
+        }
+        else if(item.name.includes('专辑')) {
+          return `专辑: ${this.album}`
+        }
+        else if(item.name.includes('来源:歌单')) {
+          return `来源:歌单: ${this.playingListId.slice(11)}`
+        }
+        return item.name;
       },
       ...mapMutations([
         'setShowLyric',

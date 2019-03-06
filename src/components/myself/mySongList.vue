@@ -5,20 +5,20 @@
       <img src="../../assets/new.png" class="newList" @click="showModel">
     </div>
     <div v-for="(item, index) in myList" :key="index" 
-      class="myList" v-show="show" 
+      class="myList"
+      v-show="show" 
       @click="showDetail(item)"
       @touchstart="touchstart"
       @touchmove="touchmove" 
-      data-type="0"
-      ref="list"
-       :style="deleteSlider"
+      :data-type="current == index ? 1 : 0"
+      :data-index="index"
     >
       <div class="myListPicBox" :style="{backgroundImage: 'url('+ item.coverPic +')'}" :class="{'loveListMask': item.name === '我喜欢的音乐'}">
         <img src="../../assets/love2.png" class="myListPic" v-if="item.name === '我喜欢的音乐'">
       </div>
       <label class="myListTitle">{{item.name}}</label>
       <label class="myListCount">{{item.num}}首</label>
-      <div class="delete">删除</div>
+      <label class="delete" @click.stop="deleteList(item)" v-if="!isDelete">删除</label>
     </div>
     <!-- 弹出模态框后，使用一个蒙版来是使得页面其他部分不能点击 -->
     <div class="mask" v-if="isShowModel"></div>
@@ -26,7 +26,7 @@
       <p class="headerTitle">新建歌单</p>
       <div class="content">
         <p>歌单标题:</p>
-        <input type="text" class="inputBox" v-model="listName">
+        <input type="text" class="inputBox" v-model="listName" autofocus="autofocus">
       </div>
       <div class="btn" style="border-right: 1px solid white" @click="hideModel">
         <label>取消</label>
@@ -48,14 +48,16 @@
         show: true,
         myList: [],
         isShowModel: false,
-        listName: '',     // 新建歌单名
-        startX: 0,   // 拖动显示删除按钮
-      deleteSlider: ''
+        listName: '',        // 新建歌单名
+        startX: 0,          // 拖动显示删除按钮
+        current: -1,       // 哪个歌单显示删除按钮
+        isDelete: false   // 删除歌单后让删除键马上隐藏，否则隐藏键会出现在下一行
       }
     },
     methods: {
       folding() {
         this.show = !this.show;
+        this.current = -1;
       },
       showDetail(item) {
         this.$router.push({
@@ -69,8 +71,10 @@
           }
         })
       },
+      // 弹出新建歌单的模态框
       showModel() {
         this.isShowModel =  true;
+        this.current = -1;
       },
       hideModel() {
         this.isShowModel = false;
@@ -95,6 +99,7 @@
         }
         this.isShowModel = false;
         this.showMyList();
+        this.listName = '';
       },
       // 把所有歌单放进myList数组并显示歌单
       showMyList() {
@@ -124,29 +129,38 @@
         this.startX = e.touches[0].pageX;
       },
       touchmove(e) {
-        let ele = e.currentTarget;
+        if(e.currentTarget.innerText.includes('我喜欢的音乐')) {
+          return;
+        }
         let dis = this.startX - e.changedTouches[0].pageX;
-        console.log(dis + " " +  ele.dataset.type);
-        if(dis > 30 && ele.dataset.type === '0') {
-          this.restSlide();
-          ele.dataset.type = 1;
-          // if()  dis = 60
-          this.deleteSlider = "transform:translateX(-60px)";
+        if(dis > 30) {
+          // 使用data-index来标记显示删除按钮的是哪一个元素，从而使得只有一个元素可以显示删除
+          this.current = e.currentTarget.dataset.index;
         }
-        else if(dis < -30 && ele.dataset.type === '1') {
-          this.restSlide();
-          ele.dataset.type = 0;
-          this.deleteSlider = "transform:translateX(0px)";
+        else if(dis < -30) {
+          this.current = -1;
         }
       },
-      restSlide() {
-        let list = this.$refs.list;
-        for(let i=0; i<list.length; i++) {
-          list[i].dataset.type = 0;
+      deleteList(item) {
+        if(confirm('是否确认删除歌单: ' + item.name)) {
+          let list = localStorage.getItem('cloudmusicSongList').match(/{[\s\S]*?}/g);
+          let str = '';
+          for(let i=0; i<list.length; i++) {
+            if(JSON.parse(list[i]).name === item.name) {
+              localStorage.removeItem(item.id);
+              continue;
+            }
+            str += list[i];
+          }
+          localStorage.setItem('cloudmusicSongList', str);
+          // 变相地让删除键马上隐藏，否则隐藏键会出现在下一行
+          this.isDelete = true;
+          setTimeout(() => {
+            this.isDelete = false;
+          }, 500)
         }
-      },
-      deletelist(item) {
-        
+        this.current = -1;
+        this.showMyList();
       }
     },
     computed: {
