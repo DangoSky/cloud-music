@@ -13,24 +13,31 @@
       </div>
       <img src="../../assets/more.png" @click.stop="showManagement">
     </div>
-
-    <div class="manage" v-if="isShowManagement">
-      <p class="title">歌曲: {{name}}</p>
-      <p v-for="(item, index) in manageList" :key="index" 
-        class="manageItem"
-        :class="{underline: index !== manageList.length-1}"
-        :style="{background: 'url('+ item.icon +') no-repeat 10px  center'}"
+    <transition tag="div" name="fade">
+      <list-box 
+        :manageList="manageList" 
+        @hide="hideManagement"
+        @clickItem="clickItem"
+        v-if="isShowManagement"
       >
-        {{showManageItem(item)}}
-      </p>
-    </div>
-    <!--  -->
-    <div class="mask" v-if="isShowManagement" @click="hideManagement"></div>
+        <template slot="header">
+          <p style="font-size: 0.85rem; padding: 10px;">歌曲: {{name}}</p>
+        </template>
+      </list-box>
+    </transition>
+    <transition tag="div" name="fade">
+      <my-list v-if="isShowList"
+        @hide="hideManagement"      
+      >
+      </my-list>
+    </transition>
   </div>
 </template>
 
 <script>
   import { mapState, mapMutations } from 'vuex'
+  import listBox from './listBox.vue'
+  import myList from './myList.vue'
 
   export default {
     created() {
@@ -40,12 +47,17 @@
     beforeDestroy() {
       clearInterval(this.timer);
     },
+    components: {
+      'list-box': listBox,
+      'my-list': myList
+    },
     data() {
       return {
         timer: null,     
         isLove: false,  
         deg: 0,   // 旋转角度 
         isShowManagement: false,
+        isShowList: false,
         manageList: [
           {
             name: '收藏到歌单',
@@ -82,14 +94,10 @@
       // 你喜欢吗
       clickLove() {
         this.isLove = !this.isLove;
-        if(this.isLove) {
-          let loveSong = {};
-          loveSong.id = this.songId;
-          loveSong.name = this.name;
-          loveSong.singer = this.singer;
-          loveSong.album = this.album;
-          loveSong.mv = this.mv;
-          loveSong.picUrl = this.picUrl;
+        let loveSong = this.songDetail();
+        console.log(loveSong);
+        if(JSON.stringify(loveSong) === '{}')  return;
+        if(this.isLove) {          
           // 如果还没有创建我喜欢的歌单，则新建localstorage记录
           if(!localStorage.getItem('cloudmusic_我喜欢的音乐')) {
             let songList = localStorage.getItem('cloudmusicSongList') ? localStorage.getItem('cloudmusicSongList') : '';
@@ -144,19 +152,25 @@
       },
       hideManagement() {
         this.isShowManagement = false;
+        this.isShowList = false;
       },
-      // 根据不同列表返回不同的字段
-      showManageItem(item) {
-        if(item.name.includes('歌手')) {
-          return `歌手: ${this.singer}`
+      // 点击管理列表选项
+      clickItem(item) {
+        if(item.name === '收藏到歌单') {
+          this.isShowManagement = false;
+          this.isShowList = true;
         }
-        else if(item.name.includes('专辑')) {
-          return `专辑: ${this.album}`
-        }
-        else if(item.name.includes('来源:歌单')) {
-          return `来源:歌单: ${this.playingListId.slice(11)}`
-        }
-        return item.name;
+      },
+      // 封装当前播放的歌曲的信息，便于收藏到各个歌单
+      songDetail() {
+        let obj = {};
+        obj.id = this.songId;
+        obj.name = this.name;
+        obj.singer = this.singer;
+        obj.album = this.album;
+        obj.mv = this.mv;
+        obj.picUrl = this.picUrl;
+        return obj;
       },
       ...mapMutations([
         'setShowLyric',

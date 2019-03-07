@@ -74,32 +74,33 @@
       // 弹出新建歌单的模态框
       showModel() {
         this.isShowModel =  true;
+        this.listName = '';
         this.current = -1;
       },
       hideModel() {
         this.isShowModel = false;
       },
       newList() {
-        if(this.listName !== '')  {
-          let existedList = localStorage.getItem('cloudmusicSongList').match(/{[\s\S]*?}/g);
-          for(let i=0; i<existedList.length; i++) {
-            if(this.listName === JSON.parse(existedList[i]).name) {
-              alert("该歌单已经存在，请重新输入歌单名");
-              this.listName = '';
-              return;
-            }
-          }
-          let songList = localStorage.getItem('cloudmusicSongList') ? localStorage.getItem('cloudmusicSongList') : '';
-          let createdList = {};
-          createdList.name = this.listName;
-          createdList.id = 'cloudmusic_' + this.listName;
-          createdList.playcount = 0;
-          localStorage.setItem('cloudmusicSongList', songList + JSON.stringify(createdList));
-          localStorage.setItem(createdList.id, '');
+        if(this.listName === '') {
+          alert("歌单名不能为空");
+          return ;
         }
+        let existedList = localStorage.getItem('cloudmusicSongList').match(/{[\s\S]*?}/g);
+        for(let i=0; i<existedList.length; i++) {
+          if(this.listName === JSON.parse(existedList[i]).name) {
+            alert("该歌单已经存在，请重新输入歌单名");
+            return;
+          }
+        }
+        let songList = localStorage.getItem('cloudmusicSongList') ? localStorage.getItem('cloudmusicSongList') : '';
+        let createdList = {};
+        createdList.name = this.listName;
+        createdList.id = 'cloudmusic_' + this.listName;
+        createdList.playcount = 0;
+        localStorage.setItem('cloudmusicSongList', songList + JSON.stringify(createdList));
+        localStorage.setItem(createdList.id, '');
         this.isShowModel = false;
         this.showMyList();
-        this.listName = '';
       },
       // 把所有歌单放进myList数组并显示歌单
       showMyList() {
@@ -111,12 +112,12 @@
             let obj = {};
             obj.name = JSON.parse(listArr[i]).name;
             obj.id = JSON.parse(listArr[i]).id;
-            // 针对新建的歌单里没有歌曲
             if(localStorage.getItem(JSON.parse(listArr[i]).id).match(/{[\s\S]*?}/g)) {
               let list = localStorage.getItem(JSON.parse(listArr[i]).id).match(/{[\s\S]*?}/g);
               obj.num = list.length;
               obj.coverPic = JSON.parse(list[list.length-1]).picUrl;
             }
+            // 针对新建的歌单里没有歌曲
             else {
               obj.num = 0;
               obj.coverPic = require('../../assets/cd.png');

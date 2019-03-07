@@ -33,40 +33,12 @@
   left: 18px;
   bottom: 18px;
 }
-.manage {
-  width: 100%;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  background-color: white;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  z-index: 999;
-  height: 45%;
-  overflow-y: scroll;
+.fade-enter, .fade-leave-to {
+  transform: translate3d(0, 100%, 0);
+} 
+.fade-enter-to, .fade-leave {
+  transform: translate3d(0, 0px, 0);
 }
-.title {
-  font-size: 0.85rem;
-  padding: 10px;
-  border-bottom: 1px solid rgba(211, 211, 211, 0.6);
-}
-.manageItem {
-  padding-left: 40px;
-  line-height: 40px;
-  box-sizing: border-box;
-  font-size: 0.9rem;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-.underline {
-  border-bottom: 1px solid rgba(211, 211, 211, 0.6);
-}
-.mask {
-  width: 100%;
-  height: calc(100% - 45%);
-  position: absolute;
-  left: 0;
-  top: 0;
-  /* background: red; */
+.fade-enter-active, .fade-leave-active {
+  transition: all 0.5s;
 }
