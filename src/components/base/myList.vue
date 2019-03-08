@@ -74,7 +74,6 @@
           }
         }
         localStorage.setItem(item.id, localStorage.getItem(item.id) + JSON.stringify(collectSong));
-        console.log(localStorage.getItem(item.id));
         this.$emit('hide');
       }
     },

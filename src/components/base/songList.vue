@@ -15,7 +15,7 @@
       <div class="searchBox">
         <input type="text" class="search" placeholder="搜索歌单内的歌曲" v-model="searchKey">
       </div>
-      <song-list-body :list="{listName: listName, listId: listId, playCount: playCount, picUrl: picUrl, searchKey: searchKey, ownSongList: ownSongList}"></song-list-body>
+      <song-list-body :list="{listName: listName, listId: listId, playCount: playCount, picUrl: picUrl, searchKey: searchKey}"></song-list-body>
     </div>
     <fixed-footer></fixed-footer>
   </div>
@@ -30,7 +30,6 @@
     //   this.listId = this.$route.query.listId;
     //   this.playCount = this.$route.query.playCount;
     //   this.picUrl = this.$route.query.picUrl;
-    //   this.ownSongList = this.$route.query.ownSongList;
     // },
     components: {
       'song-list-body': songListBody,
@@ -42,8 +41,7 @@
         listName: this.$route.query.listName,
         listId: this.$route.query.listId,
         playCount: this.$route.query.playCount,
-        picUrl: this.$route.query.picUrl,
-        ownSongList: this.$route.query.ownSongList,
+        picUrl: this.$route.query.picUrl
       }
     },
     methods: {

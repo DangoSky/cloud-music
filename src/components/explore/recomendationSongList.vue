@@ -45,7 +45,6 @@ import api from '../../api/index.js'
             listId: item.id,
             playCount: this.playCount(item.playCount),
             picUrl: item.picUrl,
-            ownSongList: false
           }
         })
       }

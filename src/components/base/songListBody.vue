@@ -1,8 +1,12 @@
 <template>
   <div class="songListBody">
+    <!-- 弹出列表框时开启蒙版 -->
+    <div :class="{mask: isShowManagement || isShowList}"></div>
     <div class="listData" v-show="list.searchKey === ''">
       <div class="picBox">
-        <img :src="coverUrl" class="playPic">
+        <div class="playPic" :style="{backgroundImage: 'url('+ coverUrl +')'}" :class="{'loveListMask': list.listId.toString().includes('我喜欢的音乐')}">
+          <img src="../../assets/love3.png" class="loveIcon" v-if="list.listId.toString().includes('我喜欢的音乐')">
+        </div>
         <label class="playCount">{{ list.playCount }}</label>
         <img src="../../assets/detail.png" class="detail">
       </div>
@@ -27,18 +31,30 @@
         <label class="collect">收藏 ({{ subscribedCount }})</label>
       </div>
       <div v-for="(item, index) in searchArr" :key="item.id" class="song"  @click="getSong(item, index)">
-        <img src="../../assets/playing.png" v-if="item.id === songId" class="playing">
+        <img src="../../assets/playing.png" v-if="item.id === songId && playingListId.toString() === list.listId.toString()" class="playing">
         <label class="songNum" v-else>{{index + 1}}</label>
         <label class="songName">{{ item.name}}</label>
         <label class="writer"> {{ item.singer || getWriterAlbum(item.ar, item.al.name) }}</label>
         <span :class="{showMv: item.mv}"></span>
+        <img src="../../assets/more2.png" class="more" @click.stop="showManagement(item.name)">
       </div>
     </div>
+    <list-box 
+      :manageList="manageList"
+      v-if="isShowManagement"
+      @hide="hideManagement"
+      @clickItem="clickItem"
+    >
+      <template slot="header">
+        <p style="font-size: 0.85rem; padding: 10px;">歌曲: {{clickingSong}}</p>
+      </template>
+    </list-box>
   </div>
 </template>
 
 <script>
   import api from '../../api/index.js'
+  import listBox from './listBox.vue'
   import { mapMutations, mapState} from 'vuex'
 
   export default {
@@ -47,12 +63,11 @@
     //   this.list.listId = this.$route.query.listId;
     //   this.list.playCount = this.$route.query.playCount;
     //   this.list.picUrl = this.$route.query.picUrl;
-    //   this.list.ownSongList = this.$route.query.ownSongList;
+    //   this.list.id = this.$route.query.id;
     // },
     created() {
       // 通过api获取的歌单
-      // 刷新页面后从url解析该值成了string，从组件传递过来的是boolean
-      if(!this.list.ownSongList || this.list.ownSongList === 'false') {
+      if(!this.list.listId.toString().includes('cloudmusic_')) {
         api.getSongList(this.list.listId, (res) => {
           this.nickname = res.creator.nickname;         // 作者昵称
           this.avatarUrl = res.creator.avatarUrl;       // 作者头像
@@ -89,6 +104,9 @@
       }
     },
     props: ['list'],
+    components: {
+      'list-box': listBox
+    },
     data() {
       return {
         songs: [],       
@@ -98,7 +116,56 @@
         shareCount: '',
         trackCount: '',
         subscribedCount: '',
-        coverUrl: ''     
+        coverUrl: '',
+        isShowManagement: false,
+        isShowList: false,
+        clickingSong: '',
+        manageList: [
+          {
+            name: '收藏到歌单',
+            icon: require('../../assets/add.png')
+          },
+          {
+            name: '相似推荐',
+            icon: require('../../assets/similar.png')
+          },
+          {
+            name: '歌手',
+            icon: require('../../assets/singer.png')
+          },
+          {
+            name: '专辑',
+            icon: require('../../assets/album.png')
+          },
+          {
+            name: '来源:歌单',
+            icon: require('../../assets/link.png')
+          },
+          {
+            name: '查看视频',
+            icon: require('../../assets/video3.png')
+          },
+          {
+            name: '定时关闭',
+            icon: require('../../assets/timer.png')
+          },
+          {
+            name: '查看视频',
+            icon: require('../../assets/video3.png')
+          },
+          {
+            name: '定时关闭',
+            icon: require('../../assets/timer.png')
+          },
+          {
+            name: '查看视频',
+            icon: require('../../assets/video3.png')
+          },
+          {
+            name: '定时关闭',
+            icon: require('../../assets/timer.png')
+          }
+        ]     
       }
     },
     methods: {
@@ -123,6 +190,23 @@
           name: 'musicPlay'
         });
       },
+      showManagement(name) {
+        console.log("show");
+        this.isShowManagement = true;
+        this.clickingSong = name;
+      },
+      hideManagement() {
+        this.isShowManagement = false;
+        this.isShowList = false;
+        this.clickingSong = '';
+      },
+      // 点击管理列表选项
+      clickItem(item) {
+        if(item.name === '收藏到歌单') {
+          this.isShowManagement = false;
+          this.isShowList = true;
+        }
+      },
       ...mapMutations([
         'setSongId',
         'setCurrentIndex',
@@ -143,14 +227,13 @@
       },
       ...mapState([
         'songId',
-        'useOwnList',
         'playingListId'
       ])
     },
     watch: {
       // 若取消喜欢歌单里的第一首歌，及时更新歌单封面的图片
       trackCount: function() {
-        if(this.playingListId.includes('cloudmusic_')) {
+        if(this.playingListId.toString().includes('cloudmusic_')) {
           if(this.songs.length) {
             this.coverUrl = this.songs[0].picUrl;
           }

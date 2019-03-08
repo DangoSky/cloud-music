@@ -95,7 +95,6 @@
       clickLove() {
         this.isLove = !this.isLove;
         let loveSong = this.songDetail();
-        console.log(loveSong);
         if(JSON.stringify(loveSong) === '{}')  return;
         if(this.isLove) {          
           // 如果还没有创建我喜欢的歌单，则新建localstorage记录
@@ -227,19 +226,6 @@
         if(newVal) {
           // 歌曲改变判断该歌曲是否喜欢
           this.judgeLove();
-          // 使用自己的歌单才进行歌曲播放量统计
-          if(localStorage.getItem(this.playingListId)) {
-            let songList = localStorage.getItem('cloudmusicSongList').match(/{[\s\S]*?}/g);
-            let str = '';
-            for(let i=0; i<songList.length; i++) {
-              let list = JSON.parse(songList[i]);
-              if(list.name === this.playingListId) {
-                list.playCount === 0 ? 1 : list.playCount++ ;
-              }
-              str += JSON.stringify(list);
-            }
-
-          }
         }
       }
     }

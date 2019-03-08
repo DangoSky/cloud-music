@@ -66,8 +66,7 @@
             listName: item.name,
             playCount: item.playCount,
             picUrl: item.coverPic,
-            listId: item.id,
-            ownSongList: true
+            listId: item.id
           }
         })
       },
@@ -89,6 +88,7 @@
         for(let i=0; i<existedList.length; i++) {
           if(this.listName === JSON.parse(existedList[i]).name) {
             alert("该歌单已经存在，请重新输入歌单名");
+            this.listName = '';
             return;
           }
         }
@@ -96,7 +96,7 @@
         let createdList = {};
         createdList.name = this.listName;
         createdList.id = 'cloudmusic_' + this.listName;
-        createdList.playcount = 0;
+        createdList.playCount = 0;
         localStorage.setItem('cloudmusicSongList', songList + JSON.stringify(createdList));
         localStorage.setItem(createdList.id, '');
         this.isShowModel = false;
@@ -112,6 +112,7 @@
             let obj = {};
             obj.name = JSON.parse(listArr[i]).name;
             obj.id = JSON.parse(listArr[i]).id;
+            obj.playCount = JSON.parse(listArr[i]).playCount;
             if(localStorage.getItem(JSON.parse(listArr[i]).id).match(/{[\s\S]*?}/g)) {
               let list = localStorage.getItem(JSON.parse(listArr[i]).id).match(/{[\s\S]*?}/g);
               obj.num = list.length;
@@ -172,17 +173,6 @@
         else {
           return require('../../assets/rightArrow3.png')
         }
-      },
-      ownListPlayCount() {
-        let songList = localStorage.getItem('cloudmusicSongList') ? localStorage.getItem('cloudmusicSongList') : '';
-        for(let i=0; i<songList.length; i++) {
-            let list = JSON.parse(songList[i]);
-            if(list.name === this.playingListId) {
-              list.playCount === 0 ? 1 : list.playCount++ ;
-            }
-            str += JSON.stringify(list);
-          }
-        localStorage.setItem('cloudmusicSongLiPlayCount')
       }
     }
   }

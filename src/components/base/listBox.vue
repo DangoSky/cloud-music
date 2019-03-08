@@ -3,14 +3,14 @@
     <!-- 方法一：显示上滑列表框时用一个蒙版覆盖视图其余部分，点击时隐藏列表框 -->
     <!-- 方法二：用一个外层div覆盖全部视图，点击时隐藏列表框，至于列表框的点击则阻止冒泡 -->
   <div class="box">
+    <p class="headerTitle">歌曲: {{name}}</p>
     <div class="manage">
-      <slot name="header">导航名称</slot>
       <p v-for="(item, index) in manageList" :key="index" 
         class="manageItem"
         :style="{background: 'url('+ item.icon +') no-repeat 10px  center'}"
         @click.stop="$emit('clickItem', item)"
       >
-        {{showManageItem(item)}}
+        {{showManageItem(item, manageParms)}}
       </p>
     </div>
   </div>
@@ -26,20 +26,27 @@
     props: ['manageList'],
     methods: {
       // 根据不同列表返回不同的字段
-      showManageItem(item) {
+      showManageItem(item, manageParms) {
         if(item.name.includes('歌手')) {
-          return `歌手: ${this.singer}`
+          return `歌手: ${manageParms.singer}`
         }
         else if(item.name.includes('专辑')) {
-          return `专辑: ${this.album}`
+          return `专辑: ${manageParms.album}`
         }
         else if(item.name.includes('来源:歌单')) {
-          return `来源:歌单: ${this.playingListId.slice(11)}`
+          return `来源:歌单: ${manageParms.playingListId.slice(11)}`
         }
         return item.name;
       }
     },
     computed: {
+      manageParms() {
+        return {
+          singer: this.singer,
+          album: this.album,
+          playingListId: this.playingListId
+        }
+      },
       ...mapState([
         'name',
         'singer',
@@ -54,26 +61,41 @@
   .external {
     width:100%;
     height: 100vh;
-    position: absolute;
+    position: fixed;
+    /* position: absolute; */
     top: 0;
-    z-index: 99;
+    z-index: 9999;
+  }
+  .headerTitle {
+    font-size: 0.85rem; 
+    padding: 10px;
+    position: relative;
+    left: 0;
+    top: 0;
   }
   .box {
     width: 100%;
     height: auto;
-    max-height: 45%;
+    /* max-height: 62%; */
+    max-height: 40%;
     position: absolute;
     left: 0;
     bottom: 0;
-    overflow-y: scroll;
-  }
-  .manage {
-    width: 100%;
-    overflow-y: scroll;
-    position: relative;
     background-color: white;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    z-index: 999999;
+    overflow-y: hidden;
+  }
+  .manage {
+    overflow-y: scroll;
+    /* position: absolute; */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 45%;
+    position: relative; 
+    z-index: 9999;
   }
   .manageItem {
     padding-left: 40px;

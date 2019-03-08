@@ -3,6 +3,14 @@
   position: relative;
   background:	#F5F5F5
 }
+/* 我的消息上方的背景色 */
+.userBar::before {
+  content: '';
+  width: 100%;
+  height: 8px;
+  background-color: #F5F5F5;
+  display: block;
+}
 .userBarItem {
   width: 100%;
   position: relative;
