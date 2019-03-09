@@ -11,32 +11,32 @@
   fastclick: 解决移动端点击300ms延迟
 
 ## 功能实现     
- - [ x ] 网易云音乐app的五个模块()     
- - [ x ] 基本的播放暂停、上下一曲
- - [ x ] 播放顺序调整、进度条拖拽
- - [ x ] 歌词滚动   
- - [ x ] 音乐搜索
- - [ x ] 推荐歌单  
- - [ x ] 推荐MV  
- - [ x ] 增删改查歌单(使用localStorage存储，右滑可以删除歌单或将歌曲移出歌单)   
- - [  ] 查看歌曲评论  
- - [  ] 用户登陆
- - [  ] 查看动态  
+ - [x] 网易云音乐app的五个模块()     
+ - [x] 基本的播放暂停、上下一曲
+ - [x] 播放顺序调整、进度条拖拽
+ - [x] 歌词滚动   
+ - [x] 音乐搜索
+ - [x] 推荐歌单  
+ - [x] 推荐MV  
+ - [x] 增删改查歌单(使用localStorage存储，右滑可以删除歌单或将歌曲移出歌单)   
+ - [ ] 查看歌曲评论  
+ - [ ] 用户登陆
+ - [ ] 查看动态  
   ······
  > 因手头任务需要，cloudmusic的开发暂告一段落，等以后有时间再继续开发新功能
 
 ## 预览
 > 使用的是学生服务器,带宽较小，初次体验可能会加载得比较慢
 
-  **[在线体验](http://dangosky.com/cloudmusic)**(PC端推荐使用chrome或firefox预览)
-  ![](./image/QRcode.png)(推荐使用Android手机微信扫码预览,暂不支持iOS播放)  
+  **[在线体验](http://dangosky.com/cloudmusic)**(PC端推荐使用chrome或firefox预览)    
+  ![](./src/image/QRcode.png)(推荐使用Android手机微信扫码预览,暂不支持iOS播放)  
 
 ### 项目截图
-  ![](./image/explore.png)
-  ![](./image/mv.png)
-  ![](./image/myself.png)
-  ![](./image/player.png)
-  ![](./image/lyric.png)
+  ![](./src/image/explore.png)
+  ![](./src/image/mv.png)
+  ![](./src/image/myself.png)
+  ![](./src/image/player.png)
+  ![](./src/image/lyric.png)
 
 ## 鸣谢
   [网易云音乐 NodeJS 版 API](https://github.com/Binaryify/NeteaseCloudMusicApi)    
