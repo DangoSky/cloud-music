@@ -34,6 +34,21 @@
           }
         },1000)
       },
+      computedPlayCount() {
+        // 使用自己的歌单才进行歌曲播放量统计
+        if(localStorage.getItem(this.playingListId)) {
+          let songList = localStorage.getItem('cloudmusicSongList').match(/{[\s\S]*?}/g);
+          let str = '';
+          for(let i=0; i<songList.length; i++) {
+            let list = JSON.parse(songList[i]);
+            if(this.playingListId.includes(list.name)) {
+              list.playCount++ ;
+            }
+            str += JSON.stringify(list);
+          }
+          localStorage.setItem('cloudmusicSongList', str);
+        }
+      },
       ...mapMutations([
         'setSongId',
         'setUrl',
@@ -156,19 +171,7 @@
         api.getComments(id, (res) => {
           this.setComments(res);
         });
-        // 使用自己的歌单才进行歌曲播放量统计
-        if(localStorage.getItem(this.playingListId)) {
-          let songList = localStorage.getItem('cloudmusicSongList').match(/{[\s\S]*?}/g);
-          let str = '';
-          for(let i=0; i<songList.length; i++) {
-            let list = JSON.parse(songList[i]);
-            if(this.playingListId.includes(list.name)) {
-              list.playCount++ ;
-            }
-            str += JSON.stringify(list);
-          }
-          localStorage.setItem('cloudmusicSongList', str);
-        }
+        this.computedPlayCount();
       } 
     }
   }

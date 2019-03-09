@@ -31,6 +31,11 @@
       >
       </my-list>
     </transition>
+    <transition tag="div" name="collect">
+      <div class="collectSuccessful" v-if="showCollect">
+        <p>已收藏到歌单</p>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -58,6 +63,7 @@
         deg: 0,   // 旋转角度 
         isShowManagement: false,
         isShowList: false,
+        showCollect: false,
         manageList: [
           {
             name: '收藏到歌单',
@@ -149,9 +155,17 @@
       showManagement() {
         this.isShowManagement = true;
       },
-      hideManagement() {
+      hideManagement(str) {
         this.isShowManagement = false;
         this.isShowList = false;
+        console.log(str);
+        console.log(str === 'showCollect');
+        if(str === 'showCollect') { 
+          this.showCollect = true;
+          setTimeout(() => {
+            this.showCollect = false;            
+          },1000)
+        }
       },
       // 点击管理列表选项
       clickItem(item) {

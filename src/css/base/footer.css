@@ -9,7 +9,7 @@ a {
   background-color: rgb(216, 228, 224);
   display: flex; 
   justify-content: space-around;
-  z-index: 99;
+  z-index: 9999;
 }
 /* 未点击路由时的字体样式 */
  .footer p {

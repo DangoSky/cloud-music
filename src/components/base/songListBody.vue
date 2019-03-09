@@ -1,7 +1,5 @@
 <template>
   <div class="songListBody">
-    <!-- 弹出列表框时开启蒙版 -->
-    <div :class="{mask: isShowManagement || isShowList}"></div>
     <div class="listData" v-show="list.searchKey === ''">
       <div class="picBox">
         <div class="playPic" :style="{backgroundImage: 'url('+ coverUrl +')'}" :class="{'loveListMask': list.listId.toString().includes('我喜欢的音乐')}">
@@ -30,25 +28,25 @@
         <label class="songCount">(共{{ trackCount }}首)</label>
         <label class="collect">收藏 ({{ subscribedCount }})</label>
       </div>
-      <div v-for="(item, index) in searchArr" :key="item.id" class="song"  @click="getSong(item, index)">
+      <div v-for="(item, index) in searchArr" :key="item.id" class="song"  
+        @click="getSong(item, index)"
+        @touchstart="touchstart"
+        @touchmove="touchmove" 
+        :data-type="current == index ? 1 : 0"
+        :data-index="index"
+        :class="{animation: showSlow}"
+      >
         <img src="../../assets/playing.png" v-if="item.id === songId && playingListId.toString() === list.listId.toString()" class="playing">
         <label class="songNum" v-else>{{index + 1}}</label>
         <label class="songName">{{ item.name}}</label>
         <label class="writer"> {{ item.singer || getWriterAlbum(item.ar, item.al.name) }}</label>
         <span :class="{showMv: item.mv}"></span>
-        <img src="../../assets/more2.png" class="more" @click.stop="showManagement(item.name)">
+        <img src="../../assets/more2.png" class="more" @click.stop="">
+        <label class="delete"  @click.stop="deleteSong(item)">删除</label>
       </div>
     </div>
-    <list-box 
-      :manageList="manageList"
-      v-if="isShowManagement"
-      @hide="hideManagement"
-      @clickItem="clickItem"
-    >
-      <template slot="header">
-        <p style="font-size: 0.85rem; padding: 10px;">歌曲: {{clickingSong}}</p>
-      </template>
-    </list-box>
+    <!-- 弹出模态框或显示删除歌单时，使用一个蒙版来是使得页面其他部分不能点击 -->
+    <div class="mask" v-if="current !== -1" @click.stop="clickMask"></div>
   </div>
 </template>
 
@@ -84,18 +82,11 @@
         // 又没有登陆功能，就只有我一个用户嘛orz，等以后看看能不能增加个登陆管理
         this.nickname = '团子的天空幻想';
         this.avatarUrl = 'http://p2.music.126.net/e6G_JLkLGcIQLw9vsdgt0g==/109951163763088598.jpg?param=170y170';
-        let localLoveSongs = (localStorage.getItem(this.list.listId)).match(/{[\s\S]*?}/g);
-        this.songs = [];
-        if(localLoveSongs) {
-          for(let i=localLoveSongs.length-1; i>=0; i--) {
-            let item = JSON.parse(localLoveSongs[i]);
-            this.songs.push(item);
-          }
-        }
         this.commentCount =  27;
         this.shareCount = 54;
         this.trackCount = this.songs.length;
         this.subscribedCount = 43;
+        this.showList();
         // 如果取消对歌单内唯一一首歌的喜欢，后退到歌单页面的时候显示指定的图片，否则会报错
         if(!this.songs.length)  this.coverUrl = require('../../assets/cd.png');
         else {
@@ -117,55 +108,9 @@
         trackCount: '',
         subscribedCount: '',
         coverUrl: '',
-        isShowManagement: false,
-        isShowList: false,
-        clickingSong: '',
-        manageList: [
-          {
-            name: '收藏到歌单',
-            icon: require('../../assets/add.png')
-          },
-          {
-            name: '相似推荐',
-            icon: require('../../assets/similar.png')
-          },
-          {
-            name: '歌手',
-            icon: require('../../assets/singer.png')
-          },
-          {
-            name: '专辑',
-            icon: require('../../assets/album.png')
-          },
-          {
-            name: '来源:歌单',
-            icon: require('../../assets/link.png')
-          },
-          {
-            name: '查看视频',
-            icon: require('../../assets/video3.png')
-          },
-          {
-            name: '定时关闭',
-            icon: require('../../assets/timer.png')
-          },
-          {
-            name: '查看视频',
-            icon: require('../../assets/video3.png')
-          },
-          {
-            name: '定时关闭',
-            icon: require('../../assets/timer.png')
-          },
-          {
-            name: '查看视频',
-            icon: require('../../assets/video3.png')
-          },
-          {
-            name: '定时关闭',
-            icon: require('../../assets/timer.png')
-          }
-        ]     
+        startX: 0,
+        current: -1,
+        showSlow: true      // 是否开启动画显示删除键
       }
     },
     methods: {
@@ -190,22 +135,58 @@
           name: 'musicPlay'
         });
       },
-      showManagement(name) {
-        console.log("show");
-        this.isShowManagement = true;
-        this.clickingSong = name;
-      },
-      hideManagement() {
-        this.isShowManagement = false;
-        this.isShowList = false;
-        this.clickingSong = '';
-      },
-      // 点击管理列表选项
-      clickItem(item) {
-        if(item.name === '收藏到歌单') {
-          this.isShowManagement = false;
-          this.isShowList = true;
+      // 从localStorage里获取歌单里的歌曲信息并渲染
+      showList() {
+        let localLoveSongs = (localStorage.getItem(this.list.listId)).match(/{[\s\S]*?}/g);
+        this.songs = [];
+        if(localLoveSongs) {
+          for(let i=localLoveSongs.length-1; i>=0; i--) {
+            let item = JSON.parse(localLoveSongs[i]);
+            this.songs.push(item);
+          }
         }
+      },
+       touchstart(e) {
+        this.startX = e.touches[0].pageX;
+      },
+      touchmove(e) {
+        // 不是自己创建的歌单不能进行删除操作
+        if(!this.list.listId.toString().includes("cloudmusic_")) {
+          return ;
+        }
+        let dis = this.startX - e.changedTouches[0].pageX;
+        if(dis > 30) {
+          // 使用data-index来标记显示删除按钮的是哪一个元素，从而使得只有一个元素可以显示删除
+          this.current = e.currentTarget.dataset.index;
+        }
+        else if(dis < -30) {
+          this.current = -1;
+        }
+      },
+      clickMask() {
+        // 显示删除键时，点击蒙版则隐藏删除键
+        if(this.current !== -1) {
+          this.current = -1;
+        }
+      },
+      deleteSong(item) {
+        let list = localStorage.getItem(this.list.listId).match(/{[\s\S]*?}/g);
+        let str = '';
+        for(let i=0; i<list.length; i++) {
+          if(JSON.parse(list[i]).id === item.id) {
+            continue;
+          }
+          str += list[i];
+        }
+        localStorage.setItem(this.list.listId, str);
+        // 删除成功后马上隐藏删除键
+        this.showSlow = false;
+        this.current = -1;
+        this.showList();
+        // 之后又开启显示动画
+        setTimeout(() => {
+          this.showSlow = true;
+        }, 500) 
       },
       ...mapMutations([
         'setSongId',

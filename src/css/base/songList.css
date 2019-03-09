@@ -9,7 +9,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 999;
+  z-index: 99999;
   background-color: #DB4139;
 }
 .back {

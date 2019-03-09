@@ -4,9 +4,10 @@
     <!-- 方法二：用一个外层div覆盖全部视图，点击时隐藏列表框，至于列表框的点击则阻止冒泡 -->
   <div class="box">
     <p class="headerTitle">歌曲: {{name}}</p>
-    <div class="manage">
+    <div class="manage" ref="manage">
       <p v-for="(item, index) in manageList" :key="index" 
         class="manageItem"
+        :class="{underline: index !== 0}"
         :style="{background: 'url('+ item.icon +') no-repeat 10px  center'}"
         @click.stop="$emit('clickItem', item)"
       >
@@ -22,6 +23,13 @@
   import { mapState } from 'vuex'
 
   export default {
+    mounted() {
+      // console.log(this.$refs.manage);
+      this.$refs.manage.addEventListener('scroll', function(e) {
+        // console.log(e);
+        // e.preventDefault();
+      })
+    },
     // 子组件的显示与否交由父组件控制，点击列表选项后触发父组件方法在父组件中进行修改
     props: ['manageList'],
     methods: {
@@ -62,9 +70,8 @@
     width:100%;
     height: 100vh;
     position: fixed;
-    /* position: absolute; */
     top: 0;
-    z-index: 9999;
+    z-index: 99999;
   }
   .headerTitle {
     font-size: 0.85rem; 
@@ -72,39 +79,41 @@
     position: relative;
     left: 0;
     top: 0;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.6);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   .box {
     width: 100%;
     height: auto;
-    /* max-height: 62%; */
-    max-height: 40%;
-    position: absolute;
-    left: 0;
-    bottom: 0;
+    max-height: 45%;
     background-color: white;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    z-index: 999999;
-    overflow-y: hidden;
-  }
-  .manage {
-    overflow-y: scroll;
-    /* position: absolute; */
+    position: fixed;
     left: 0;
     bottom: 0;
-    width: 100%;
-    max-height: 45%;
-    position: relative; 
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
     z-index: 9999;
   }
+  .manage {
+    z-index: 9999;
+    overflow-y: scroll;
+  }
   .manageItem {
-    padding-left: 40px;
+    flex: 1;
     line-height: 40px;
+    padding-left: 40px;
     box-sizing: border-box;
     font-size: 0.9rem;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+  }
+  .underline {
     border-top: 1px solid rgba(211, 211, 211, 0.6);
   }
 </style>

@@ -5,7 +5,7 @@
   text-align: center;
   position: fixed;
   /* fixed固定定位后要设置z-index，否则后面的元素回堆叠在它上面 */
-  z-index: 99;
+  z-index: 999;
 }
 .myselfHeaderFont {
   color: white;

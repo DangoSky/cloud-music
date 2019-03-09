@@ -42,3 +42,25 @@
 .fade-enter-active, .fade-leave-active {
   transition: all 0.5s;
 }
+.collectSuccessful {
+  width: 100px;
+  padding: 50px 10px 20px 10px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: white;
+  background: rgb(90, 90, 90, 0.5) url('../../assets/collectSuccessful.png') no-repeat center 30%;
+}
+.collect-enter, .collect-leave-to {
+  opacity: 0;
+} 
+.collect-enter-to, .collect-leave {
+  opacity: 1;
+}
+.collect-enter-active, .collect-leave-active {
+  transition: all 0.5s;
+}

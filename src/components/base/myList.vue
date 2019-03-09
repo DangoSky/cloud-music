@@ -2,12 +2,14 @@
   <div class="external" @click="$emit('hide')">
     <div class="box">
       <p class="headerTitle">收藏到歌单</p>
-      <div v-for="(item, index) in myList" :key="index" class="myList" @click.stop="collectToList(item)">
-        <div class="myListPicBox" :style="{backgroundImage: 'url('+ item.coverPic +')'}" :class="{'loveListMask': item.name === '我喜欢的音乐'}">
-          <img src="../../assets/love2.png" class="myListPic" v-if="item.name === '我喜欢的音乐'">
+      <div class="listBox">
+        <div v-for="(item, index) in myList" :key="index" class="myList" @click.stop="collectToList(item)">
+          <div class="myListPicBox" :style="{backgroundImage: 'url('+ item.coverPic +')'}" :class="{'loveListMask': item.name === '我喜欢的音乐'}">
+            <img src="../../assets/love2.png" class="myListPic" v-if="item.name === '我喜欢的音乐'">
+          </div>
+          <label class="myListTitle">{{item.name}}</label>
+          <label class="myListCount">{{item.num}}首</label>
         </div>
-        <label class="myListTitle">{{item.name}}</label>
-        <label class="myListCount">{{item.num}}首</label>
       </div>
     </div>
   </div>
@@ -74,7 +76,7 @@
           }
         }
         localStorage.setItem(item.id, localStorage.getItem(item.id) + JSON.stringify(collectSong));
-        this.$emit('hide');
+        this.$emit('hide', 'showCollect');
       }
     },
     computed: {
@@ -103,25 +105,31 @@
     width: 100%;
     height: auto;
     max-height: 45%;
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0;
-    overflow-y: scroll;
-    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    z-index: 9999;
   }
   .headerTitle {
     font-size: 0.8rem;
     padding: 10px;
-    background-color: #eeee;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.6);
+  }
+  .listBox {
+    overflow-y: scroll;
   }
   .myList {
     width: 100%;
     height: 50px;
     position: relative;
-    padding-bottom: 5px;
-    background: white;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.6);
   }
   .myListPicBox {
     width: 50px;
@@ -130,7 +138,7 @@
     position: relative;
     display: inline-block;
     border-radius: 5px;
-    margin: 0 0 0 4px;
+    margin: 0 0 0 5px;
   }
   /* 只有我喜欢的音乐需要蒙版 */
   .loveListMask::after {
@@ -163,15 +171,5 @@
     left: 60px;
     bottom: 10px;
     font-size: 0.7rem;
-  }
-  /* 下划线 */
-  .myList::before {
-    content: "";
-    width: calc(100% - 60px);
-    position: absolute;
-    left: 60px;
-    top: 100%;
-    margin-top: -1px;
-    border-bottom: 1px solid rgba(211, 211, 211, 0.6);
   }
 </style>

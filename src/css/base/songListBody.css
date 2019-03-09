@@ -1,5 +1,6 @@
 .songListBody {
   width: 100%;
+  position: relative;
 }
 .listData {
   width: 100%;
@@ -181,6 +182,11 @@
   padding: 25px;
   box-sizing: border-box;
   position: relative;
+  z-index: 999;
+}
+.animation {
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
 }
 .song:after {
   content: '';
@@ -242,12 +248,33 @@
   top: 50%;
   transform: translateY(-50%);
 }
-.mask {
-  width: 100%;
-  height: calc(100% + 100px);
-  background-color: rgba(94, 89, 89, 0.4);
+.delete {
+  width: 60px;
+  height: 50px;
   position: absolute;
+  right: -60px;
+  top: 0;
+  background-color: #e2362d;
+  color: white;
+  line-height: 50px;
+  text-align: center;
+  font-size: 0.85rem;
+  transition: all 0.5s;
+  z-index: 99;
+}
+/* 删除按钮退出 */
+.song[data-type="0"] {
+  transform: translate3d(0, 0, 0);
+}
+/* 删除按钮进入 */
+.song[data-type="1"] {
+  transform: translate3d(-60px, 0, 0);
+}
+.mask {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
   left: 0;
-  top: -100px;
+  top: 0;
   z-index: 99;
 }

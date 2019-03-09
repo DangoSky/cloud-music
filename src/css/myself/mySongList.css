@@ -24,6 +24,9 @@
   height: 50px;
   position: relative;
   padding-bottom: 5px;
+  z-index: 9999;
+}
+.animation  {
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
 }
@@ -125,7 +128,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 9999;
+  z-index: 99;
 }
 .headerTitle {
   text-align: center;

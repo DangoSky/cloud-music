@@ -4,24 +4,26 @@
       <label :style="{background: 'url('+ showIcon +') no-repeat 10px center'}" class="listBarFont" @click="folding">我创建的歌单({{ myList.length }})</label>
       <img src="../../assets/new.png" class="newList" @click="showModel">
     </div>
-    <div v-for="(item, index) in myList" :key="index" 
-      class="myList"
-      v-show="show" 
-      @click="showDetail(item)"
-      @touchstart="touchstart"
-      @touchmove="touchmove" 
-      :data-type="current == index ? 1 : 0"
-      :data-index="index"
-    >
-      <div class="myListPicBox" :style="{backgroundImage: 'url('+ item.coverPic +')'}" :class="{'loveListMask': item.name === '我喜欢的音乐'}">
-        <img src="../../assets/love2.png" class="myListPic" v-if="item.name === '我喜欢的音乐'">
+    <div v-show="show" >
+      <div v-for="(item, index) in myList" :key="index" 
+        class="myList"
+        :class="{animation: showSlow}"        
+        @click="showDetail(item)"
+        @touchstart="touchstart"
+        @touchmove="touchmove" 
+        :data-type="current == index ? 1 : 0"
+        :data-index="index"
+      >
+        <div class="myListPicBox" :style="{backgroundImage: 'url('+ item.coverPic +')'}" :class="{'loveListMask': item.name === '我喜欢的音乐'}">
+          <img src="../../assets/love2.png" class="myListPic" v-if="item.name === '我喜欢的音乐'">
+        </div>
+        <label class="myListTitle">{{item.name}}</label>
+        <label class="myListCount">{{item.num}}首</label>
+        <label class="delete" @click.stop="deleteList(item)">删除</label>
       </div>
-      <label class="myListTitle">{{item.name}}</label>
-      <label class="myListCount">{{item.num}}首</label>
-      <label class="delete" @click.stop="deleteList(item)" v-if="!isDelete">删除</label>
     </div>
-    <!-- 弹出模态框后，使用一个蒙版来是使得页面其他部分不能点击 -->
-    <div class="mask" v-if="isShowModel"></div>
+    <!-- 弹出模态框或显示删除歌单时，使用一个蒙版来是使得页面其他部分不能点击 -->
+    <div class="mask" v-if="isShowModel || current !== -1" @click.stop="clickMask"></div>
     <div class="modalFrame" v-if="isShowModel">
       <p class="headerTitle">新建歌单</p>
       <div class="content">
@@ -51,7 +53,7 @@
         listName: '',        // 新建歌单名
         startX: 0,          // 拖动显示删除按钮
         current: -1,       // 哪个歌单显示删除按钮
-        isDelete: false   // 删除歌单后让删除键马上隐藏，否则隐藏键会出现在下一行
+        showSlow: true   // 是否开启动画显示删除键
       }
     },
     methods: {
@@ -143,6 +145,12 @@
           this.current = -1;
         }
       },
+      clickMask(e) {
+        // 显示删除键时，点击蒙版则隐藏删除键
+        if(this.current !== -1) {
+          this.current = -1;
+        }
+      },
       deleteList(item) {
         if(confirm('是否确认删除歌单: ' + item.name)) {
           let list = localStorage.getItem('cloudmusicSongList').match(/{[\s\S]*?}/g);
@@ -154,15 +162,14 @@
             }
             str += list[i];
           }
-          localStorage.setItem('cloudmusicSongList', str);
-          // 变相地让删除键马上隐藏，否则隐藏键会出现在下一行
-          this.isDelete = true;
-          setTimeout(() => {
-            this.isDelete = false;
-          }, 500)
+          localStorage.setItem('cloudmusicSongList', str); 
         }
+        this.showSlow = false;
         this.current = -1;
         this.showMyList();
+        setTimeout(() => {
+          this.showSlow = true;
+        }, 500) 
       }
     },
     computed: {
