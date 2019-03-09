@@ -104,8 +104,8 @@
         if(JSON.stringify(loveSong) === '{}')  return;
         if(this.isLove) {          
           // 如果还没有创建我喜欢的歌单，则新建localstorage记录
-          if(!localStorage.getItem('cloudmusic_我喜欢的音乐')) {
-            let songList = localStorage.getItem('cloudmusicSongList') ? localStorage.getItem('cloudmusicSongList') : '';
+          let songList = localStorage.getItem('cloudmusicSongList') ? localStorage.getItem('cloudmusicSongList') : '';
+          if(!songList.includes('cloudmusic_我喜欢的音乐') ) {
             let loveList = {};
             loveList.name = '我喜欢的音乐';
             loveList.id = 'cloudmusic_我喜欢的音乐';
@@ -158,8 +158,6 @@
       hideManagement(str) {
         this.isShowManagement = false;
         this.isShowList = false;
-        console.log(str);
-        console.log(str === 'showCollect');
         if(str === 'showCollect') { 
           this.showCollect = true;
           setTimeout(() => {

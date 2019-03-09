@@ -100,7 +100,8 @@ export default {
   },
   // 获取mv的url
   getMvDetail(id, callback) {
-    axios.get(`https://api.imjad.cn/cloudmusic/?type=mv&id=${id}`)
+    axios.get(`http://dangosky.com:3000/mv/detail?mvid=${id}`)
+    // axios.get(`https://api.imjad.cn/cloudmusic/?type=mv&id=${id}`)
       .then(function(response) {
         callback(response.data.data);
       })

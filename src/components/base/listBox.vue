@@ -42,7 +42,7 @@
           return `专辑: ${manageParms.album}`
         }
         else if(item.name.includes('来源:歌单')) {
-          return `来源:歌单: ${manageParms.playingListId.slice(11)}`
+          return `来源:歌单: ${manageParms.playingListId.toString().slice(11)}`
         }
         return item.name;
       }
