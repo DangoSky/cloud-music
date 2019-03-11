@@ -9,6 +9,21 @@
 ## 使用到的工具
   vue-lazyload: 实现图片懒加载   
   fastclick: 解决移动端点击300ms延迟
+  
+## 安装运行
+```
+克隆项目     
+git clone https://github.com/DangoSky/cloud-music.git   
+
+安装依赖   
+npm install   
+
+开发环境运行    
+npm run serve  
+
+生产环境构建   
+npm run build 
+```
 
 ## 功能实现     
  - [x] 网易云音乐app的五个模块()     
