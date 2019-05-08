@@ -16,10 +16,22 @@
         </div>
       </div>
       <div class="bar">
-        <label class="commentCount">{{ commentCount }}</label>
-        <label class="shareCount">{{ shareCount }}</label>
-        <label class="download">下载</label>
-        <label class="selects">多选</label>
+        <div class="barItem">
+          <img src="../../assets/comments1.png">
+          <p>{{ commentCount }}</p>
+        </div>
+        <div class="barItem">
+          <img src="../../assets/share2.png">
+          <p>{{ shareCount }}</p>
+        </div>
+        <div class="barItem">
+          <img src="../../assets/download.png">
+          <p>下载</p>
+        </div>
+        <div  class="barItem">
+          <img src="../../assets/selects.png">
+          <p>多选</p>
+        </div>
       </div>
     </div> 
     <div class="songs" >
@@ -52,7 +64,6 @@
 
 <script>
   import api from '../../api/index.js'
-  import listBox from './listBox.vue'
   import { mapMutations, mapState} from 'vuex'
 
   export default {
@@ -95,9 +106,6 @@
       }
     },
     props: ['list'],
-    components: {
-      'list-box': listBox
-    },
     data() {
       return {
         songs: [],       
